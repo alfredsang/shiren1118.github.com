@@ -4,7 +4,7 @@
   <title><![CDATA[sang' Blog]]></title>
   <link href="http://shiren1118.github.com/atom.xml" rel="self"/>
   <link href="http://shiren1118.github.com/"/>
-  <updated>2013-02-16T23:48:26+08:00</updated>
+  <updated>2013-02-16T23:56:41+08:00</updated>
   <id>http://shiren1118.github.com/</id>
   <author>
     <name><![CDATA[alfred]]></name>
@@ -77,34 +77,62 @@ exit
 
 <p>Pratically, everytime I start IRB I will start a Pry session. It feels like a dirty solutions and I have to confess I don’t know if it has any issues. For now, it’s working just fine with my requirements. The bundler code is necessary to require pry and other gems from rvm global gemset in a rails console without declaring them in the Gemfile. Then, in the .pryrc I have:</p>
 
-<pre><code># vim FTW
-Pry.config.editor = "gvim --nofork"
+<figure class='code'><figcaption><span>code in .pryrc</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># vim FTW</span>
+</span><span class='line'><span class="no">Pry</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">editor</span> <span class="o">=</span> <span class="s2">&quot;gvim --nofork&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># My pry is polite</span>
+</span><span class='line'><span class="no">Pry</span><span class="o">.</span><span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">:after_session</span> <span class="o">=&gt;</span> <span class="nb">proc</span> <span class="p">{</span> <span class="nb">puts</span> <span class="s2">&quot;bye-bye&quot;</span> <span class="p">}</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Prompt with ruby version</span>
+</span><span class='line'><span class="no">Pry</span><span class="o">.</span><span class="n">prompt</span> <span class="o">=</span> <span class="o">[</span><span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span><span class="n">obj</span><span class="p">,</span> <span class="n">nest_level</span><span class="o">|</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">RUBY_VERSION</span><span class="si">}</span><span class="s2"> (</span><span class="si">#{</span><span class="n">obj</span><span class="si">}</span><span class="s2">):</span><span class="si">#{</span><span class="n">nest_level</span><span class="si">}</span><span class="s2"> &gt; &quot;</span> <span class="p">},</span> <span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span><span class="n">obj</span><span class="p">,</span> <span class="n">nest_level</span><span class="o">|</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">RUBY_VERSION</span><span class="si">}</span><span class="s2"> (</span><span class="si">#{</span><span class="n">obj</span><span class="si">}</span><span class="s2">):</span><span class="si">#{</span><span class="n">nest_level</span><span class="si">}</span><span class="s2"> * &quot;</span> <span class="p">}</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="sx">%w{map_by_method hirb}</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">gem</span><span class="o">|</span> <span class="nb">require</span> <span class="n">gem</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Toys methods</span>
+</span><span class='line'><span class="c1"># Stealed from https://gist.github.com/807492</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Array</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">toy</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+</span><span class='line'>    <span class="nb">block_given?</span> <span class="p">?</span> <span class="nb">Array</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span> <span class="p">:</span> <span class="nb">Array</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Hash</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">toy</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</span><span class='line'>    <span class="no">Hash</span><span class="o">[</span><span class="nb">Array</span><span class="o">.</span><span class="n">toy</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">zip</span><span class="p">(</span><span class="nb">Array</span><span class="o">.</span><span class="n">toy</span><span class="p">(</span><span class="n">n</span><span class="p">){</span><span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="p">(</span><span class="mi">96</span><span class="o">+</span><span class="p">(</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">chr</span><span class="p">})</span><span class="o">]</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># loading rails configuration if it is running as a rails console</span>
+</span><span class='line'><span class="nb">load</span> <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/.railsrc&#39;</span> <span class="k">if</span> <span class="n">defined?</span><span class="p">(</span><span class="no">Rails</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="no">Rails</span><span class="o">.</span><span class="n">env</span>
+</span></code></pre></td></tr></table></div></figure>
 
-# My pry is polite
-Pry.hooks = { :after_session =&gt; proc { puts "bye-bye" } }
-
-# Prompt with ruby version
-Pry.prompt = [proc { |obj, nest_level| "#{RUBY_VERSION} (#{obj}):#{nest_level} &gt; " }, proc { |obj, nest_level| "#{RUBY_VERSION} (#{obj}):#{nest_level} * " }]
-
-%w{map_by_method hirb}.each { |gem| require gem }
-
-# Toys methods
-# Stealed from https://gist.github.com/807492
-class Array
-  def self.toy(n=10, &amp;block)
-    block_given? ? Array.new(n,&amp;block) : Array.new(n) {|i| i+1}
-  end
-end
-
-class Hash
-  def self.toy(n=10)
-    Hash[Array.toy(n).zip(Array.toy(n){|c| (96+(c+1)).chr})]
-  end
-end
-
-# loading rails configuration if it is running as a rails console
-load File.dirname(__FILE__) + '/.railsrc' if defined?(Rails) &amp;&amp; Rails.env
-</code></pre>
 
 <p>If you compare this file with my previous .irbrc you’ll notice that this one is shorter. This means that Pry is doing a piece of the job I would like to have by default, like colors and history commands. My .railsrc is very similar to the previous one but it has a different that could interest you if you are an hirb user:</p>
 
