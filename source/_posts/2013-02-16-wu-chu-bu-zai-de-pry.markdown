@@ -62,6 +62,7 @@ My current .irbrc:
 
 Pratically, everytime I start IRB I will start a Pry session. It feels like a dirty solutions and I have to confess I don’t know if it has any issues. For now, it’s working just fine with my requirements. The bundler code is necessary to require pry and other gems from rvm global gemset in a rails console without declaring them in the Gemfile. Then, in the .pryrc I have:
 
+```ruby code in .pryrc
 	# vim FTW
 	Pry.config.editor = "gvim --nofork"
 
@@ -89,6 +90,7 @@ Pratically, everytime I start IRB I will start a Pry session. It feels like a di
 
 	# loading rails configuration if it is running as a rails console
 	load File.dirname(__FILE__) + '/.railsrc' if defined?(Rails) && Rails.env
+```
 
 If you compare this file with my previous .irbrc you’ll notice that this one is shorter. This means that Pry is doing a piece of the job I would like to have by default, like colors and history commands. My .railsrc is very similar to the previous one but it has a different that could interest you if you are an hirb user:
 
