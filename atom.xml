@@ -4,7 +4,7 @@
   <title><![CDATA[sang' Blog]]></title>
   <link href="http://shiren1118.github.com/atom.xml" rel="self"/>
   <link href="http://shiren1118.github.com/"/>
-  <updated>2013-02-25T23:37:47+08:00</updated>
+  <updated>2013-02-25T23:44:10+08:00</updated>
   <id>http://shiren1118.github.com/</id>
   <author>
     <name><![CDATA[alfred]]></name>
@@ -12,6 +12,27 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ruby20周年聚会归来]]></title>
+    <link href="http://shiren1118.github.com/blog/2013/02/25/ruby20zhou-nian-ju-hui-gui-lai/"/>
+    <updated>2013-02-25T23:38:00+08:00</updated>
+    <id>http://shiren1118.github.com/blog/2013/02/25/ruby20zhou-nian-ju-hui-gui-lai</id>
+    <content type="html"><![CDATA[<p>ruby20年生日回来，最大的收获是听peter讲创业
+我把我的想法和peter说了，他觉得很好，给出了几点建议</p>
+
+<ul>
+<li>确定是否有足够的热情，是否可以10年如一日的坚持下去</li>
+<li>不要一个人战斗</li>
+<li>开源非常好，与商业不冲突</li>
+</ul>
+
+
+<p>真是听君一席话，胜读好几年书啊。我最近2年看了很多创业相关的书，但大部分都是教你怎么创业，如何想好的点子，如何经营，如何拿投资而已</p>
+
+<p>成功并不是偶然的，坚持下去，找到自己喜欢的方向，这就足够了。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[随想]]></title>
