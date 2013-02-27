@@ -4,7 +4,7 @@
   <title><![CDATA[小桑博客ruby && ios.]]></title>
   <link href="http://shiren1118.github.com/atom.xml" rel="self"/>
   <link href="http://shiren1118.github.com/"/>
-  <updated>2013-02-26T00:14:24+08:00</updated>
+  <updated>2013-02-27T23:19:35+08:00</updated>
   <id>http://shiren1118.github.com/</id>
   <author>
     <name><![CDATA[alfred sang]]></name>
@@ -12,6 +12,26 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[便签做原型设计，要能往小了想]]></title>
+    <link href="http://shiren1118.github.com/blog/2013/02/27/bian-qian-zuo-yuan-xing-she-ji-yao-neng-wang-xiao-liao-xiang/"/>
+    <updated>2013-02-27T23:14:00+08:00</updated>
+    <id>http://shiren1118.github.com/blog/2013/02/27/bian-qian-zuo-yuan-xing-she-ji-yao-neng-wang-xiao-liao-xiang</id>
+    <content type="html"><![CDATA[<p>中午坐车，随手拾起便签，设计我的项目：</p>
+
+<ul>
+<li>分功能，每个功能1页面</li>
+<li>每个功能列出最多6项小列表</li>
+<li>每一步都有仔细，不然纸就不够用了</li>
+</ul>
+
+
+<p>我们做项目的时候是假设有无限扩展的，只是想增加功能，而不是考虑成本或局限。我的偶得是给自己假定一个局限（这里是便签，以后可以考虑成时间，财力，人员，市场、、、），在局限中完成才是最实际的。</p>
+
+<p>如果一个月做不完的项目就放弃吧！</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[自省录1，2，3]]></title>
