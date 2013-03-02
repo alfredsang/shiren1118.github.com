@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://shiren1118.github.com/sitemap.xml 
