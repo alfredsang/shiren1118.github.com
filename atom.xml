@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[小桑博客ruby && ios.]]></title>
+  <title><![CDATA[小桑博客]]></title>
   <link href="http://shiren1118.github.com/atom.xml" rel="self"/>
   <link href="http://shiren1118.github.com/"/>
-  <updated>2013-02-27T23:19:35+08:00</updated>
+  <updated>2013-03-03T23:12:55+08:00</updated>
   <id>http://shiren1118.github.com/</id>
   <author>
     <name><![CDATA[alfred sang]]></name>
@@ -12,6 +12,698 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Coordinate System]]></title>
+    <link href="http://shiren1118.github.com/blog/2013/03/03/coordinate-system/"/>
+    <updated>2013-03-03T17:05:00+08:00</updated>
+    <id>http://shiren1118.github.com/blog/2013/03/03/coordinate-system</id>
+    <content type="html"><![CDATA[<p>Coordinate System·坐标系</p>
+
+<ul>
+<li>Introduction of Different Coordinate Systems
+
+<ul>
+<li>Cartesian Coordinate System</li>
+<li>UI Coordinate System</li>
+<li>Direct3D Coordinate System</li>
+<li>OpenGL and Cocos2d Coordinate System</li>
+</ul>
+</li>
+<li>Parent and Childrens</li>
+<li>Anchor Point</li>
+<li>getVisibleSize, getVisibleOrigin vs getWinSize</li>
+<li>How to convert co-ordinates
+
+<ul>
+<li>convertToNodeSpace：</li>
+<li>convertToWorldSpace：</li>
+<li>convertToWorldSpaceAR，</li>
+<li>Sample code：</li>
+</ul>
+</li>
+<li>References</li>
+<li>Comment</li>
+</ul>
+
+
+<div style='display:none;'>
+## Cartesian Coordinate System
+</div>
+
+
+<h2>笛卡尔坐标系</h2>
+
+<div style='display:none;'>
+### Introduction of Different Coordinate Systems·
+</div>
+
+
+<h3>不同坐标系简介</h3>
+
+<div style='display:none;'>
+#### Cartesian Coordinate System·
+</div>
+
+
+<h4>笛卡尔坐标系</h4>
+
+<div style='display:none;'>
+You probably have known &#8220;Cartesian Coordinate System&#8221; from school where it&#8217;s heavily used in geometry lessons. If you have forgotten, these image will remind you quickly:
+</div>
+
+
+<p>你可能上学的时候就已经知道“笛卡尔坐标系”了，它在几何课本里经常用到。如果你已经忘得差不多了，下面这些图片可以很快唤起你的记忆：</p>
+
+<p><img src="http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOk1zEjmHQAqhVBAzi%2FBA%3D%3D&amp;b=3" alt="" /></p>
+
+<div style='display:none;'>
+There&#8217;re 3 types of coordinate system that you will meet in mobile games development.
+</div>
+
+
+<p>在移动游戏开发过程中，有三种类型的坐标系你可能遇到：</p>
+
+<div style='display:none;'>
+#### UI Coordinate System·
+</div>
+
+
+<h4>UI坐标系</h4>
+
+<div style='display:none;'>
+ In common UI Coordinates on iOS/Android/Windows SDK:
+
+- The origin (x=0, y=0) is at the top-left corner.
+- X axis starts at the left side of the screen and increase to the right;
+- Y coordinates start at the top of the screen and increase downward,
+</div>
+
+
+<p>iOS/Android/Windows SDK中的通用UI坐标系：</p>
+
+<ul>
+<li>起点坐标(x=0, y=0)位于左上角</li>
+<li>X轴从屏幕最左边开始，由左向右渐增</li>
+<li>Y轴坐标从屏幕最上方开始，由上向下渐增</li>
+</ul>
+
+
+<div style='display:none;'>
+looks like this
+</div>
+
+
+<p>详见下图</p>
+
+<p><img src="http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOk1zEjmHQAqhVBAzi%2FAQ%3D%3D&amp;b=3" alt="" /></p>
+
+<div style='display:none;'>
+    #### Direct3D Coordinate System·
+</div>
+
+
+<p></p>
+
+<h4>Direct3D坐标系</h4>
+
+<div style='display:none;'>
+DirectX uses Left-handed Cartesian Coordinate.
+</div>
+
+
+<p>DirectX 使用Left-handed Cartesian Coordinate</p>
+
+<div style='display:none;'>
+    #### OpenGL and Cocos2d Coordinate System
+</div>
+
+
+<h4>OpenGL和Cocos2d坐标系</h4>
+
+<div style='display:none;'>
+Cocos2d-x/-html5/-iphone uses the same coordinate system as OpenGL, which is so called &#8220;Right-handed Cartesian Coordinate System&#8221;.
+</div>
+
+
+<p>Cocos2d-x/-html5/-iphone使用的坐标系和OpenGL的坐标系一样，名为“Right-handed Cartesian Coordinate Syste”。</p>
+
+<p><img src="http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOk1zEjmHQAqhVBAzi%2FBg%3D%3D&amp;b=3" alt="" /></p>
+
+<div style='display:none;'>
+We only use x-axis & y-axis in 2D world. So in your cocos2d games:
+
+- The origin (x=0, y=0) is in the bottom-left corner of screen, which means the screen is in the first quartile of right-handed cartesian coordinate system,
+- X axis starts at the left side of the screen and increase to the right;
+- Y axis starts at the bottom of the screen and increase upwards.
+</div>
+
+
+<p>在2D世界中，我们仅会使用x轴和y轴。所以在你的cocos2d游戏中：</p>
+
+<ul>
+<li>起点坐标(x=0, y=0)位于右下角，这意味着屏幕位于</li>
+<li>X轴从屏幕最左边开始，由左向右渐增</li>
+<li>Y轴坐标从屏幕最下方开始，由下向上渐增</li>
+</ul>
+
+
+<div style='display:none;'>
+And here’s a picture that helps illustrate Cocos2d-x Coordinates a bit better:
+</div>
+
+
+<p>下面这张图片有助于更好的阐述Cocos2d-x坐标：</p>
+
+<p><img src="http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOkgmthwDc8uwMHRmjKWqMrsQIo3kQ%2B7f7q18Y%3D&amp;b=3" alt="" /></p>
+
+<div style='display:none;'>
+Note that it&#8217;s different from common UI coordinate systems and DirectX coordinate systems.
+</div>
+
+
+<p>一定要注意：通用UI坐标系和DirectX坐标系是不一样的。</p>
+
+<h3>Parent and Childrens</h3>
+
+<div style='display:none;'>
+Every class derived from CCNode (Ultimate cocos2d-x class) will have a anchorPoint property.
+When determining where to draw the object (sprite, layer, whatever), cocos2d-x will combine both properties position and anchorPoint. Also, when rotating an object, cocos2d-x will rotate it around its anchorPoint.
+</div>
+
+
+<p>由于每个类都继承自CCNode（cocos2d-x的最顶层类），所以每个类都会默认有anchorPoint属性。
+当我们在一个位置画一个的对象的时候，cocos2d-x会合并属性位置和anchorPoint。当然，当旋转一个对象时，cocos2d-x会围绕绕anchorPoint旋转的。</p>
+
+<div style='display:none;'>
+We create a sprite as a gray parent and another sprite as blue child.Set parent&#8217;s position to ccp(100,100),child&#8217;s anchor point in the center of circle .
+</div>
+
+
+<p>我们创建一个灰色父对象和一个蓝色子对象。设置父对象位置是ccp(100,100),子对象的anchor point位于圆心。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCSprite</span><span class="o">*</span> <span class="n">parent</span> <span class="o">=</span> <span class="n">CCSprite</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;parent.png&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">parent</span><span class="o">-&gt;</span><span class="n">setAnchorPoint</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span><span class="c1">// Anchor Point</span>
+</span><span class='line'><span class="n">parent</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">));</span>
+</span><span class='line'><span class="n">parent</span><span class="o">-&gt;</span><span class="n">setAnchorPoint</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+</span><span class='line'><span class="n">addChild</span><span class="p">(</span><span class="n">parent</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//create child </span>
+</span><span class='line'><span class="n">CCSprite</span><span class="o">*</span> <span class="n">child</span> <span class="o">=</span> <span class="n">CCSprite</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;child.png&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">child</span><span class="o">-&gt;</span><span class="n">setAnchorPoint</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">));</span>
+</span><span class='line'><span class="n">child</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+</span><span class='line'><span class="n">parent</span><span class="o">-&gt;</span><span class="n">addChild</span><span class="p">(</span><span class="n">child</span><span class="p">);</span><span class="c1">//add child sprite into parent sprite.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<div style='display:none;'>
+Although we set child&#8217;s position of ccp(0,0),parent&#8217;s position is ccp(100,100).Therefore,child&#8217;s position is :
+</div>
+
+
+<p>由于我们设置子对象的位置是ccp(0,0)，父对象位置是ccp(100,100)。所以，子对象位置是：</p>
+
+<p>![](http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOkgmthzzcfqgMLXHmnX7w8sg%3D%3D&amp;b=3）</p>
+
+<div style='display:none;'>
+### Anchor Point·
+</div>
+
+
+<h3>锚点</h3>
+
+<div style='display:none;'>
+As a example, this sprite has an anchorPoint of ccp(0,0) and a position of ccp(0,0). 
+</div>
+
+
+<p>作为例子，下面这个精灵有的锚点位于 ccp(0,0)，位置位于ccp(0,0)。</p>
+
+<p><img src="http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOkgmthzzcfqgMLXHmnX7w8sg%3D%3D&amp;b=3" alt="" /></p>
+
+<div style='display:none;'>
+This rectangle sprite will be placed at the bottom left corner of its parent, the layer.
+
+example:
+</div>
+
+
+<p>这个矩形精灵将被放到它的父对象（layer）的左下角。</p>
+
+<p>示例：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="c1">// create sprite</span>
+</span><span class='line'><span class="n">CCSprite</span><span class="o">*</span> <span class="n">sprite</span> <span class="o">=</span> <span class="n">CCSprite</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;bottomleft.png&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">setAnchorPoint</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span><span class="c1">// Anchor Point</span>
+</span><span class='line'><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+</span><span class='line'><span class="n">addChild</span><span class="p">(</span><span class="n">sprite</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<div style='display:none;'>
+In another example, we will assign a anchorPoint of ccp(0.5,0.5) to better understand the relative value of the anchor point.
+</div>
+
+
+<p>在另一个例子中，我们会摆放一个坐标为ccp(0.5,0.5)的anchorPoint，以便您更好的理解锚点的相对值。</p>
+
+<p><img src="http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOkgmtgwDcMrh8aV3%2BnRaI%2B&amp;b=3" alt="" /></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="c1">// create sprite</span>
+</span><span class='line'><span class="n">CCSprite</span><span class="o">*</span> <span class="n">sprite</span> <span class="o">=</span> <span class="n">CCSprite</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;center.png&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">setAnchorPoint</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">));</span><span class="c1">// Anchor Point</span>
+</span><span class='line'><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+</span><span class='line'><span class="n">addChild</span><span class="p">(</span><span class="n">sprite</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOkgmthwTcOpRIGXX%2FWWak%2FoUU20Vc%3D&amp;b=3" alt="" /></p>
+
+<div style='display:none;'>
+As you can see in the image, the anchor point is not a pixel value. The value of X and Y are relative to the size of the node.
+</div>
+
+
+<p>正如你从图中看出的，锚点取的不是像素值，此值的X和Y是相对于此节点的大小的。</p>
+
+<div style='display:none;'>
+### getVisibleSize, getVisibleOrigin vs getWinSize
+</div>
+
+
+<h3>获取可视区域大小, 获取可视区域起点 vs 获取窗口大小</h3>
+
+<ul>
+<li>获取可视区域大小, http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wRSMxPcWDz6pirP7qxzcikzUMuwFBVm%2BmUfs%2F%2Bggq3kMo%2Fb%2FjyNLgzuR7KoJwBHGwiTD8HSw9yZSdW%2FifzOs%3D&amp;b=3#a7cc45ff42a969700f878bb2485adf3b1</li>
+<li>获取可视区域起点 http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wRSMxPcWDz6pirP7qxzcikzUMuwFBVm%2BmUfs%2F%2Bggq3kMo%2Fb%2FjyNLgzuR7KoJwBHGwiTD8HSw9yZSdW%2FifzOs%3D&amp;b=3#af991a412cb6621bf25ec655a95deddaa</li>
+<li>获取窗口大小 http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wRSMxPcWDz6pirP7qxzcikzUMuwFBVm%2BmUfs%2F%2Bggq3kMo%2Fb%2FjyNLgzuR7KoJwBHGwiTD8HSw9yZSdW%2FifzOs%3D&amp;b=3#aa78f85a3666553d0d4fe73118e0c82ac</li>
+</ul>
+
+
+<div style='display:none;'>
+VisibleSize returns visible size of the OpenGL view in points.The value is equal to getWinSize if don&#8217;t invoke CCEGLView::setDesignResolutionSize().
+getVisibleOrigin returns visible origin of the OpenGL view in points. Please refer to [Multi resolution support](Multi resolution support) for more details
+</div>
+
+
+<p>VisibleSize（可视区域大小）会返回此点的OpenGL视图的可视区域大小。如果没有调用CCEGLView::setDesignResolutionSize()的话，此值等于getWinSize的大小。
+getVisibleOrigin（获取可视区域起点）会返回此点的OpenGL视图的可视区域起点。请移步<a href="Multi%20resolution%20support">Multi resolution support</a>查看详情。</p>
+
+<div style='display:none;'>
+### How to convert co-ordinates·
+</div>
+
+
+<h3>如何转换坐标</h3>
+
+<h4>convertToNodeSpace：</h4>
+
+<div style='display:none;'>
+convertToNodeSpace will be used in, for example, tile-based games, where you have a big map. convertToNodeSpace will convert your openGL touch co-ordinates to the co-ordinates of the .tmx map or anything similar.
+
+Example:
+
+The following picture shows that we have node1 with anchor point (0,0) and node2 with anchor point (1,1).
+
+We invoke CCPoint point = node1->convertToNodeSpace(node2->getPosition()); convert node2&#8217;s SCREEN coords to node1&#8217;s local.As the result,node2 with the position of (-25，-60).
+</div>
+
+
+<p>举例，convertToNodeSpace用于tile-based的游戏，即有一个大地图。convertToNodeSpace会转换openGL触摸点转成.tmx 地图或者其他近似的坐标。</p>
+
+<p>例子：</p>
+
+<p>下面的图片会展现，node1的锚点(0,0)，node2的锚点是(1,1)。</p>
+
+<p>我们会调用CCPoint point = node1->convertToNodeSpace(node2->getPosition()); 转换node2的屏幕坐标为node1的位置。结果是，node2的位置是(-25，-60).</p>
+
+<p><img src="http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOk1zEjmHQAqhVBAzqxBg%3D%3D&amp;b=3" alt="" /></p>
+
+<h4>convertToWorldSpace：</h4>
+
+<div style='display:none;'>
+convertToWorldSpace(const CCPoint& nodePoint) converts on-node coords to SCREEN coordinates.convertToWorldSpace will always return SCREEN position of our sprite, might be very useful if you want to capture taps on your sprite but need to move/scale your layer
+
+Example:
+</div>
+
+
+<p>convertToWorldSpace(常量 CCPoint&amp; nodePoint) 转换node坐标为SCREEN坐标。convertToWorldSpace会经常返回你的精灵的SCREEN位置，如果你想捕获精灵的taps而且需要移动/缩放layer的时候，这可能非常有帮助。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCPoint</span> <span class="n">point</span> <span class="o">=</span> <span class="n">node1</span><span class="o">-&gt;</span><span class="n">convertToWorldSpace</span><span class="p">(</span><span class="n">node2</span><span class="o">-&gt;</span><span class="n">getPosition</span><span class="p">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<div style='display:none;'>
+the above code will convert the node2‘s coordinates to the coordinates on the screen.
+
+For example if the position of node2 is (0, 0) which will be the bottom left corner of the node1, but not necessarily on the screen. This will convert (0, 0) of the node2 to the position of the screen(in this case is (15,20)). The result shows in the following picture:
+</div>
+
+
+<p>上面的代码会转换node2坐标为node2在屏幕上对应的坐标。</p>
+
+<p><img src="http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOk1zEjmHQAqhVBAzqxAQ%3D%3D&amp;b=3" alt="" /></p>
+
+<h4>convertToWorldSpaceAR</h4>
+
+<div style='display:none;'>
+convertToWorldSpaceAR will return the position relatevely to anchor point: so if our scene - root layer has Anchor Point of ccp(0.5f, 0.5f) - default, convertToWorldSpaceAR should return position relatively to screen center.
+
+convertToNodeSpaceAR - the same logic as for .convertToWorldSpaceAR
+</div>
+
+
+<p>convertToWorldSpaceAR返回相对锚点的位置：所以如果你的场景 - 根layer有一个锚点位于ccp(0.5f, 0.5f)。- 默认的，convertToNodeSpaceAR应返回相对于屏幕中心的位置。</p>
+
+<p>convertToNodeSpaceAR - 和convertToWorldSpaceAR是一样的逻辑。</p>
+
+<h4>示例代码：</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCSprite</span> <span class="o">*</span><span class="n">sprite1</span> <span class="o">=</span> <span class="n">CCSprite</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;CloseNormal.png&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">sprite1</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">40</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">sprite1</span><span class="o">-&gt;</span><span class="n">setAnchorPoint</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">this</span><span class="o">-&gt;</span><span class="n">addChild</span><span class="p">(</span><span class="n">sprite1</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCSprite</span> <span class="o">*</span><span class="n">sprite2</span> <span class="o">=</span> <span class="n">CCSprite</span><span class="o">::</span><span class="n">cteate</span><span class="p">(</span><span class="s">&quot;CloseNormal.png&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">sprite2</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">20</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">sprite2</span><span class="o">-&gt;</span><span class="n">setAnchorPoint</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">this</span><span class="o">-&gt;</span><span class="n">addChild</span><span class="p">(</span><span class="n">sprite2</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCPoint</span> <span class="n">point1</span> <span class="o">=</span> <span class="n">sprite1</span><span class="o">-&gt;</span><span class="n">convertToNodeSpace</span><span class="p">(</span><span class="n">sprite2</span><span class="o">-&gt;</span><span class="n">getPosition</span><span class="p">());</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCPoint</span> <span class="n">point2</span> <span class="o">=</span> <span class="n">sprite1</span><span class="o">-&gt;</span><span class="n">convertToWorldSpace</span><span class="p">(</span><span class="n">sprite2</span><span class="o">-&gt;</span><span class="n">getPosition</span><span class="p">());</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCPoint</span> <span class="n">point3</span> <span class="o">=</span> <span class="n">sprite1</span><span class="o">-&gt;</span><span class="n">convertToNodeSpaceAR</span><span class="p">(</span><span class="n">sprite2</span><span class="o">-&gt;</span><span class="n">getPosition</span><span class="p">());</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCPoint</span> <span class="n">point4</span> <span class="o">=</span> <span class="n">sprite1</span><span class="o">-&gt;</span><span class="n">convertToWorldSpaceAR</span><span class="p">(</span><span class="n">sprite2</span><span class="o">-&gt;</span><span class="n">getPosition</span><span class="p">());</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCLog</span><span class="p">(</span><span class="s">&quot;position = (%f,%f)&quot;</span><span class="p">,</span><span class="n">point1</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">point1</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCLog</span><span class="p">(</span><span class="s">&quot;position = (%f,%f)&quot;</span><span class="p">,</span><span class="n">point2</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">point2</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCLog</span><span class="p">(</span><span class="s">&quot;position = (%f,%f)&quot;</span><span class="p">,</span><span class="n">point3</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">point3</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCLog</span><span class="p">(</span><span class="s">&quot;position = (%f,%f)&quot;</span><span class="p">,</span><span class="n">point4</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">point4</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>结果：</p>
+
+<pre><code>position = (-25.000000,-60.000000)
+position = (15.000000,20.000000)
+position = (-25.000000,-60.000000)
+position = (15.000000,20.000000)
+</code></pre>
+
+<h3>参考</h3>
+
+<ul>
+<li><a href="http://www.proxyee.com/sohu.php?u=g6QXj5oQdS1CziS8RrIdC8qdCjcyGDw%2FddSIjqVu4eLqwSd7gXEBrx4ZQSLtUL8yoQQ2kFI5rOC0n5Thgs13A8ABXxv6%2BDXmHzE%3D&amp;b=3">Coordinate Systems (Direct3D 9) Windows</a> from Microsoft MSDN</li>
+<li><a href="http://www.proxyee.com/sohu.php?u=g6QXlZ4DNXFO3jCrR6UXH9LaCjBxVCk6d4TTk%2BZv7OemxzF5m3kErlwPH37gWLw1sEYvz1g08LWtwMC%2Fz5Y9HMdHSk28tTvmXS1zyY6bGuKCwOs%3D&amp;b=3">How to make a simple iphone game with cocos2d tutorial</a> written by Ray Wenderlich</li>
+<li>如何使用cocos2d制作一个简单的iphone游戏</li>
+<li><a href="http://www.proxyee.com/sohu.php?u=g6QXgIUbfC0ekXTgSq4fQsTZDwcrWGk1NNiBjrpz4uTi0HFmxilb%2BUheBDy7Bf1r7Fl3hgNjq%2BW0npn9&amp;b=3">Coordinate Systems of cocos2dx</a></li>
+<li>cocos2dx坐标系</li>
+</ul>
+
+
+<h3>Comment</h3>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Director Scene Layer and Sprite]]></title>
+    <link href="http://shiren1118.github.com/blog/2013/03/01/director-scene-layer-and-sprite/"/>
+    <updated>2013-03-01T16:22:00+08:00</updated>
+    <id>http://shiren1118.github.com/blog/2013/03/01/director-scene-layer-and-sprite</id>
+    <content type="html"><![CDATA[<h2>Director Scene Layer and Sprite</h2>
+
+<h3>Director Scene Layer and Sprite</h3>
+
+<ul>
+<li>Scenes</li>
+<li>Director</li>
+<li>Layers</li>
+<li>Multiple Layers Example:</li>
+<li>Sprites</li>
+<li>References</li>
+<li>Comment</li>
+</ul>
+
+
+<h3>Scenes·场景</h3>
+
+<div style='display:none'>
+A scene (implemented with the CCScene object) is more or less an independent piece of the app workflow. Some people may call them “screens” or “stages”. Your app can have many scenes, but only one of them is active at a given time.
+</div>
+
+
+<p>场景是app工作流中一个独立的的部分。人们常常称呼它们为 “screens”或“stages”。你的app可能有很多场景，但每次你只能显示（激活）它们中的一个。</p>
+
+<div style='display:none'>
+For example, you could have a game with the following scenes: Intro, Menu, Level 1, Cutscene 1, Level 2, Winning cutscene, losing cutscene, High scores screen.
+</div>
+
+
+<p>比如，某个游戏有如下场景：介绍，菜单，Level 1, 画面1, Level 2, 获胜画面, 失败画面, 最高记录screen等.</p>
+
+<div style='display:none'>
+You can define every one of these scenes more or less as separate apps; there is a bit of glue between them containing the logic for connecting scenes (the intro goes to the menu when interrupted or finishing, Level 1 can lead you to the cutscene 1 if finished or to the losing cutscene if you lose, etc.).
+</div>
+
+
+<p>你可以定义场景为独立应用部分，通过它们包含的逻辑或连接场景(当中断或完成的时候，介绍界面会跳到菜单。如果完成，Level 1会引到你进入画面1，如果失败，Level 1会进入失败画面，等等.)将它们有机的组装起来。</p>
+
+<div style='display:none'>
+    -Cutscene 画面剪辑
+</div>
+
+
+<p><img src="http://www.cocos2d-x.org/attachments/1591/scenes650x144.png" alt="" /></p>
+
+<div style='display:none'>
+A cocos2d CCScene is composed of one or more layers (implemented with the CCLayer object), all of them piled up. Layers give the scene an appearance and behavior; the normal use case is to just make instances of Scene with the layers that you want.
+</div>
+
+
+<p>cocos2d CCScene是由一个或多个layer（通过CCLayer对象实现的）组合，堆砌而成。Layers给了场景外观和行为；常规用法是通过你想要的layers来产生场景实例。</p>
+
+<div style='display:none'>
+There is also a family of CCScene classes called transitions (implemented with the CCTransitionScene object) which allow you to make transitions between two scenes (fade out/in, slide from a side, etc).
+</div>
+
+
+<p>当然，CCScene家族类中也有被成为转换类（通过CCTransitionScene对象实现），它允许你在2个场景中切换（ 淡出/淡入，slide动画，等待）。</p>
+
+<div style='display:none'>
+Since scenes are subclasses of CCNode, they can be transformed manually or by using actions. See Actions for more detail about actions.
+</div>
+
+
+<p>由于场景都是CCNode的子类，所以可以手动或者通过actions方式来改变它们，详见actions部分。</p>
+
+<div style='display:none'>
+- See more at: http://www.cocos2d-x.org/projects/cocos2d-x/wiki/Director_Scene_Layer_and_Sprite#sthash.jF0fVw56.dpuf
+</div>
+
+
+<h3>Director·导演类</h3>
+
+<div style='display:none'>
+The CCDirector is the component which takes care of going back and forth between scenes.
+</div>
+
+
+<p>CCDirector是控制场景之间进出的组件。</p>
+
+<div style='display:none'>
+The CCDirector is a shared (singleton) object. It knows which scene is currently active, and it handles a stack of scenes to allow things like “scene calls” (pausing a Scene and putting it on hold while another enters, and then returning to the original). The CCDirector is the one who will actually change the CCScene, after a CCLayer has asked for push, replacement or end of the current scene.
+</div>
+
+
+<p>CCDirector是共享（单例）对象。它知道当前哪个场景正在显示，并且它处理 场景栈 来让 比如场景调用（暂停场景和稍待片刻进入其他入口，之后返回起始点）。</p>
+
+<p>CCDirector是实际改变对象的那个，在CCLayer被询问是否入栈之后，替换或者终止当前场景的控制者。</p>
+
+<div style='display:none'>
+The CCDirector is also responsible for initializing OpenGL ES.
+</div>
+
+
+<p>CCDirector也可以通过初始化OpenGL ES来响应。</p>
+
+<div style='display:none'>
+- See more at: http://www.cocos2d-x.org/projects/cocos2d-x/wiki/Director_Scene_Layer_and_Sprite#sthash.jF0fVw56.dpuf
+</div>
+
+
+<h3>Layers·层</h3>
+
+<div style='display:none'>
+A CCLayer has a size of the whole drawable area, and knows how to draw itself. It can be semi transparent (having holes and/or partial transparency in some/all places), allowing to see other layers behind it. Layers are the ones defining appearance and behavior, so most of your programming time will be spent coding CCLayer subclasses that do what you need.
+</div>
+
+
+<p>CCLayer有 全部可画区域的尺寸，并且知道如何去绘图。它可以半拉式渐变（），让你 去看其他位于它下方的层。Layers是定义外观和行为的，所以在你的大部分编程时间都将花费在CCLayer子类做你需要做的事情上。</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1592/layers.png" alt="" /></p>
+
+<div style='display:none'>
+The CCLayer is where you define event handlers. Events are propagated to layers (from front to back) until some layer catches the event and accepts it.
+</div>
+
+
+<p>CCLayer是你定义事件处理的地方，事件会被传播到layer上（从前到后，冒泡），直到某个layer捕获此事件并接受它为止。</p>
+
+<div style='display:none'>
+Although some serious apps will require you to define custom CCLayer classes, cocos2d provides a library of useful predefined layers (a simple menu layer: CCMenu, a color layer: CCColorLayer, a multiplexor between other layers: CCMultiplexLayer, and more ).
+</div>
+
+
+<p>尽管一些apps会需要你去个性化定义CCLayer类，cocos2d还是提供了一个非常有用的内置预先定义好的layers（简单的菜单layer：如CCMenu，颜色layer：如CCColorLayer，在层之间多路传送的layer：如CCMultiplexLayer，等等）的类库。</p>
+
+<div style='display:none'>
+Layers can contain CCSprite objects, CCLabel objects and even other CCLayer objects as children.
+</div>
+
+
+<p>Layers可以包含CCSprite对象，CCLabel对象，甚至是CCLayer子对象。</p>
+
+<div style='display:none'>
+Since layers are subclass of CCNode, they can be transformed manually or by using actions. See Actions for more detail about actions.
+</div>
+
+
+<p>由于layers都是CCNode的子类，所以可以手动或者通过actions方式来改变它们，详见actions部分。</p>
+
+<p><strong>Multiple Layers Example</strong>:</p>
+
+<pre><code>CCLayerGradient* layer1 = CCLayerGradient::create(ccc4(255, 0, 0, 255), ccc4(255, 0, 255, 255)); 
+layer1-&gt;setContentSize(CCSizeMake(80, 80)); 
+layer1-&gt;setPosition(ccp(50,50)); 
+addChild(layer1); 
+
+CCLayerGradient* layer2 = CCLayerGradient::create(ccc4(0, 0, 0, 127), ccc4(255, 255, 255, 127)); 
+layer2-&gt;setContentSize(CCSizeMake(80, 80)); 
+layer2-&gt;setPosition(ccp(100,90)); 
+addChild(layer2); 
+
+CCLayerGradient* layer3 = CCLayerGradient::create(); 
+layer3-&gt;setContentSize(CCSizeMake(80, 80)); 
+layer3-&gt;setPosition(ccp(150,140)); 
+layer3-&gt;setStartColor(ccc3(255, 0, 0)); 
+layer3-&gt;setEndColor(ccc3(255, 0, 255)); 
+layer3-&gt;setStartOpacity(255); 
+layer3-&gt;setEndOpacity(255); 
+ccBlendFunc blend; 
+blend.src = GL_SRC_ALPHA; 
+blend.dst = GL_ONE_MINUS_SRC_ALPHA; 
+layer3-&gt;setBlendFunc(blend); 
+addChild(layer3); 
+</code></pre>
+
+<p><img src="http://www.cocos2d-x.org/attachments/download/1657" alt="haha" /></p>
+
+<div style='display:none'>
+- See more at: http://www.cocos2d-x.org/projects/cocos2d-x/wiki/Director_Scene_Layer_and_Sprite#sthash.jF0fVw56.dpuf
+</div>
+
+
+<h3>Sprites·精灵</h3>
+
+<div style='display:none'>
+A cocos2d&#8217; sprite is like any other computer sprite. It is a 2D image that can be moved, rotated, scaled, animated, etc.
+</div>
+
+
+<p>cocos2d的精灵看起来和其他计算机精灵一样。它是2D图像，可以移动，旋转，缩放，动画，等等</p>
+
+<div style='display:none'>
+Sprites (implemented using the CCSprite class) can have other sprites as children. When a parent is transformed, all its children are transformed as well.
+</div>
+
+
+<p>Sprites（通过使用CCSprite类实现）可以有多个其他精灵作为子对象，当父类被改变，它的所有子对象也同时被改变。</p>
+
+<div style='display:none'>
+Since sprites are subclass of CCNode, they can be transformed manually or by using actions. See Actions for more detail about actions.
+</div>
+
+
+<p>由于精灵都是CCNode的子类，所以可以手动或者通过actions方式来改变它们，详见actions部分。</p>
+
+<h3>References·参考</h3>
+
+<p>cocos2d for iPhone:</p>
+
+<h3>Comment</h3>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[便签做原型设计，要能往小了想]]></title>
@@ -95,6 +787,187 @@
 <p>真是听君一席话，胜读好几年书啊。我最近2年看了很多创业相关的书，但大部分都是教你怎么创业，如何想好的点子，如何经营，如何拿投资而已</p>
 
 <p>成功并不是偶然的，坚持下去，找到自己喜欢的方向，这就足够了。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[rails 插件 ancestry用法]]></title>
+    <link href="http://shiren1118.github.com/blog/2013/02/20/rails-cha-jian-ancestryyong-fa/"/>
+    <updated>2013-02-20T17:31:00+08:00</updated>
+    <id>http://shiren1118.github.com/blog/2013/02/20/rails-cha-jian-ancestryyong-fa</id>
+    <content type="html"><![CDATA[<p>简单总结一下用法 是对1.3版本做的</p>
+
+<h1>第一步增加gem</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;ancestry&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>第二步对模型增加ancestry:string字段</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span>
+</span><span class='line'><span class="n">rails</span> <span class="n">g</span> <span class="n">migration</span> <span class="n">add_ancestry_to_messages</span> <span class="ss">ancestry</span><span class="p">:</span><span class="n">string</span>
+</span><span class='line'><span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">migrate</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>修改migration.rb</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddAncestryToMessages</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">add_column</span> <span class="ss">:messages</span><span class="p">,</span> <span class="ss">:ancestry</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class='line'>    <span class="n">add_index</span> <span class="ss">:messages</span><span class="p">,</span> <span class="ss">:ancestry</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">remove_index</span> <span class="ss">:messages</span><span class="p">,</span> <span class="ss">:ancestry</span>
+</span><span class='line'>    <span class="n">remove_column</span> <span class="ss">:messages</span><span class="p">,</span> <span class="ss">:ancestry</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>第三步修改model</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Category</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">attr_accessible</span> <span class="ss">:desc</span><span class="p">,</span> <span class="ss">:name</span> <span class="p">,</span><span class="ss">:parent</span>
+</span><span class='line'>  <span class="n">has_ancestry</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：增加:parent和has_ancestry
+这步是别的教程里没有强调的</p>
+
+<h1>第四步 测试</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;test_helper&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">CategoryTest</span> <span class="o">&lt;</span> <span class="ss">ActiveSupport</span><span class="p">:</span><span class="ss">:TestCase</span>
+</span><span class='line'>  <span class="c1"># test &quot;the truth&quot; do</span>
+</span><span class='line'>  <span class="c1">#   assert true</span>
+</span><span class='line'>  <span class="c1"># end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nb">test</span> <span class="s2">&quot;dump category&quot;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="vi">@b</span> <span class="o">=</span> <span class="no">Category</span><span class="o">.</span><span class="n">create!</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">&#39;bbbbb&#39;</span><span class="p">,</span> <span class="ss">:parent</span> <span class="o">=&gt;</span> <span class="no">Category</span><span class="o">.</span><span class="n">create!</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">&#39;aaaaaaaaa&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@d</span> <span class="o">=</span> <span class="no">Category</span><span class="o">.</span><span class="n">create!</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">&#39;dddddddd&#39;</span><span class="p">,</span> <span class="ss">:parent</span> <span class="o">=&gt;</span> <span class="vi">@b</span>
+</span><span class='line'>    <span class="vi">@e</span> <span class="o">=</span> <span class="no">Category</span><span class="o">.</span><span class="n">create!</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">&#39;eeeeeee&#39;</span><span class="p">,</span> <span class="ss">:parent</span> <span class="o">=&gt;</span> <span class="vi">@d</span>
+</span><span class='line'>    <span class="vi">@c</span> <span class="o">=</span> <span class="no">Category</span><span class="o">.</span><span class="n">find_by_name</span> <span class="s1">&#39;bbbbb&#39;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># ap @d</span>
+</span><span class='line'>    <span class="c1"># ap @d.parent</span>
+</span><span class='line'>    <span class="c1"># ap @d.root</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">ap</span> <span class="vi">@d</span><span class="o">.</span><span class="n">subtree_ids</span>
+</span><span class='line'>    <span class="c1"># ap @c.parent</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># parent           Returns the parent of the record, nil for a root node</span>
+</span><span class='line'>    <span class="c1"># parent_id        Returns the id of the parent of the record, nil for a root node</span>
+</span><span class='line'>    <span class="c1"># root             Returns the root of the tree the record is in, self for a root node</span>
+</span><span class='line'>    <span class="c1"># root_id          Returns the id of the root of the tree the record is in</span>
+</span><span class='line'>    <span class="c1"># is_root?         Returns true if the record is a root node, false otherwise</span>
+</span><span class='line'>    <span class="c1"># ancestor_ids     Returns a list of ancestor ids, starting with the root id and ending with the parent id</span>
+</span><span class='line'>    <span class="c1"># ancestors        Scopes the model on ancestors of the record</span>
+</span><span class='line'>    <span class="c1"># path_ids         Returns a list the path ids, starting with the root id and ending with the node&#39;s own id</span>
+</span><span class='line'>    <span class="c1"># path             Scopes model on path records of the record</span>
+</span><span class='line'>    <span class="c1"># children         Scopes the model on children of the record</span>
+</span><span class='line'>    <span class="c1"># child_ids        Returns a list of child ids</span>
+</span><span class='line'>    <span class="c1"># has_children?    Returns true if the record has any children, false otherwise</span>
+</span><span class='line'>    <span class="c1"># is_childless?    Returns true is the record has no childen, false otherwise</span>
+</span><span class='line'>    <span class="c1"># siblings         Scopes the model on siblings of the record, the record itself is included</span>
+</span><span class='line'>    <span class="c1"># sibling_ids      Returns a list of sibling ids</span>
+</span><span class='line'>    <span class="c1"># has_siblings?    Returns true if the record&#39;s parent has more than one child</span>
+</span><span class='line'>    <span class="c1"># is_only_child?   Returns true if the record is the only child of its parent</span>
+</span><span class='line'>    <span class="c1"># descendants      Scopes the model on direct and indirect children of the record</span>
+</span><span class='line'>    <span class="c1"># descendant_ids   Returns a list of a descendant ids</span>
+</span><span class='line'>    <span class="c1"># subtree          Scopes the model on descendants and itself</span>
+</span><span class='line'>    <span class="c1"># subtree_ids      Returns a list of all ids in the record&#39;s subtree</span>
+</span><span class='line'>    <span class="c1"># depth            Return the depth of the node, root nodes are at depth 0</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>说明:ap是awesome_print</p>
+
+<p>在rails console中执行</p>
+
+<blockquote><p>rake test</p></blockquote>
+
+<p>需要什么方法尽可在官方的文档里找，整体看还比较完善</p>
+
+<h1>参考地址</h1>
+
+<ul>
+<li>https://github.com/stefankroes/ancestry</li>
+<li>http://railscasts.com/episodes/262-trees-with-ancestry</li>
+</ul>
+
 ]]></content>
   </entry>
   

@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>rails 插件 ancestry用法 - 小桑博客</title>
+  <meta name="author" content="alfred sang">
+
+  
+  <meta name="description" content="简单总结一下用法 是对1.3版本做的 第一步增加gem 1
+gem &#39;ancestry&#39; 第二步对模型增加ancestry:string字段 1
+2
+3
+bundle
+rails g migration add_ancestry_to_messages ancestry: &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shiren1118.github.com/blog/2013/02/20/rails-cha-jian-ancestryyong-fa/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="小桑博客" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">小桑博客</a></h1>
+  
+    <h2>如果渡不过这不可渡的海，将成为这海中捞不起的沙</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shiren1118.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">博客</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Rails 插件 Ancestry用法</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-20T17:31:00+08:00" pubdate data-updated="true">Feb 20<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>简单总结一下用法 是对1.3版本做的</p>
+
+<h1>第一步增加gem</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;ancestry&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>第二步对模型增加ancestry:string字段</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span>
+</span><span class='line'><span class="n">rails</span> <span class="n">g</span> <span class="n">migration</span> <span class="n">add_ancestry_to_messages</span> <span class="ss">ancestry</span><span class="p">:</span><span class="n">string</span>
+</span><span class='line'><span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">migrate</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>修改migration.rb</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddAncestryToMessages</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">add_column</span> <span class="ss">:messages</span><span class="p">,</span> <span class="ss">:ancestry</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class='line'>    <span class="n">add_index</span> <span class="ss">:messages</span><span class="p">,</span> <span class="ss">:ancestry</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">remove_index</span> <span class="ss">:messages</span><span class="p">,</span> <span class="ss">:ancestry</span>
+</span><span class='line'>    <span class="n">remove_column</span> <span class="ss">:messages</span><span class="p">,</span> <span class="ss">:ancestry</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>第三步修改model</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Category</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">attr_accessible</span> <span class="ss">:desc</span><span class="p">,</span> <span class="ss">:name</span> <span class="p">,</span><span class="ss">:parent</span>
+</span><span class='line'>  <span class="n">has_ancestry</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：增加:parent和has_ancestry
+这步是别的教程里没有强调的</p>
+
+<h1>第四步 测试</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;test_helper&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">CategoryTest</span> <span class="o">&lt;</span> <span class="ss">ActiveSupport</span><span class="p">:</span><span class="ss">:TestCase</span>
+</span><span class='line'>  <span class="c1"># test &quot;the truth&quot; do</span>
+</span><span class='line'>  <span class="c1">#   assert true</span>
+</span><span class='line'>  <span class="c1"># end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nb">test</span> <span class="s2">&quot;dump category&quot;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="vi">@b</span> <span class="o">=</span> <span class="no">Category</span><span class="o">.</span><span class="n">create!</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">&#39;bbbbb&#39;</span><span class="p">,</span> <span class="ss">:parent</span> <span class="o">=&gt;</span> <span class="no">Category</span><span class="o">.</span><span class="n">create!</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">&#39;aaaaaaaaa&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@d</span> <span class="o">=</span> <span class="no">Category</span><span class="o">.</span><span class="n">create!</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">&#39;dddddddd&#39;</span><span class="p">,</span> <span class="ss">:parent</span> <span class="o">=&gt;</span> <span class="vi">@b</span>
+</span><span class='line'>    <span class="vi">@e</span> <span class="o">=</span> <span class="no">Category</span><span class="o">.</span><span class="n">create!</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">&#39;eeeeeee&#39;</span><span class="p">,</span> <span class="ss">:parent</span> <span class="o">=&gt;</span> <span class="vi">@d</span>
+</span><span class='line'>    <span class="vi">@c</span> <span class="o">=</span> <span class="no">Category</span><span class="o">.</span><span class="n">find_by_name</span> <span class="s1">&#39;bbbbb&#39;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># ap @d</span>
+</span><span class='line'>    <span class="c1"># ap @d.parent</span>
+</span><span class='line'>    <span class="c1"># ap @d.root</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">ap</span> <span class="vi">@d</span><span class="o">.</span><span class="n">subtree_ids</span>
+</span><span class='line'>    <span class="c1"># ap @c.parent</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># parent           Returns the parent of the record, nil for a root node</span>
+</span><span class='line'>    <span class="c1"># parent_id        Returns the id of the parent of the record, nil for a root node</span>
+</span><span class='line'>    <span class="c1"># root             Returns the root of the tree the record is in, self for a root node</span>
+</span><span class='line'>    <span class="c1"># root_id          Returns the id of the root of the tree the record is in</span>
+</span><span class='line'>    <span class="c1"># is_root?         Returns true if the record is a root node, false otherwise</span>
+</span><span class='line'>    <span class="c1"># ancestor_ids     Returns a list of ancestor ids, starting with the root id and ending with the parent id</span>
+</span><span class='line'>    <span class="c1"># ancestors        Scopes the model on ancestors of the record</span>
+</span><span class='line'>    <span class="c1"># path_ids         Returns a list the path ids, starting with the root id and ending with the node&#39;s own id</span>
+</span><span class='line'>    <span class="c1"># path             Scopes model on path records of the record</span>
+</span><span class='line'>    <span class="c1"># children         Scopes the model on children of the record</span>
+</span><span class='line'>    <span class="c1"># child_ids        Returns a list of child ids</span>
+</span><span class='line'>    <span class="c1"># has_children?    Returns true if the record has any children, false otherwise</span>
+</span><span class='line'>    <span class="c1"># is_childless?    Returns true is the record has no childen, false otherwise</span>
+</span><span class='line'>    <span class="c1"># siblings         Scopes the model on siblings of the record, the record itself is included</span>
+</span><span class='line'>    <span class="c1"># sibling_ids      Returns a list of sibling ids</span>
+</span><span class='line'>    <span class="c1"># has_siblings?    Returns true if the record&#39;s parent has more than one child</span>
+</span><span class='line'>    <span class="c1"># is_only_child?   Returns true if the record is the only child of its parent</span>
+</span><span class='line'>    <span class="c1"># descendants      Scopes the model on direct and indirect children of the record</span>
+</span><span class='line'>    <span class="c1"># descendant_ids   Returns a list of a descendant ids</span>
+</span><span class='line'>    <span class="c1"># subtree          Scopes the model on descendants and itself</span>
+</span><span class='line'>    <span class="c1"># subtree_ids      Returns a list of all ids in the record&#39;s subtree</span>
+</span><span class='line'>    <span class="c1"># depth            Return the depth of the node, root nodes are at depth 0</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>说明:ap是awesome_print</p>
+
+<p>在rails console中执行</p>
+
+<blockquote><p>rake test</p></blockquote>
+
+<p>需要什么方法尽可在官方的文档里找，整体看还比较完善</p>
+
+<h1>参考地址</h1>
+
+<ul>
+<li>https://github.com/stefankroes/ancestry</li>
+<li>http://railscasts.com/episodes/262-trees-with-ancestry</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">alfred sang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-20T17:31:00+08:00" pubdate data-updated="true">Feb 20<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shiren1118.github.com/blog/2013/02/20/rails-cha-jian-ancestryyong-fa/" data-via="" data-counturl="http://shiren1118.github.com/blog/2013/02/20/rails-cha-jian-ancestryyong-fa/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/02/19/sui-xiang/" title="Previous Post: 随想">&laquo; 随想</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/02/25/ruby20zhou-nian-ju-hui-gui-lai/" title="Next Post: ruby20周年聚会归来">ruby20周年聚会归来 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/03/coordinate-system/">Coordinate System</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/01/director-scene-layer-and-sprite/">Director Scene Layer and Sprite</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/27/bian-qian-zuo-yuan-xing-she-ji-yao-neng-wang-xiao-liao-xiang/">便签做原型设计，要能往小了想</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/25/zi-sheng-23/">自省录1，2，3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/25/ruby20zhou-nian-ju-hui-gui-lai/">ruby20周年聚会归来</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - alfred sang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shiren1118';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://shiren1118.github.com/blog/2013/02/20/rails-cha-jian-ancestryyong-fa/';
+        var disqus_url = 'http://shiren1118.github.com/blog/2013/02/20/rails-cha-jian-ancestryyong-fa/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
