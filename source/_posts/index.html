@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <body>
+	  
+	  <div id='show_english_btn'>show_english</div>| 
+	  <div id='hide_english_btn'>hide_english</div>
+		  
+		  
+    <textarea id="text-input" oninput="this.editor.update()"
+              rows="6" cols="60">Type **Markdown** here.</textarea>
+    <div id="preview"> </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://raw.github.com/evilstreak/markdown-js/master/lib/markdown.js"></script>
+    <script>
+
+	  
+	String.prototype.replaceAll = function(s1,s2){    
+		return this.replace(new RegExp(s1,"gm"),s2);    
+	}
+	
+	  $(function(){
+		  
+		  
+	      function Editor(input, preview)
+	      {
+	        this.update = function () {
+				var html=input.value
+				
+				// var  s = "Hello. Regexps are fun." ;
+				
+				// alert(html);
+				
+				
+				var f = "\"<div style='display:none'>sss hide</div>\"";//markdown.toHTML(html);
+				// alert(f);
+				f = f.replace(/\"|\'/g, "" ); 
+								// alert(f);
+	          preview.innerHTML = f;
+	        }
+	        input.editor = this;
+	        this.update();
+	      }
+		  
+		  
+	      
+	  
+	  
+		  setTimeout(function(){
+		  	$('#text-input').load('2013-03-01-director-scene-layer-and-sprite.markdown');
+
+			new Editor(document.getElementById("text-input"), document.getElementById("preview"));
+			
+			
+		  },500);
+		  // $('#text-input').load('2013-03-01-director-scene-layer-and-sprite.markdown');
+		
+		
+		  $('#show_english_btn').click(function(e){
+			  			  alert(1);
+			  $('#preview div').show();
+		  });
+		  
+		  $('#hide_english_btn').click(function(e){
+			  alert(2);
+			  $('#preview div').hide();
+		  });
+	  });
+    </script>
+  </body>
+</html>
