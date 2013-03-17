@@ -5,11 +5,18 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>随想 - 小桑博客</title>
+  <title>Effects - 小桑博客</title>
   <meta name="author" content="alfred sang">
 
   
-  <meta name="description" content="智利经济学家曼弗雷德·麦克斯-尼夫（Manfred Max-Neef）和他的同事们在他们1987出版的 “人类规模发展”一书中指出，人的基本需求可归为生存，安全，感情，理解，参与，休闲，创意，人格和自由九类。每一类又可按其状况（质量），获取（物质），操作（行动）及互动（环境）分项而形成36个单元 &hellip;">
+  <meta name="description" content="Effects
+Effects
+Introduction
+How do I use them ?
+References
+Comment
+Introduction
+Effects are a special kind of action. Instead of modifying normal &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +25,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://shiren1118.github.com/blog/2013/02/19/sui-xiang/">
+  <link rel="canonical" href="http://shiren1118.github.com/blog/2013/03/04/effects/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -68,7 +75,7 @@
   
   <header>
     
-      <h1 class="entry-title">随想</h1>
+      <h1 class="entry-title">Effects</h1>
     
     
       <p class="meta">
@@ -84,40 +91,72 @@
   
 
 
-<time datetime="2013-02-19T23:41:00+08:00" pubdate data-updated="true">Feb 19<span>th</span>, 2013</time>
+<time datetime="2013-03-04T16:58:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>智利经济学家曼弗雷德·麦克斯-尼夫（Manfred Max-Neef）和他的同事们在他们1987出版的 “人类规模发展”一书中指出，人的基本需求可归为生存，安全，感情，理解，参与，休闲，创意，人格和自由九类。每一类又可按其状况（质量），获取（物质），操作（行动）及互动（环境）分项而形成36个单元。</p>
+<div class="entry-content"><p>Effects
+Effects
+Introduction
+How do I use them ?
+References
+Comment
+Introduction
+Effects are a special kind of action. Instead of modifying normal properties like opacity, position, rotation, or scale, they modify a new kind of property: the grid property.</p>
 
-<ul>
-<li>生存：创造，健康，食物，住所，技能，工作，反馈</li>
-<li>保护：安全，社会</li>
-<li>感情：友谊，家庭，爱</li>
-<li>认识：好奇心，教育</li>
-<li>参与：责任，相互交往，社会活动</li>
-<li>休闲：玩耍，幻想，性，隐私</li>
-<li>创造：技能，工作，反馈</li>
-<li>身份：财产，团体，认可</li>
-<li>自由：人身自由，权利，异议</li>
-</ul>
+<p>A grid property is like a matrix, it is a network of lines that cross each other to form a series of squares or rectangles.</p>
 
+<p>These special actions render any CocosNode object (Layer, Scene, Sprite, etc.) into the grid, and you can transform the grid by moving its vertices.</p>
 
-<p>其实最近1年多，我都是在去想做一些事情，想做的事情很多而做成的事却很少，非我欲望或想法过多，而是年龄长彼事成而心有不甘。</p>
+<p>There are 2 kind of grids: tiled grids and non-tiled grids. The difference is that the tiled grid is composed of individual tiles while the non-tiled grid is composed of vertices.</p>
 
-<p>诗歌之美其一是思，其二为幻，当此道，反复锤炼方有成。我去年很少写东西，失去了很多可以胡思乱想的机会，现在想想真是有些不该，假设每天都花上15分钟胡乱的想想，是浪费时间呢，还是算休息？
-当一件事情形成习惯，才有威力，而一直奔跑的人看不到风景，于悖论中感到悲哀，生之无奈啊</p>
+<p>The following is an example of Ripple3D action, who uses a Grid3D (non-tiled) grid:</p>
 
-<p>换个角度，换一个思路，看不一样的书，发呆，洗衣做饭，或者泡一杯好喝的咖啡，这些琐碎的细节无不冲淡了一些本该有的节奏。曲子要不同调，饭菜要有咸淡之分。</p>
+<p>and the following is an example of FadeOutTR action, who uses a TiledGrid3D (tiled) grid:</p>
 
-<p>近日读书《番茄工作法》，其核心在于每25分钟做一次休息，在一个番茄钟内尽力工作，完成之后必定休息5到10分钟，一定不做与工作相关的事情。其核心仍是俗的不能再俗的“可持续发展”。</p>
+<p>How do I use them ?
+Like any other action, it is executed by the runAction. eg:</p>
 
-<p>《the lean startup》一书将从最小的可用原型开始，《敏捷武士》一书将需求切分为user story，其粒度可以尽量细，是不是一个番茄钟25分钟呢？此为戏言，但这些东西若组合到一起，相信对未来的工作方式是有一定改进的。</p>
+<p>1// Create an sprite
+2CCSprite* grossini = CCSprite::create(&#8220;grossini.png&#8221;);
+3grossini->runAction(CCLiquid::create(4, 20, ccg(10,10), 5));</p>
 
-<p>人生在勤，不索何获，路慢慢其修远兮！</p>
+<p>Liquid, like any other grid action, receives the grid parameter. You can adjust the quality of the effect by increasing the size of the grid. But it also implies less FPS.
+The Effects are IntervalAction actions so you can treat them like any other action. eg:</p>
+
+<p>1// create a Lens3D action
+2CCActionInterval<em> lens = CCLens3D::create(ccp(240,160),240,ccg(15,10),8);
+3
+4// create a Waved3D action
+5CCActionInterval</em> waves = CCWaves3D::create(18,80,ccg(15,10),10);
+6
+7// create a sequence an repeat it forever
+8grossini->runAction(CCRepeatForever::create((CCSequence*)CCSequence::create(waves, lens, NULL ) ) );</p>
+
+<p>The following is the list of the available Grid3D (non-tiled) actions in v2.1.0:
+Shaky3D Waves3D FlipX3D FlipY3D</p>
+
+<p>Lens3D  Liquid  Waves   Twirl</p>
+
+<p>Ripple3D</p>
+
+<p>The following is the list of the available TiledGrid3D (tiled) actions</p>
+
+<p>ShakyTiles3D    ShatteredTiles3D    ShuffleTiles    FadeOutTRTiles</p>
+
+<p>FadeOutBLTiles  FadeOutUpTiles  FadeOutDownTiles    TurnOffTiles</p>
+
+<p>WavesTiles3D    JumpTiles3D SplitRows   SplitCols</p>
+
+<p>References
+cocos2d-iphone Introduction to cocos2d’s effects</p>
+
+<p>Last updated by Ziv Lee at Updated about 1 month ago.</p>
+
+<p>Comment</p>
 </div>
 
 
@@ -140,7 +179,7 @@
   
 
 
-<time datetime="2013-02-19T23:41:00+08:00" pubdate data-updated="true">Feb 19<span>th</span>, 2013</time>
+<time datetime="2013-03-04T16:58:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
       
 
 
@@ -148,7 +187,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shiren1118.github.com/blog/2013/02/19/sui-xiang/" data-via="" data-counturl="http://shiren1118.github.com/blog/2013/02/19/sui-xiang/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shiren1118.github.com/blog/2013/03/04/effects/" data-via="" data-counturl="http://shiren1118.github.com/blog/2013/03/04/effects/" >Tweet</a>
   
   
   
@@ -157,10 +196,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/02/16/wu-chu-bu-zai-de-pry/" title="Previous Post: 无处不在的pry">&laquo; 无处不在的pry</a>
+        <a class="basic-alignment left" href="/blog/2013/03/04/skeletal-animation/" title="Previous Post: Skeletal animation">&laquo; Skeletal animation</a>
       
       
-        <a class="basic-alignment right" href="/blog/2013/02/20/rails-cha-jian-ancestryyong-fa/" title="Next Post: rails 插件 ancestry用法">rails 插件 ancestry用法 &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2013/03/04/particles/" title="Next Post: Particles">Particles &raquo;</a>
       
     </p>
   </footer>
@@ -227,8 +266,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://shiren1118.github.com/blog/2013/02/19/sui-xiang/';
-        var disqus_url = 'http://shiren1118.github.com/blog/2013/02/19/sui-xiang/';
+        var disqus_identifier = 'http://shiren1118.github.com/blog/2013/03/04/effects/';
+        var disqus_url = 'http://shiren1118.github.com/blog/2013/03/04/effects/';
         var disqus_script = 'embed.js';
       
     (function () {

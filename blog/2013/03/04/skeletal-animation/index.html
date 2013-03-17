@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Skeletal animation - 小桑博客</title>
+  <meta name="author" content="alfred sang">
+
+  
+  <meta name="description" content="Skeletal animation
+Skeletal animation
+Skeletal animation vs. Sprite sheets
+Skeletal animation introduce
+Tool for skeleton animation
+Working with &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shiren1118.github.com/blog/2013/03/04/skeletal-animation/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="小桑博客" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">小桑博客</a></h1>
+  
+    <h2>如果渡不过这不可渡的海，将成为这海中捞不起的沙</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shiren1118.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">博客</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Skeletal Animation</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T16:57:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Skeletal animation
+Skeletal animation
+Skeletal animation vs. Sprite sheets
+Skeletal animation introduce
+Tool for skeleton animation
+Working with cocosbuilder Animations
+Adding Keyframes
+Editing Keyframes
+Importing a Sequence of Images
+Applying Easing
+Using Multiple Timelines
+Chaining Timelines
+Playing Back Animations in Code
+Conclusion
+References
+Comment</p>
+
+<h3>Skeletal animation vs. Sprite sheets</h3>
+
+<p>You can creat animations using &#8220;sprite sheets&#8221; which is quick and easy. Until you realize your game needs lots of animations and the memory consumption goes way up, together with the time required to load all the data. Also, to limit the size, you need to limit yourself to a low FPS for the animation, which also means the animation doesn’t look as smooth as you’d like. This is where skeletal animation comes in.</p>
+
+<h3>Skeletal animation introduce</h3>
+
+<p>Skeletal animation is a technique in cocos2d-x animation in which a character is represented in two parts: a surface representation used to draw the character (called skin or mesh) and a hierarchical set of interconnected bones (called the skeleton or rig) used to animate (pose and keyframe) the mesh.</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1606/Skeletal-Animation.jpg" alt="" /></p>
+
+<p>Cocos2d-x provides a way to have 2d skeletal animations in your applications. The process of skeletal animation may be a bit complicated to setup, but using them afterwards is easy, and there are some tools to simplify the process.</p>
+
+<p>When using skeletal animation, the animation is composed of several bones which are connected to one another. Affecting a bone also affects all of its children. By composing different transformations on each bone, you obtain different poses for the skeleton.</p>
+
+<p>Now, if you define keyframes with certain transformations for a point in time for each of the bones in the skeleton, you can interpolate between the keyframes to obtain a smooth transition and thus animate the skeleton.</p>
+
+<p>In the attached code, I used a class named Transformation, which contains data about 2D transformations, like translation, rotation and scale. Then, a Keyframe is defined by a frame number and one such Transformation. A collection of Keyframes defines a KeyframeAnimation. Finally, a SkeletonAnimation is a collection of KeyframeAnimations, one for each bone in the skeleton.</p>
+
+<p>Separately, you use a Skeleton, which keeps a list of Joints that define the hierarchy of bones in the skeleton. Different from &#8220;sprite sheets&#8221;,each bone is then assigned a certain texture, like the ones below:</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1607/animated-grossini.png" alt="" /></p>
+
+<h3>Tool for skeleton animation</h3>
+
+<p>So far as we know, CocosBuilder is a great, free (MIT license) tool for creating skeleton animations.
+CocosBuilder is built for Cocos2d’s Javascript bindings, which means that your code, animations, and interfaces will run unmodified in Cocos2d-x.
+A tutorial for cocos2d-iphone can be found at the <a href="http://code.zynga.com/2012/10/creating-a-game-with-cocosbuilder/">Zynga Engineering blog</a></p>
+
+<h3>Working with cocosbuilder Animations</h3>
+
+<p>You can use <a href="http://cocosbuilder.com/">CocosBuilder</a> for creating character animations, animating complete scenes or just about any animation you can imagine. The animation editor has full support for multiple resolutions, easing between keyframes, boned animations and multiple timelines to name a few of the features.</p>
+
+<p>h3.The Basics</p>
+
+<p>In the bottom of the main window you can find the timeline. You use the timeline to create your animations.</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1610/timeline.png" alt="" /></p>
+
+<p>By default your ccb-file has a single timeline that is 10 seconds long. CocosBuilder edits animations at a frame rate of 30 frames per second, but when you play back the animation in your app it will use whatever you have set cocos2d to use (the default in cocos2d is 60 fps). The current time is displayed in the top right corner, and has the format minute:second:frame. The blue vertical line also shows the current time. Click the time display to change the duration of the current timeline.</p>
+
+<h4>Adding Keyframes</h4>
+
+<p>Animations in CocosBuilder are keyframe based. You can add keyframes to different properties of a node and CocosBuilder will automatically interpolate between the keyframes, optionally with different types of easing.</p>
+
+<p>To add a keyframe, first expand the view of the node by clicking the triangle to the right of the name of the node. This will reveal all the animatable properties of the node. What can be animated varies slightly depending on what type of node you have selected. Once the properties are visible you can click the property in the timeline with the option key held down. This will create a new keyframe at the time of the click. Alternatively, you can create a new keyframe at the time of the time marker by selecting a node then choosing Insert Keyframe in the Animation menu.</p>
+
+<p>Keyframes are automatically added at the current time if you transform a node in the canvas area, given that the transformed property already has one or more keyframes in the timeline.</p>
+
+<h4>Editing Keyframes</h4>
+
+<p>You edit a specific keyframe of a node by moving the time marker to the time of the keyframe and selecting the node. You can focus on a keyframe by double clicking it (which will select the node and move the time marker).</p>
+
+<p>You can select keyframes and move them together by dragging a selection box around them. You can also copy and paste keyframes between nodes. Make sure you only have one selected node when pasting the keyframes. The keyframes will be pasted starting at the time of the time marker.</p>
+
+<p>If you have selected a set of keyframes it is possible to reverse the order of them by selecting Reverse Selected Keyframes in the Animation menu. Use the Stretch Selected Keyframes… option to speed up or slow down an animation by a scaling factor.</p>
+
+<h4>Importing a Sequence of Images</h4>
+
+<p>If you have an animation created by sprite frames it can be tedious to move each individual frame to the timeline. CocosBuilder simplifies this process by automatically importing a sequence of images. Select the frames that you want to import in the left hand project view, then select a CCSprite in the timeline. Now choose Create Frames from Selected Resources in the Animation menu. The frames will automatically be created at the start of the marker. If you need to slow down the animation, select the newly created keyframes and use the Stretch Selected Keyframes… command.</p>
+
+<h4>Applying Easing</h4>
+
+<p>CocosBuilder offers a carefully selected subset of the easings provided by cocos2d. To apply an easing right click between two keyframes and select the type of easing that you want to apply.</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1611/keyframes.png" alt="" /></p>
+
+<p>Some of the easings have additional options, after the easing has been applied you can right click again and select Easing Setting… from the popup menu.</p>
+
+<h4>Using Multiple Timelines</h4>
+
+<p>A very powerful feature of CocosBuilder&#8217;s animation editor is the ability to have multiple timelines in a single file. You can name the different sequences and play them back from your code by using their name. It&#8217;s even possible to smoothly transition between the different timelines.</p>
+
+<p>To select, add or edit your timelines use the timeline popup menu:</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1612/Multiple%20Timelines.png" alt="" /></p>
+
+<p>In the edit timelines dialog you can get an overview of your timelines, rename them, add new ones and (optionally) set one of the timelines to automatically start playback directly when the ccbi-file is loaded by your app.</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1613/autoStart.png" alt="" /></p>
+
+<p>Properties in timelines that do not have keyframes set share their values across timelines. E.g. if you move one node in one timeline it will be moved in all timelines as long as they do not have a keyframe set for the position property. I can sometimes be useful to add a single keyframe to a property just to override the shared value for a specific timeline.</p>
+
+<h4>Chaining Timelines</h4>
+
+<p>You can automatically play back a sequence of timelines by chaining them. You can also use this feature for automatically looping a timeline.</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1614/autoPlayback.png" alt="" /></p>
+
+<p>To have a timeline play in sequence, click the No chained timeline text and select the timeline you want to play right after the current one.</p>
+
+<h4>Playing Back Animations in Code</h4>
+
+<p>To programmatically control the animations you create with CocosBuilder you will need to retrieve theCCBAnimationManager. The animation manager will be assigned to the nodes userObject when the ccbi-file is loaded.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="mi">1</span><span class="n">CCNode</span> <span class="o">*</span><span class="n">myNodeGraph</span> <span class="o">=</span> <span class="n">ccbReader</span><span class="o">-&gt;</span><span class="n">readNodeGraphFromFile</span><span class="p">(</span><span class="s">&quot;myFile.ccbi&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The action manager will be returned as an autoreleased object. To play back a specific timeline call therunAnimationsForSequenceNamed: method. If a timeline is currently playing it will be immediately stopped when calling this method.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="mi">1</span><span class="n">animationManager</span><span class="o">-&gt;</span><span class="n">runAnimationsForSequenceNamed</span><span class="p">(</span><span class="s">&quot;My Timeline&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Optionally, you can use a tween duration to smoothly transition to the new timeline. Where possible linear interpolations will be used for the transition.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="mi">1</span><span class="n">animationManager</span><span class="o">-&gt;</span><span class="n">runAnimationsForSequenceNamedTweenDuration</span><span class="p">(</span><span class="s">&quot;My Timeline&quot;</span><span class="p">,</span><span class="mf">0.5f</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It is also possible to receive a callback whenever a timeline has finished playing. You will receive these callbacks even if another timeline is chained in sequence. Use the CCBAnimationManagerDelegate to receive the callbacks.</p>
+
+<h3>Conclusion</h3>
+
+<p>Thank you taking the time to read through the tutorial and happy coding!If you have other tools for skeleton animation,please let us known or post to this wiki.</p>
+
+<h3>References</h3>
+
+<p><a href="http://code.zynga.com/2012/10/creating-a-game-with-cocosbuilder/">Creating a game with cocosbuilder</a>
+<a href="http://cocosbuilder.com/">CocosBuilder Documentation</a></p>
+
+<h3>Comment</h3>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">alfred sang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T16:57:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shiren1118.github.com/blog/2013/03/04/skeletal-animation/" data-via="" data-counturl="http://shiren1118.github.com/blog/2013/03/04/skeletal-animation/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/04/scheduler-and-timer-callback/" title="Previous Post: Scheduler and Timer Callback">&laquo; Scheduler and Timer Callback</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/04/effects/" title="Next Post: Effects">Effects &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/transitions/">Transitions</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/particles/">Particles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/effects/">Effects</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/skeletal-animation/">Skeletal animation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/scheduler-and-timer-callback/">Scheduler and Timer Callback</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - alfred sang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shiren1118';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://shiren1118.github.com/blog/2013/03/04/skeletal-animation/';
+        var disqus_url = 'http://shiren1118.github.com/blog/2013/03/04/skeletal-animation/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

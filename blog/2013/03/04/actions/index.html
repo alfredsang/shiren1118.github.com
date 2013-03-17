@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Actions - 小桑博客</title>
+  <meta name="author" content="alfred sang">
+
+  
+  <meta name="description" content="Actions Actions are like orders given to any CCNode object. These actions usually modify some of the object&#8217;s attributes like position, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shiren1118.github.com/blog/2013/03/04/actions/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="小桑博客" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">小桑博客</a></h1>
+  
+    <h2>如果渡不过这不可渡的海，将成为这海中捞不起的沙</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shiren1118.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">博客</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Actions</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T16:57:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Actions</h2>
+
+<p>Actions are like orders given to any CCNode object. These actions usually modify some of the object&#8217;s attributes like position, rotation, scale, etc. If these attributes are modified during a period of time, they are CCIntervalAction actions, otherwise they are CCInstantAction actions.
+For example, the CCMoveBy action modifies the position property during a period of time, hence, it is a subclass of CCIntervalAction.</p>
+
+<p>You can run TestCpp -> Actions Test to see the actions&#8217; visual effects. And cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest are good sample codes for the usage.</p>
+
+<p>Example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="c1">// Move a sprite 50 pixels to the right, and 10 pixels to the top over 2 seconds.</span>
+</span><span class='line'><span class="n">CCActionInterval</span><span class="o">*</span>  <span class="n">actionBy</span> <span class="o">=</span> <span class="n">CCMoveBy</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">ccp</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The CCIntervalAction actions have some interesting properties:
+They can be accelerated using the time-altered actions</p>
+
+<ul>
+<li>CCEaseIn</li>
+<li>CCEaseOut</li>
+<li>CCEaseInOut</li>
+<li>CCSpeed</li>
+</ul>
+
+
+<p>Etc. (See the ActionsEaseTest.cpp example for more info)</p>
+
+<p>You can pause/resume all actions by using the CCActionManager:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="c1">// Pause actions</span>
+</span><span class='line'><span class="n">CCDirector</span> <span class="o">*</span><span class="n">director</span> <span class="o">=</span> <span class="n">CCDirector</span><span class="o">::</span><span class="n">sharedDirector</span><span class="p">();</span>
+</span><span class='line'><span class="n">m_pPausedTargets</span> <span class="o">=</span> <span class="n">director</span><span class="o">-&gt;</span><span class="n">getActionManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">pauseAllRunningActions</span><span class="p">();</span>
+</span><span class='line'><span class="c1">// resume actions</span>
+</span><span class='line'><span class="n">CCDirector</span> <span class="o">*</span><span class="n">director</span> <span class="o">=</span> <span class="n">CCDirector</span><span class="o">::</span><span class="n">sharedDirector</span><span class="p">();</span>
+</span><span class='line'><span class="n">director</span><span class="o">-&gt;</span><span class="n">getActionManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">resumeTargets</span><span class="p">(</span><span class="n">m_pPausedTargets</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Basic Actions</h3>
+
+<p>Basic actions are the ones that modify basic properties like:</p>
+
+<h4>position</h4>
+
+<ul>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/dc/df6/classcocos2d_1_1_c_c_move_by.html">CCMoveBy</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/d2/d2b/classcocos2d_1_1_c_c_move_to.html">CCMoveTo</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/db/d25/classcocos2d_1_1_c_c_jump_by.html">CCJumpBy</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/d2/d6c/classcocos2d_1_1_c_c_jump_to.html">CCJumpTo</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/df/d33/classcocos2d_1_1_c_c_bezier_by.html">CCBezierBy</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/dc/d17/classcocos2d_1_1_c_c_bezier_to.html">CCBezierTo</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/de/dbf/classcocos2d_1_1_c_c_place.html">CCPlace</a></li>
+</ul>
+
+
+<h4>scale</h4>
+
+<ul>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/d4/d62/classcocos2d_1_1_c_c_scale_by.html">CCScaleBy</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/da/d23/classcocos2d_1_1_c_c_scale_to.html">CCScaleTo</a></li>
+</ul>
+
+
+<h4>rotation</h4>
+
+<ul>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/d6/d57/classcocos2d_1_1_c_c_rotate_by.html">CCRotateBy</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/d9/df5/classcocos2d_1_1_c_c_rotate_to.html">CCRotateTo</a></li>
+</ul>
+
+
+<h4>visible</h4>
+
+<ul>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/d3/de8/classcocos2d_1_1_c_c_show.html">CCShow</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/d1/d72/classcocos2d_1_1_c_c_hide.html">CCHide</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/d8/de2/classcocos2d_1_1_c_c_blink.html">CCBlink</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/dc/d90/classcocos2d_1_1_c_c_toggle_visibility.html">CCToggleVisibility</a></li>
+</ul>
+
+
+<h4>opacity</h4>
+
+<ul>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/d7/d89/classcocos2d_1_1_c_c_fade_in.html">CCFadeIn</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/d6/d6d/classcocos2d_1_1_c_c_fade_out.html">CCFadeOut</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/da/d44/classcocos2d_1_1_c_c_fade_to.html">CCFadeTo</a></li>
+</ul>
+
+
+<h4>color</h4>
+
+<ul>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/de/de1/classcocos2d_1_1_c_c_tint_by.html">CCTintBy</a></li>
+<li><a href="http://www.cocos2d-x.org/reference/native-cpp/dd/dfa/classcocos2d_1_1_c_c_tint_to.html">CCTintTo</a></li>
+</ul>
+
+
+<p>Example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCSprite</span> <span class="o">*</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">CCSprite</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;Images/grossini.png&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">));</span>
+</span><span class='line'><span class="n">addChild</span><span class="p">(</span><span class="n">sprite</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCMoveBy</span><span class="o">*</span> <span class="n">act1</span> <span class="o">=</span> <span class="n">CCMoveBy</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ccp</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+</span><span class='line'><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">CCRepeat</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">act1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The act1 will be a CCMoveBy action of duration 0.5, but with the position value of ccp(100,0).</p>
+
+<h3>Comment</h3>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">alfred sang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T16:57:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shiren1118.github.com/blog/2013/03/04/actions/" data-via="" data-counturl="http://shiren1118.github.com/blog/2013/03/04/actions/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/03/coordinate-system/" title="Previous Post: Coordinate System">&laquo; Coordinate System</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/04/animations/" title="Next Post: Animations">Animations &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/transitions/">Transitions</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/particles/">Particles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/effects/">Effects</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/skeletal-animation/">Skeletal animation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/scheduler-and-timer-callback/">Scheduler and Timer Callback</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - alfred sang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shiren1118';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://shiren1118.github.com/blog/2013/03/04/actions/';
+        var disqus_url = 'http://shiren1118.github.com/blog/2013/03/04/actions/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

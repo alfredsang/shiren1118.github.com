@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Transitions - 小桑博客</title>
+  <meta name="author" content="alfred sang">
+
+  
+  <meta name="description" content="Transitions Introduction One of the cool features that Cocos2d-x has to offer is the power of transitions within two different scene. Transitions are &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shiren1118.github.com/blog/2013/03/04/transitions/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="小桑博客" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">小桑博客</a></h1>
+  
+    <h2>如果渡不过这不可渡的海，将成为这海中捞不起的沙</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shiren1118.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">博客</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Transitions</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T16:58:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Transitions</h2>
+
+<h3>Introduction</h3>
+
+<p>One of the cool features that Cocos2d-x has to offer is the power of transitions within two different scene. Transitions are effects such as: wipe, fade, zoom, and split. You can use transitions to switch between Cocos2d-x Scene objects. Sceneclass is derived from CocosNode and it is similar to Layer. You can add other CocosNode, such as Layer(s) and Sprite(s) into a Scene.</p>
+
+<p>Technically, a transition scene is an scene that performs a transition effect before setting control to the new scene.</p>
+
+<h3>Create transition</h3>
+
+<p>Time is the number of seconds for the transition. To apply transition to scenes, the syntax is as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCDirector</span><span class="o">::</span><span class="n">sharedDirector</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">replaceScene</span><span class="p">(</span><span class="n">CCTransitionFade</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">newScene</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Some transitions has custom parameter(s); for example, FadeTransition has the fade color as extra parameter.
+static CCTransitionFade<em> create(float duration,CCScene</em> scene, const ccColor3B&amp; color);
+To enable a transition, it is not much more difficult. Here we have an small example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCScene</span> <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="n">SecondPage</span><span class="o">::</span><span class="n">scene</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCDirector</span><span class="o">::</span><span class="n">sharedDirector</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setDepthTest</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCTransitionScene</span> <span class="o">*</span><span class="n">transition</span> <span class="o">=</span> <span class="n">CCTransitionPageTurn</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="mf">3.0f</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you run this you will have a “page turn” effect. This is, like turning the page on a paper made book.</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/download/1623" alt="" /></p>
+
+<h3>More transitions</h3>
+
+<p>There are many more transition types, you can see the full list in the class reference, in the official Cocos2D-X documentation.</p>
+
+<p>Last updated by Zhe Wang at Updated about 1 month ago.</p>
+
+<h3>Comment</h3>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">alfred sang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T16:58:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shiren1118.github.com/blog/2013/03/04/transitions/" data-via="" data-counturl="http://shiren1118.github.com/blog/2013/03/04/transitions/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/04/particles/" title="Previous Post: Particles">&laquo; Particles</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/transitions/">Transitions</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/particles/">Particles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/effects/">Effects</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/skeletal-animation/">Skeletal animation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/scheduler-and-timer-callback/">Scheduler and Timer Callback</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - alfred sang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shiren1118';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://shiren1118.github.com/blog/2013/03/04/transitions/';
+        var disqus_url = 'http://shiren1118.github.com/blog/2013/03/04/transitions/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
