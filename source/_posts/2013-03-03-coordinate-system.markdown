@@ -44,7 +44,7 @@ You probably have known "Cartesian Coordinate System" from school where it's hea
 
 你可能上学的时候就已经知道“笛卡尔坐标系”了，它在几何课本里经常用到。如果你已经忘得差不多了，下面这些图片可以很快唤起你的记忆：
 
-![](http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOk1zEjmHQAqhVBAzi%2FBA%3D%3D&b=3)
+![](http://www.cocos2d-x.org/attachments/download/1561)
 
 
 <div style='display:none;'>
@@ -77,7 +77,7 @@ looks like this
 </div>
 详见下图
 
-![](http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOk1zEjmHQAqhVBAzi%2FAQ%3D%3D&b=3)
+![](http://www.cocos2d-x.org/attachments/download/1564)
 
 
 <div style='display:none;'>
@@ -102,7 +102,7 @@ Cocos2d-x/-html5/-iphone uses the same coordinate system as OpenGL, which is so 
 
 Cocos2d-x/-html5/-iphone使用的坐标系和OpenGL的坐标系一样，名为“Right-handed Cartesian Coordinate Syste”。
 
-![](http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOk1zEjmHQAqhVBAzi%2FBg%3D%3D&b=3)
+![](http://www.cocos2d-x.org/attachments/download/1563)
 
 
 <div style='display:none;'>
@@ -125,7 +125,7 @@ And here’s a picture that helps illustrate Cocos2d-x Coordinates a bit better:
 	
 下面这张图片有助于更好的阐述Cocos2d-x坐标：
 	
-![](http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOkgmthwDc8uwMHRmjKWqMrsQIo3kQ%2B7f7q18Y%3D&b=3)
+![](http://www.cocos2d-x.org/attachments/1556/SpriteCoordinates.jpg)
 
 <div style='display:none;'>
 Note that it's different from common UI coordinate systems and DirectX coordinate systems.
@@ -170,7 +170,7 @@ Although we set child's position of ccp(0,0),parent's position is ccp(100,100).T
 
 由于我们设置子对象的位置是ccp(0,0)，父对象位置是ccp(100,100)。所以，子对象位置是：
 
-![](http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOkgmthzzcfqgMLXHmnX7w8sg%3D%3D&b=3）
+![](http://www.cocos2d-x.org/attachments/1559/parent.jpeg）
 
 <div style='display:none;'>
 ### Anchor Point·
@@ -183,7 +183,7 @@ As a example, this sprite has an anchorPoint of ccp(0,0) and a position of ccp(0
 
 作为例子，下面这个精灵有的锚点位于 ccp(0,0)，位置位于ccp(0,0)。
 
-![](http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOkgmthzzcfqgMLXHmnX7w8sg%3D%3D&b=3)
+![](http://www.cocos2d-x.org/attachments/1545/bottomleft.png)
 
 
 <div style='display:none;'>
@@ -204,6 +204,10 @@ sprite->setPosition(ccp(0,0));
 addChild(sprite);
 ```
 
+
+![](http://www.cocos2d-x.org/attachments/1557/anchor_left.png)
+
+
 <div style='display:none;'>
 In another example, we will assign a anchorPoint of ccp(0.5,0.5) to better understand the relative value of the anchor point.
 </div>
@@ -211,7 +215,7 @@ In another example, we will assign a anchorPoint of ccp(0.5,0.5) to better under
 在另一个例子中，我们会摆放一个坐标为ccp(0.5,0.5)的anchorPoint，以便您更好的理解锚点的相对值。
 
 
-![](http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOkgmtgwDcMrh8aV3%2BnRaI%2B&b=3)
+![](http://www.cocos2d-x.org/attachments/1546/center.png)
 
 ```c++
 // create sprite
@@ -221,7 +225,7 @@ sprite->setPosition(ccp(0,0));
 addChild(sprite);
 ```
 
-![](http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOkgmthwTcOpRIGXX%2FWWak%2FoUU20Vc%3D&b=3)
+![](http://www.cocos2d-x.org/attachments/1553/anchor_center.png)
 
 <div style='display:none;'>
 As you can see in the image, the anchor point is not a pixel value. The value of X and Y are relative to the size of the node.
@@ -271,7 +275,7 @@ We invoke CCPoint point = node1->convertToNodeSpace(node2->getPosition()); conve
 
 我们会调用CCPoint point = node1->convertToNodeSpace(node2->getPosition()); 转换node2的屏幕坐标为node1的位置。结果是，node2的位置是(-25，-60).
 
-![](http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOk1zEjmHQAqhVBAzqxBg%3D%3D&b=3)
+![](http://www.cocos2d-x.org/attachments/download/1783)
 
 #### convertToWorldSpace：
 
@@ -295,7 +299,7 @@ For example if the position of node2 is (0, 0) which will be the bottom left cor
 
 上面的代码会转换node2坐标为node2在屏幕上对应的坐标。
 
-![](http://www.proxyee.com/sohu.php?u=g6QXlZ4DNWBAxCi9G6VfFZDcGz9wVjIjOdSOzKxp9%2BOk1zEjmHQAqhVBAzqxAQ%3D%3D&b=3)
+![](http://www.cocos2d-x.org/attachments/download/1784)
 
 
 ####  convertToWorldSpaceAR

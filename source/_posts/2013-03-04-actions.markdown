@@ -1,0 +1,95 @@
+---
+layout: post
+title: "Actions"
+date: 2013-03-04 16:57
+comments: true
+categories: 
+---
+
+## Actions
+
+Actions are like orders given to any CCNode object. These actions usually modify some of the object's attributes like position, rotation, scale, etc. If these attributes are modified during a period of time, they are CCIntervalAction actions, otherwise they are CCInstantAction actions.
+For example, the CCMoveBy action modifies the position property during a period of time, hence, it is a subclass of CCIntervalAction.
+
+You can run TestCpp -> Actions Test to see the actions' visual effects. And cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest are good sample codes for the usage.
+
+Example:
+
+```c++
+// Move a sprite 50 pixels to the right, and 10 pixels to the top over 2 seconds.
+CCActionInterval*  actionBy = CCMoveBy::create(2, ccp(50,10));
+```
+
+
+The CCIntervalAction actions have some interesting properties:
+They can be accelerated using the time-altered actions
+
+- CCEaseIn
+- CCEaseOut
+- CCEaseInOut
+- CCSpeed
+
+Etc. (See the ActionsEaseTest.cpp example for more info)
+
+
+You can pause/resume all actions by using the CCActionManager:
+
+```c++
+// Pause actions
+CCDirector *director = CCDirector::sharedDirector();
+m_pPausedTargets = director->getActionManager()->pauseAllRunningActions();
+// resume actions
+CCDirector *director = CCDirector::sharedDirector();
+director->getActionManager()->resumeTargets(m_pPausedTargets);
+```
+
+### Basic Actions
+
+Basic actions are the ones that modify basic properties like:
+
+#### position
+- [CCMoveBy](http://www.cocos2d-x.org/reference/native-cpp/dc/df6/classcocos2d_1_1_c_c_move_by.html)
+- [CCMoveTo](http://www.cocos2d-x.org/reference/native-cpp/d2/d2b/classcocos2d_1_1_c_c_move_to.html)
+- [CCJumpBy](http://www.cocos2d-x.org/reference/native-cpp/db/d25/classcocos2d_1_1_c_c_jump_by.html)
+- [CCJumpTo](http://www.cocos2d-x.org/reference/native-cpp/d2/d6c/classcocos2d_1_1_c_c_jump_to.html)
+- [CCBezierBy](http://www.cocos2d-x.org/reference/native-cpp/df/d33/classcocos2d_1_1_c_c_bezier_by.html)
+- [CCBezierTo](http://www.cocos2d-x.org/reference/native-cpp/dc/d17/classcocos2d_1_1_c_c_bezier_to.html)
+- [CCPlace](http://www.cocos2d-x.org/reference/native-cpp/de/dbf/classcocos2d_1_1_c_c_place.html)
+
+#### scale
+- [CCScaleBy](http://www.cocos2d-x.org/reference/native-cpp/d4/d62/classcocos2d_1_1_c_c_scale_by.html)
+- [CCScaleTo](http://www.cocos2d-x.org/reference/native-cpp/da/d23/classcocos2d_1_1_c_c_scale_to.html)
+
+#### rotation
+- [CCRotateBy](http://www.cocos2d-x.org/reference/native-cpp/d6/d57/classcocos2d_1_1_c_c_rotate_by.html)
+- [CCRotateTo](http://www.cocos2d-x.org/reference/native-cpp/d9/df5/classcocos2d_1_1_c_c_rotate_to.html)
+
+#### visible
+- [CCShow](http://www.cocos2d-x.org/reference/native-cpp/d3/de8/classcocos2d_1_1_c_c_show.html)
+- [CCHide](http://www.cocos2d-x.org/reference/native-cpp/d1/d72/classcocos2d_1_1_c_c_hide.html)
+- [CCBlink](http://www.cocos2d-x.org/reference/native-cpp/d8/de2/classcocos2d_1_1_c_c_blink.html)
+- [CCToggleVisibility](http://www.cocos2d-x.org/reference/native-cpp/dc/d90/classcocos2d_1_1_c_c_toggle_visibility.html)
+
+#### opacity
+- [CCFadeIn](http://www.cocos2d-x.org/reference/native-cpp/d7/d89/classcocos2d_1_1_c_c_fade_in.html)
+- [CCFadeOut](http://www.cocos2d-x.org/reference/native-cpp/d6/d6d/classcocos2d_1_1_c_c_fade_out.html)
+- [CCFadeTo](http://www.cocos2d-x.org/reference/native-cpp/da/d44/classcocos2d_1_1_c_c_fade_to.html)
+
+#### color
+- [CCTintBy](http://www.cocos2d-x.org/reference/native-cpp/de/de1/classcocos2d_1_1_c_c_tint_by.html)
+- [CCTintTo](http://www.cocos2d-x.org/reference/native-cpp/dd/dfa/classcocos2d_1_1_c_c_tint_to.html)
+
+Example:
+
+```c++
+CCSprite *sprite = CCSprite::create("Images/grossini.png");
+sprite->setPosition(ccp(100, 100));
+addChild(sprite);
+
+CCMoveBy* act1 = CCMoveBy::create(0.5, ccp(100, 0));
+sprite->runAction(CCRepeat::create(act1, 1));
+```
+
+The act1 will be a CCMoveBy action of duration 0.5, but with the position value of ccp(100,0).
+
+### Comment
