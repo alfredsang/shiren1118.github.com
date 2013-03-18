@@ -5,11 +5,26 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>[cocos2d-x wiki翻译]Scheduler and Timer Callback - 小桑博客</title>
+  <title>about delegete - 小桑博客</title>
   <meta name="author" content="alfred sang">
 
   
-  <meta name="description" content="Scheduler and Timer Callback Scheduler is responsible for triggering the scheduled callbacks. 调度器负责触发调度回调. Two different types of callbacks ( &hellip;">
+  <meta name="description" content="rootviewcontroller 上增加了一个tableviewcontroller，tablecell里有一个view，view里又有一个button view大于2层就很难受了，delegate传来传去的。 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+view1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +33,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://shiren1118.github.com/blog/2013/03/04/scheduler-and-timer-callback/">
+  <link rel="canonical" href="http://shiren1118.github.com/blog/2013/03/18/about-delegete/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -68,7 +83,7 @@
   
   <header>
     
-      <h1 class="entry-title">[Cocos2d-x wiki翻译]Scheduler and Timer Callback</h1>
+      <h1 class="entry-title">About Delegete</h1>
     
     
       <p class="meta">
@@ -84,73 +99,57 @@
   
 
 
-<time datetime="2013-03-04T16:57:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+<time datetime="2013-03-18T00:29:00+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h2>Scheduler and Timer Callback</h2>
+<div class="entry-content"><p>rootviewcontroller 上增加了一个tableviewcontroller，tablecell里有一个view，view里又有一个button</p>
 
-<div style='display:none;'>
-Scheduler is responsible for triggering the scheduled callbacks.
-</div>
+<p>view大于2层就很难受了，delegate传来传去的。</p>
 
-
-<p>调度器负责触发调度回调.</p>
-
-<h3>Two different types of callbacks (selectors):</h3>
-
-<div style='display:none;'>
-update selector: the &#8216;update&#8217; selector will be called every frame. You can customize the priority.
-custom selector: A custom selector will be called every frame, or with a custom interval of time.
-The &#8216;custom selectors&#8217; should be avoided when possible. It is faster, and consumes less memory to use the &#8216;update selector&#8217;.
-</div>
-
-
-<p>更新selector:  &#8216;update&#8217; selector可以在每个frame调用.你可以自定义优先级.
-自定义selector: 自定义selector可以在每个frame调用, 或自定义的时间段内调用.
-&#8216;custom selectors&#8217;尽可能避免使用. 相对于使用&#8217;update selector&#8217;来说，它比较快，且内存消耗较小.</p>
-
-<h3>CCScheduler vs. NSTimer</h3>
-
-<div style='display:none;'>
-The Cocos2D Scheduler provides your game with timed events and calls. You should not use NSTimer. Instead use CCScheduler class.
-
-The reasons as follow:
-</div>
-
-
-<p>Cocos2D Scheduler 为你的游戏提供了时间时间和调用.你不要使用NSTimer.而不是用CCScheduler类.</p>
-
-<p>原因如下:</p>
-
-<div style='display:none;'>
-CCNode objects know how to schedule and unschedule events,and using the Cocos2D Scheduler has several distinct advantages over just using NSTimer.
-</div>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>view1:
+</span><span class='line'>  button - click
+</span><span class='line'>      -(void)click_event_callback;
+</span><span class='line'>  
+</span><span class='line'>tableviewcontroller
+</span><span class='line'>  view1.delegate = self;
+</span><span class='line'>  
+</span><span class='line'>  -(void)click_event_callback;
+</span><span class='line'>  
+</span><span class='line'>  
+</span><span class='line'>rootviewcontroller
+</span><span class='line'>  tableviewcontroller *tbvc.delegate = self;
+</span><span class='line'>  
+</span><span class='line'>  -(void)click_event_callback;
+</span><span class='line'>  </span></code></pre></td></tr></table></div></figure>
 
 
-<p>CCNode对象知道如何去调度和解除调度事件，和仅使用NSTimer相比，使用Cocos2D Scheduler有很多不一样的优点.</p>
+<p>这样做的原因是点击button的时候，需要在rootviewcontroller.navagationcontroller中push一个viewcontroller，而tableviewcontroller是没有navagationcontroller的。</p>
 
-<ul>
-<li>The scheduler calls get deactivated whenever the CCNode is no longer visible or is removed from the scene.</li>
-<li>The scheduler calls are also deactivated when Cocos2D is paused and are rescheduled when Cocos2D is resumed.</li>
-<li>The scheduler delivers a interval time of the milliseconds that have passed since the last call.This interval time is useful in Physics engines.</li>
-<li>Using scheduler with this->scheduleUpdate(); call ensures that your update function will be called before each frame needs to be rendered.</li>
-</ul>
+<p>我们通常设置delegate</p>
 
+<pre><code>@property(nonatomic,assign,readwrite) id&lt;*Protocol&gt; _delegate;
+</code></pre>
 
-<div style='display:none;'>
-Accordingly,CCScheduler can save you a lot of time over NSTimer and let you focus on the mechanics of your game.
-</div>
-
-
-<p>因此，CCScheduler会比NSTimer节省很多时间，让你更加关注于你的游戏构成.</p>
-
-<p>Last updated by Iven Yang at Updated about 1 month ago.</p>
-
-<h3>Comment</h3>
+<p>用assign是防止产生交替dealloc死锁内存问题。</p>
 </div>
 
 
@@ -173,21 +172,15 @@ Accordingly,CCScheduler can save you a lot of time over NSTimer and let you focu
   
 
 
-<time datetime="2013-03-04T16:57:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+<time datetime="2013-03-18T00:29:00+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2013</time>
       
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/cocos2d-x-wiki翻译/'>cocos2d-x wiki翻译</a>
-  
-</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shiren1118.github.com/blog/2013/03/04/scheduler-and-timer-callback/" data-via="" data-counturl="http://shiren1118.github.com/blog/2013/03/04/scheduler-and-timer-callback/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shiren1118.github.com/blog/2013/03/18/about-delegete/" data-via="" data-counturl="http://shiren1118.github.com/blog/2013/03/18/about-delegete/" >Tweet</a>
   
   
   
@@ -196,10 +189,8 @@ Accordingly,CCScheduler can save you a lot of time over NSTimer and let you focu
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/03/04/animations/" title="Previous Post: [cocos2d-x wiki翻译]Animations">&laquo; [cocos2d-x wiki翻译]Animations</a>
+        <a class="basic-alignment left" href="/blog/2013/03/04/transitions/" title="Previous Post: [cocos2d-x wiki翻译]Transitions">&laquo; [cocos2d-x wiki翻译]Transitions</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/03/04/skeletal-animation/" title="Next Post: [cocos2d-x wiki翻译]Skeletal animation">[cocos2d-x wiki翻译]Skeletal animation &raquo;</a>
       
     </p>
   </footer>
@@ -266,8 +257,8 @@ Accordingly,CCScheduler can save you a lot of time over NSTimer and let you focu
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://shiren1118.github.com/blog/2013/03/04/scheduler-and-timer-callback/';
-        var disqus_url = 'http://shiren1118.github.com/blog/2013/03/04/scheduler-and-timer-callback/';
+        var disqus_identifier = 'http://shiren1118.github.com/blog/2013/03/18/about-delegete/';
+        var disqus_url = 'http://shiren1118.github.com/blog/2013/03/18/about-delegete/';
         var disqus_script = 'embed.js';
       
     (function () {

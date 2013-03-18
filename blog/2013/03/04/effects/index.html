@@ -5,18 +5,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Effects - 小桑博客</title>
+  <title>[cocos2d-x wiki翻译]Effects - 小桑博客</title>
   <meta name="author" content="alfred sang">
 
   
-  <meta name="description" content="Effects
-Effects
+  <meta name="description" content="Effects Effects
 Introduction
 How do I use them ?
 References
-Comment
-Introduction
-Effects are a special kind of action. Instead of modifying normal &hellip;">
+Comment Introduction Effects are a special kind of action. Instead of modifying normal &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,7 +72,7 @@ Effects are a special kind of action. Instead of modifying normal &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Effects</h1>
+      <h1 class="entry-title">[Cocos2d-x wiki翻译]Effects</h1>
     
     
       <p class="meta">
@@ -98,27 +95,64 @@ Effects are a special kind of action. Instead of modifying normal &hellip;">
   </header>
 
 
-<div class="entry-content"><p>Effects
-Effects
+<div class="entry-content"><h1>Effects</h1>
+
+<p>Effects
 Introduction
 How do I use them ?
 References
-Comment
-Introduction
-Effects are a special kind of action. Instead of modifying normal properties like opacity, position, rotation, or scale, they modify a new kind of property: the grid property.</p>
+Comment</p>
 
-<p>A grid property is like a matrix, it is a network of lines that cross each other to form a series of squares or rectangles.</p>
+<h2>Introduction</h2>
 
-<p>These special actions render any CocosNode object (Layer, Scene, Sprite, etc.) into the grid, and you can transform the grid by moving its vertices.</p>
+<div style='display:none;'>
+Effects are a special kind of action. Instead of modifying normal properties like opacity, position, rotation, or scale, they modify a new kind of property: the grid property.
+</div>
 
-<p>There are 2 kind of grids: tiled grids and non-tiled grids. The difference is that the tiled grid is composed of individual tiles while the non-tiled grid is composed of vertices.</p>
 
-<p>The following is an example of Ripple3D action, who uses a Grid3D (non-tiled) grid:</p>
+<p>Effects是特殊类型的action.与修改常规的属性如透明度,位置，旋转或缩放不同,它们修改一个新的属性:grid属性.</p>
 
-<p>and the following is an example of FadeOutTR action, who uses a TiledGrid3D (tiled) grid:</p>
+<div style='display:none;'>
+A grid property is like a matrix, it is a network of lines that cross each other to form a series of squares or rectangles.
+</div>
 
-<p>How do I use them ?
-Like any other action, it is executed by the runAction. eg:</p>
+
+<p>grid属性像是一个矩阵,是一个网络。。。。</p>
+
+<div style='display:none;'>
+These special actions render any CocosNode object (Layer, Scene, Sprite, etc.) into the grid, and you can transform the grid by moving its vertices.
+</div>
+
+
+<p>这些特殊actions可以渲染任意CocosNode对象 (Layer, Scene, Sprite, etc.)到grid中，你可以通过顶点来转换grid.</p>
+
+<div style='display:none;'>
+There are 2 kind of grids: tiled grids and non-tiled grids. The difference is that the tiled grid is composed of individual tiles while the non-tiled grid is composed of vertices.
+</div>
+
+
+<p>一共有2中grid: 布局grid和非布局grid.它们的区别是布局grid是由独立的布局组成，而非布局grid由顶点组成。</p>
+
+<div style='display:none;'>
+The following is an example of Ripple3D action, who uses a Grid3D (non-tiled) grid:
+</div>
+
+
+<p>
+下面是一个Ripple3D action例子，它使用的是 Grid3D (非布局) grid:</p>
+
+<div style='display:none;'>
+and the following is an example of FadeOutTR action, who uses a TiledGrid3D (tiled) grid:
+</div>
+
+
+<p></p>
+
+<p>FadeOutTR action例子，它使用的是 TiledGrid3D (布局) grid:</p>
+
+<h2>如何使用?  How do I use them ?</h2>
+
+<p>Like any other action, it is executed by the runAction. eg:</p>
 
 <p>1// Create an sprite
 2CCSprite* grossini = CCSprite::create(&#8220;grossini.png&#8221;);
@@ -127,14 +161,24 @@ Like any other action, it is executed by the runAction. eg:</p>
 <p>Liquid, like any other grid action, receives the grid parameter. You can adjust the quality of the effect by increasing the size of the grid. But it also implies less FPS.
 The Effects are IntervalAction actions so you can treat them like any other action. eg:</p>
 
-<p>1// create a Lens3D action
-2CCActionInterval<em> lens = CCLens3D::create(ccp(240,160),240,ccg(15,10),8);
-3
-4// create a Waved3D action
-5CCActionInterval</em> waves = CCWaves3D::create(18,80,ccg(15,10),10);
-6
-7// create a sequence an repeat it forever
-8grossini->runAction(CCRepeatForever::create((CCSequence*)CCSequence::create(waves, lens, NULL ) ) );</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="c1">// create a Lens3D action</span>
+</span><span class='line'><span class="n">CCActionInterval</span><span class="o">*</span> <span class="n">lens</span> <span class="o">=</span> <span class="n">CCLens3D</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">240</span><span class="p">,</span><span class="mi">160</span><span class="p">),</span><span class="mi">240</span><span class="p">,</span><span class="n">ccg</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="mi">8</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// create a Waved3D action</span>
+</span><span class='line'><span class="n">CCActionInterval</span><span class="o">*</span> <span class="n">waves</span> <span class="o">=</span> <span class="n">CCWaves3D</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="n">ccg</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="mi">10</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// create a sequence an repeat it forever</span>
+</span><span class='line'><span class="n">grossini</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">CCRepeatForever</span><span class="o">::</span><span class="n">create</span><span class="p">((</span><span class="n">CCSequence</span><span class="o">*</span><span class="p">)</span><span class="n">CCSequence</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">waves</span><span class="p">,</span> <span class="n">lens</span><span class="p">,</span> <span class="nb">NULL</span> <span class="p">)</span> <span class="p">)</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>The following is the list of the available Grid3D (non-tiled) actions in v2.1.0:
 Shaky3D Waves3D FlipX3D FlipY3D</p>
@@ -151,8 +195,9 @@ Shaky3D Waves3D FlipX3D FlipY3D</p>
 
 <p>WavesTiles3D    JumpTiles3D SplitRows   SplitCols</p>
 
-<p>References
-cocos2d-iphone Introduction to cocos2d’s effects</p>
+<h2>References</h2>
+
+<p>cocos2d-iphone Introduction to cocos2d’s effects</p>
 
 <p>Last updated by Ziv Lee at Updated about 1 month ago.</p>
 
@@ -182,6 +227,12 @@ cocos2d-iphone Introduction to cocos2d’s effects</p>
 <time datetime="2013-03-04T16:58:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
       
 
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cocos2d-x-wiki翻译/'>cocos2d-x wiki翻译</a>
+  
+</span>
+
 
     </p>
     
@@ -196,10 +247,10 @@ cocos2d-iphone Introduction to cocos2d’s effects</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/03/04/skeletal-animation/" title="Previous Post: Skeletal animation">&laquo; Skeletal animation</a>
+        <a class="basic-alignment left" href="/blog/2013/03/04/skeletal-animation/" title="Previous Post: [cocos2d-x wiki翻译]Skeletal animation">&laquo; [cocos2d-x wiki翻译]Skeletal animation</a>
       
       
-        <a class="basic-alignment right" href="/blog/2013/03/04/particles/" title="Next Post: Particles">Particles &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2013/03/04/particles/" title="Next Post: [cocos2d-x wiki翻译]Particles">[cocos2d-x wiki翻译]Particles &raquo;</a>
       
     </p>
   </footer>
@@ -220,23 +271,23 @@ cocos2d-iphone Introduction to cocos2d’s effects</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/03/04/transitions/">Transitions</a>
+        <a href="/blog/2013/03/18/about-delegete/">about delegete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/particles/">Particles</a>
+        <a href="/blog/2013/03/04/transitions/">[cocos2d-x wiki翻译]Transitions</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/effects/">Effects</a>
+        <a href="/blog/2013/03/04/particles/">[cocos2d-x wiki翻译]Particles</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/skeletal-animation/">Skeletal animation</a>
+        <a href="/blog/2013/03/04/effects/">[cocos2d-x wiki翻译]Effects</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/scheduler-and-timer-callback/">Scheduler and Timer Callback</a>
+        <a href="/blog/2013/03/04/skeletal-animation/">[cocos2d-x wiki翻译]Skeletal animation</a>
       </li>
     
   </ul>

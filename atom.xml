@@ -4,7 +4,7 @@
   <title><![CDATA[小桑博客]]></title>
   <link href="http://shiren1118.github.com/atom.xml" rel="self"/>
   <link href="http://shiren1118.github.com/"/>
-  <updated>2013-03-17T23:30:23+08:00</updated>
+  <updated>2013-03-19T01:14:00+08:00</updated>
   <id>http://shiren1118.github.com/</id>
   <author>
     <name><![CDATA[alfred sang]]></name>
@@ -14,30 +14,112 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Transitions]]></title>
+    <title type="html"><![CDATA[about delegete]]></title>
+    <link href="http://shiren1118.github.com/blog/2013/03/18/about-delegete/"/>
+    <updated>2013-03-18T00:29:00+08:00</updated>
+    <id>http://shiren1118.github.com/blog/2013/03/18/about-delegete</id>
+    <content type="html"><![CDATA[<p>rootviewcontroller 上增加了一个tableviewcontroller，tablecell里有一个view，view里又有一个button</p>
+
+<p>view大于2层就很难受了，delegate传来传去的。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>view1:
+</span><span class='line'>  button - click
+</span><span class='line'>      -(void)click_event_callback;
+</span><span class='line'>  
+</span><span class='line'>tableviewcontroller
+</span><span class='line'>  view1.delegate = self;
+</span><span class='line'>  
+</span><span class='line'>  -(void)click_event_callback;
+</span><span class='line'>  
+</span><span class='line'>  
+</span><span class='line'>rootviewcontroller
+</span><span class='line'>  tableviewcontroller *tbvc.delegate = self;
+</span><span class='line'>  
+</span><span class='line'>  -(void)click_event_callback;
+</span><span class='line'>  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样做的原因是点击button的时候，需要在rootviewcontroller.navagationcontroller中push一个viewcontroller，而tableviewcontroller是没有navagationcontroller的。</p>
+
+<p>我们通常设置delegate</p>
+
+<pre><code>@property(nonatomic,assign,readwrite) id&lt;*Protocol&gt; _delegate;
+</code></pre>
+
+<p>用assign是防止产生交替dealloc死锁内存问题。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Transitions]]></title>
     <link href="http://shiren1118.github.com/blog/2013/03/04/transitions/"/>
     <updated>2013-03-04T16:58:00+08:00</updated>
     <id>http://shiren1118.github.com/blog/2013/03/04/transitions</id>
-    <content type="html"><![CDATA[<h2>Transitions</h2>
+    <content type="html"><![CDATA[<h2>过渡 (Transitions)</h2>
 
-<h3>Introduction</h3>
+<h3>介绍Introduction</h3>
 
-<p>One of the cool features that Cocos2d-x has to offer is the power of transitions within two different scene. Transitions are effects such as: wipe, fade, zoom, and split. You can use transitions to switch between Cocos2d-x Scene objects. Sceneclass is derived from CocosNode and it is similar to Layer. You can add other CocosNode, such as Layer(s) and Sprite(s) into a Scene.</p>
+<div style='display:none;'>
+One of the cool features that Cocos2d-x has to offer is the power of transitions within two different scene. Transitions are effects such as: wipe, fade, zoom, and split. You can use transitions to switch between Cocos2d-x Scene objects. Sceneclass is derived from CocosNode and it is similar to Layer. You can add other CocosNode, such as Layer(s) and Sprite(s) into a Scene.
+</div>
 
-<p>Technically, a transition scene is an scene that performs a transition effect before setting control to the new scene.</p>
 
-<h3>Create transition</h3>
+<p>Cocos2d-x最爽的一个特性是已经提供了在2个不同场景直接过度能力.过度是效果，如wipe, fade, zoom, 和 split. 你可以使用过度在Cocos2d-x场景对象中切换.Sceneclass继承自CocosNode,它和Layer非常相似.你可以增加其他CocosNode,
+如 Layer(s) 和 Sprite(s) 放到场景中.</p>
 
-<p>Time is the number of seconds for the transition. To apply transition to scenes, the syntax is as follows:</p>
+<div style='display:none;'>
+Technically, a transition scene is an scene that performs a transition effect before setting control to the new scene.
+</div>
+
+
+<p>技巧上说,过度场景是可以进行过渡效果，在设置控制到新的场景.</p>
+
+<h3>创建Create transition</h3>
+
+<div style='display:none;'>
+Time is the number of seconds for the transition. To apply transition to scenes, the syntax is as follows:
+</div>
+
+
+<p>Time 是过渡的秒数.为了把过渡应用到场景中，语法如下:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCDirector</span><span class="o">::</span><span class="n">sharedDirector</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">replaceScene</span><span class="p">(</span><span class="n">CCTransitionFade</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">newScene</span><span class="p">));</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Some transitions has custom parameter(s); for example, FadeTransition has the fade color as extra parameter.
-static CCTransitionFade<em> create(float duration,CCScene</em> scene, const ccColor3B&amp; color);
-To enable a transition, it is not much more difficult. Here we have an small example:</p>
+
+
+<div style='display:none;'>
+Some transitions has custom parameter(s); for example, FadeTransition has the fade color as extra parameter.
+static CCTransitionFade* create(float duration,CCScene* scene, const ccColor3B& color);
+To enable a transition, it is not much more difficult. Here we have an small example:
+</div>
+
+
+<p>过滤参数可以有自定义参数;例如,FadeTransition有fade color作为额外参数.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">static</span> <span class="n">CCTransitionFade</span><span class="o">*</span> <span class="n">create</span><span class="p">(</span><span class="kt">float</span> <span class="n">duration</span><span class="p">,</span><span class="n">CCScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">,</span> <span class="k">const</span> <span class="n">ccColor3B</span><span class="o">&amp;</span> <span class="n">color</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>为了确保过渡效果,其实一点不难，这儿有一个小例子:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -52,13 +134,25 @@ To enable a transition, it is not much more difficult. Here we have an small exa
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>If you run this you will have a “page turn” effect. This is, like turning the page on a paper made book.</p>
+
+
+<div style='display:none;'>
+If you run this you will have a “page turn” effect. This is, like turning the page on a paper made book.
+</div>
+
+
+<p>如果运行这段代码，你会看到翻页效果.也就是看起来像一页一页翻书。</p>
 
 <p><img src="http://www.cocos2d-x.org/attachments/download/1623" alt="" /></p>
 
-<h3>More transitions</h3>
+<h3>更多More transitions</h3>
 
-<p>There are many more transition types, you can see the full list in the class reference, in the official Cocos2D-X documentation.</p>
+<div style='display:none;'>
+There are many more transition types, you can see the full list in the class reference, in the official Cocos2D-X documentation.
+</div>
+
+
+<p>还有很多过渡类型，你可以参见官方Cocos2D-X文档的类引用的完整列表</p>
 
 <p>Last updated by Zhe Wang at Updated about 1 month ago.</p>
 
@@ -67,12 +161,13 @@ To enable a transition, it is not much more difficult. Here we have an small exa
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Particles]]></title>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Particles]]></title>
     <link href="http://shiren1118.github.com/blog/2013/03/04/particles/"/>
     <updated>2013-03-04T16:58:00+08:00</updated>
     <id>http://shiren1118.github.com/blog/2013/03/04/particles</id>
-    <content type="html"><![CDATA[<p>Particles
-Particles
+    <content type="html"><![CDATA[<h1>粒子(Particles)</h1>
+
+<p>Particles
 Introduction
 Point vs Quad
 CCParticleBatchNode
@@ -87,9 +182,11 @@ Common properties of the particles:
 Common properties of the system:
 Examples
 References
-Comment
-Introduction
-The term particle system refers to a computer graphics technique that uses a large number of very small sprites or other graphic objects to simulate certain kinds of &#8220;fuzzy&#8221; phenomena, which are otherwise very hard to reproduce with conventional rendering techniques - usually highly chaotic systems, natural phenomena, and/or processes caused by chemical reactions.</p>
+Comment</p>
+
+<h2>Introduction</h2>
+
+<p>The term particle system refers to a computer graphics technique that uses a large number of very small sprites or other graphic objects to simulate certain kinds of &#8220;fuzzy&#8221; phenomena, which are otherwise very hard to reproduce with conventional rendering techniques - usually highly chaotic systems, natural phenomena, and/or processes caused by chemical reactions.</p>
 
 <p>Point vs Quad
 In early versions of Cocos2d-x, there were two types of particle system in cocos2d-x: Quad and Point particle system:</p>
@@ -108,9 +205,11 @@ A CCParticleBatchNode can reference one and only one texture (one image file, on
 
 <p>Creating a Quad Particle System
 1CCParticleSystemQuad* m_emitter = newCCParticleSystemQuad();
-2m_emitter = CCParticleFire::create();
-Gravity vs Radius mode
-Gravity Mode
+2m_emitter = CCParticleFire::create();</p>
+
+<h2>Gravity vs Radius mode</h2>
+
+<p>Gravity Mode
 Gravity Mode lets particles fly toward or away from a center point. Its strength is that it allows very dynamic, organic effects. You can set gravity mode with this line:</p>
 
 <p>1// Gravity Mode
@@ -144,9 +243,11 @@ endRadius (a float). The ending radius of the particles.
 endRadiusVar (a float). The ending radius variance
 rotatePerSecond (a float). Number of degress to rotate a particle around the source pos per second.
 rotatePerSecondVar (a float). Number of degrees variance.
-Properties common to all modes
-Common properties of the particles:
-startSize: Start size of the particles in pixels
+Properties common to all modes</p>
+
+<h2>Common properties of the particles:</h2>
+
+<p>startSize: Start size of the particles in pixels
 startSizeVar
 endSize: Use kCCParticleStartSizeEqualToEndSize if you want that the start size == end size.
 endSizeVar
@@ -170,9 +271,11 @@ emissionRate (a float). How many particle are emitted per second
 duration (a float). How many seconds does the particle system (different than the life property) lives. Use kCCParticleDurationInfinity for infity.
 blendFunc (a ccBlendFunc). The OpenGL blending function used for the system
 positionType (a tCCPositionType). Use kCCPositionTypeFree (default one) for moving particles freely. Or use kCCPositionTypeGrouped to move them in a group.
-texture (a CCTexture2D). The texture used for the particles
-Examples
-cocos2d-x comes with some predefined particles that can be customized in runtime. List of predefined particles:</p>
+texture (a CCTexture2D). The texture used for the particles</p>
+
+<h2>Examples</h2>
+
+<p>cocos2d-x comes with some predefined particles that can be customized in runtime. List of predefined particles:</p>
 
 <p>CCParticleFire: Point particle system. Uses Gravity mode.
 CCParticleFireworks: Point particle system. Uses Gravity mode.
@@ -194,31 +297,68 @@ Particle System in cocos2d</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Effects]]></title>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Effects]]></title>
     <link href="http://shiren1118.github.com/blog/2013/03/04/effects/"/>
     <updated>2013-03-04T16:58:00+08:00</updated>
     <id>http://shiren1118.github.com/blog/2013/03/04/effects</id>
-    <content type="html"><![CDATA[<p>Effects
-Effects
+    <content type="html"><![CDATA[<h1>Effects</h1>
+
+<p>Effects
 Introduction
 How do I use them ?
 References
-Comment
-Introduction
-Effects are a special kind of action. Instead of modifying normal properties like opacity, position, rotation, or scale, they modify a new kind of property: the grid property.</p>
+Comment</p>
 
-<p>A grid property is like a matrix, it is a network of lines that cross each other to form a series of squares or rectangles.</p>
+<h2>Introduction</h2>
 
-<p>These special actions render any CocosNode object (Layer, Scene, Sprite, etc.) into the grid, and you can transform the grid by moving its vertices.</p>
+<div style='display:none;'>
+Effects are a special kind of action. Instead of modifying normal properties like opacity, position, rotation, or scale, they modify a new kind of property: the grid property.
+</div>
 
-<p>There are 2 kind of grids: tiled grids and non-tiled grids. The difference is that the tiled grid is composed of individual tiles while the non-tiled grid is composed of vertices.</p>
 
-<p>The following is an example of Ripple3D action, who uses a Grid3D (non-tiled) grid:</p>
+<p>Effects是特殊类型的action.与修改常规的属性如透明度,位置，旋转或缩放不同,它们修改一个新的属性:grid属性.</p>
 
-<p>and the following is an example of FadeOutTR action, who uses a TiledGrid3D (tiled) grid:</p>
+<div style='display:none;'>
+A grid property is like a matrix, it is a network of lines that cross each other to form a series of squares or rectangles.
+</div>
 
-<p>How do I use them ?
-Like any other action, it is executed by the runAction. eg:</p>
+
+<p>grid属性像是一个矩阵,是一个网络。。。。</p>
+
+<div style='display:none;'>
+These special actions render any CocosNode object (Layer, Scene, Sprite, etc.) into the grid, and you can transform the grid by moving its vertices.
+</div>
+
+
+<p>这些特殊actions可以渲染任意CocosNode对象 (Layer, Scene, Sprite, etc.)到grid中，你可以通过顶点来转换grid.</p>
+
+<div style='display:none;'>
+There are 2 kind of grids: tiled grids and non-tiled grids. The difference is that the tiled grid is composed of individual tiles while the non-tiled grid is composed of vertices.
+</div>
+
+
+<p>一共有2中grid: 布局grid和非布局grid.它们的区别是布局grid是由独立的布局组成，而非布局grid由顶点组成。</p>
+
+<div style='display:none;'>
+The following is an example of Ripple3D action, who uses a Grid3D (non-tiled) grid:
+</div>
+
+
+<p>
+下面是一个Ripple3D action例子，它使用的是 Grid3D (非布局) grid:</p>
+
+<div style='display:none;'>
+and the following is an example of FadeOutTR action, who uses a TiledGrid3D (tiled) grid:
+</div>
+
+
+<p></p>
+
+<p>FadeOutTR action例子，它使用的是 TiledGrid3D (布局) grid:</p>
+
+<h2>如何使用?  How do I use them ?</h2>
+
+<p>Like any other action, it is executed by the runAction. eg:</p>
 
 <p>1// Create an sprite
 2CCSprite* grossini = CCSprite::create(&#8220;grossini.png&#8221;);
@@ -227,14 +367,24 @@ Like any other action, it is executed by the runAction. eg:</p>
 <p>Liquid, like any other grid action, receives the grid parameter. You can adjust the quality of the effect by increasing the size of the grid. But it also implies less FPS.
 The Effects are IntervalAction actions so you can treat them like any other action. eg:</p>
 
-<p>1// create a Lens3D action
-2CCActionInterval<em> lens = CCLens3D::create(ccp(240,160),240,ccg(15,10),8);
-3
-4// create a Waved3D action
-5CCActionInterval</em> waves = CCWaves3D::create(18,80,ccg(15,10),10);
-6
-7// create a sequence an repeat it forever
-8grossini->runAction(CCRepeatForever::create((CCSequence*)CCSequence::create(waves, lens, NULL ) ) );</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="c1">// create a Lens3D action</span>
+</span><span class='line'><span class="n">CCActionInterval</span><span class="o">*</span> <span class="n">lens</span> <span class="o">=</span> <span class="n">CCLens3D</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">240</span><span class="p">,</span><span class="mi">160</span><span class="p">),</span><span class="mi">240</span><span class="p">,</span><span class="n">ccg</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="mi">8</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// create a Waved3D action</span>
+</span><span class='line'><span class="n">CCActionInterval</span><span class="o">*</span> <span class="n">waves</span> <span class="o">=</span> <span class="n">CCWaves3D</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="n">ccg</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="mi">10</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// create a sequence an repeat it forever</span>
+</span><span class='line'><span class="n">grossini</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">CCRepeatForever</span><span class="o">::</span><span class="n">create</span><span class="p">((</span><span class="n">CCSequence</span><span class="o">*</span><span class="p">)</span><span class="n">CCSequence</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">waves</span><span class="p">,</span> <span class="n">lens</span><span class="p">,</span> <span class="nb">NULL</span> <span class="p">)</span> <span class="p">)</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>The following is the list of the available Grid3D (non-tiled) actions in v2.1.0:
 Shaky3D Waves3D FlipX3D FlipY3D</p>
@@ -251,8 +401,9 @@ Shaky3D Waves3D FlipX3D FlipY3D</p>
 
 <p>WavesTiles3D    JumpTiles3D SplitRows   SplitCols</p>
 
-<p>References
-cocos2d-iphone Introduction to cocos2d’s effects</p>
+<h2>References</h2>
+
+<p>cocos2d-iphone Introduction to cocos2d’s effects</p>
 
 <p>Last updated by Ziv Lee at Updated about 1 month ago.</p>
 
@@ -261,7 +412,7 @@ cocos2d-iphone Introduction to cocos2d’s effects</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Skeletal animation]]></title>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Skeletal animation]]></title>
     <link href="http://shiren1118.github.com/blog/2013/03/04/skeletal-animation/"/>
     <updated>2013-03-04T16:57:00+08:00</updated>
     <id>http://shiren1118.github.com/blog/2013/03/04/skeletal-animation</id>
@@ -411,26 +562,51 @@ A tutorial for cocos2d-iphone can be found at the <a href="http://code.zynga.com
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Scheduler and Timer Callback]]></title>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Scheduler and Timer Callback]]></title>
     <link href="http://shiren1118.github.com/blog/2013/03/04/scheduler-and-timer-callback/"/>
     <updated>2013-03-04T16:57:00+08:00</updated>
     <id>http://shiren1118.github.com/blog/2013/03/04/scheduler-and-timer-callback</id>
     <content type="html"><![CDATA[<h2>Scheduler and Timer Callback</h2>
 
-<p>Scheduler is responsible for triggering the scheduled callbacks.</p>
+<div style='display:none;'>
+Scheduler is responsible for triggering the scheduled callbacks.
+</div>
+
+
+<p>调度器负责触发调度回调.</p>
 
 <h3>Two different types of callbacks (selectors):</h3>
 
-<p>update selector: the &#8216;update&#8217; selector will be called every frame. You can customize the priority.
+<div style='display:none;'>
+update selector: the &#8216;update&#8217; selector will be called every frame. You can customize the priority.
 custom selector: A custom selector will be called every frame, or with a custom interval of time.
-The &#8216;custom selectors&#8217; should be avoided when possible. It is faster, and consumes less memory to use the &#8216;update selector&#8217;.</p>
+The &#8216;custom selectors&#8217; should be avoided when possible. It is faster, and consumes less memory to use the &#8216;update selector&#8217;.
+</div>
+
+
+<p>更新selector:  &#8216;update&#8217; selector可以在每个frame调用.你可以自定义优先级.
+自定义selector: 自定义selector可以在每个frame调用, 或自定义的时间段内调用.
+&#8216;custom selectors&#8217;尽可能避免使用. 相对于使用&#8217;update selector&#8217;来说，它比较快，且内存消耗较小.</p>
 
 <h3>CCScheduler vs. NSTimer</h3>
 
-<p>The Cocos2D Scheduler provides your game with timed events and calls. You should not use NSTimer. Instead use CCScheduler class.
-The reasons as follow:</p>
+<div style='display:none;'>
+The Cocos2D Scheduler provides your game with timed events and calls. You should not use NSTimer. Instead use CCScheduler class.
 
-<p>CCNode objects know how to schedule and unschedule events,and using the Cocos2D Scheduler has several distinct advantages over just using NSTimer.</p>
+The reasons as follow:
+</div>
+
+
+<p>Cocos2D Scheduler 为你的游戏提供了时间时间和调用.你不要使用NSTimer.而不是用CCScheduler类.</p>
+
+<p>原因如下:</p>
+
+<div style='display:none;'>
+CCNode objects know how to schedule and unschedule events,and using the Cocos2D Scheduler has several distinct advantages over just using NSTimer.
+</div>
+
+
+<p>CCNode对象知道如何去调度和解除调度事件，和仅使用NSTimer相比，使用Cocos2D Scheduler有很多不一样的优点.</p>
 
 <ul>
 <li>The scheduler calls get deactivated whenever the CCNode is no longer visible or is removed from the scene.</li>
@@ -440,7 +616,12 @@ The reasons as follow:</p>
 </ul>
 
 
-<p>Accordingly,CCScheduler can save you a lot of time over NSTimer and let you focus on the mechanics of your game.</p>
+<div style='display:none;'>
+Accordingly,CCScheduler can save you a lot of time over NSTimer and let you focus on the mechanics of your game.
+</div>
+
+
+<p>因此，CCScheduler会比NSTimer节省很多时间，让你更加关注于你的游戏构成.</p>
 
 <p>Last updated by Iven Yang at Updated about 1 month ago.</p>
 
@@ -449,11 +630,11 @@ The reasons as follow:</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Animations]]></title>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Animations]]></title>
     <link href="http://shiren1118.github.com/blog/2013/03/04/animations/"/>
     <updated>2013-03-04T16:57:00+08:00</updated>
     <id>http://shiren1118.github.com/blog/2013/03/04/animations</id>
-    <content type="html"><![CDATA[<h2>Animations</h2>
+    <content type="html"><![CDATA[<h2>动画(Animations)</h2>
 
 <p>Animations
 Manual Animation
@@ -465,7 +646,12 @@ Comment</p>
 
 <h3>Manual Animation</h3>
 
-<p>You can create an animation from a series of image file, like this:</p>
+<div style='display:none;'>
+You can create an animation from a series of image file, like this:
+</div>
+
+
+<p>你可以通过多个图片文件来创建一个动画，比如:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -482,71 +668,153 @@ Comment</p>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'> <span class="mi">1</span><span class="n">CCAnimation</span> <span class="o">*</span><span class="n">animation</span> <span class="o">=</span> <span class="n">CCAnimation</span><span class="o">::</span><span class="n">create</span><span class="p">();</span>
-</span><span class='line'> <span class="mi">2</span>
-</span><span class='line'> <span class="mi">3</span><span class="c1">// load image file from local file system to CCSpriteFrame, then add into CCAnimation</span>
-</span><span class='line'> <span class="mf">4f</span><span class="n">or</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'> <span class="mi">5</span><span class="p">{</span>
-</span><span class='line'> <span class="mi">6</span>    <span class="kt">char</span> <span class="n">szImageFileName</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-</span><span class='line'> <span class="mi">7</span>    <span class="n">sprintf</span><span class="p">(</span><span class="n">szImageFileName</span><span class="p">,</span> <span class="s">&quot;Images/grossini_dance_%02d.png&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-</span><span class='line'> <span class="mi">8</span>    <span class="n">animation</span><span class="o">-&gt;</span><span class="n">addSpriteFrameWithFileName</span><span class="p">(</span><span class="n">szImageFileName</span><span class="p">);</span>
-</span><span class='line'> <span class="mi">9</span><span class="p">}</span>
-</span><span class='line'><span class="mi">10</span>
-</span><span class='line'><span class="mi">11</span><span class="n">animation</span><span class="o">-&gt;</span><span class="n">setDelayPerUnit</span><span class="p">(</span><span class="mf">2.8f</span> <span class="o">/</span> <span class="mf">14.0f</span><span class="p">);</span> <span class="c1">// This animation contains 14 frames, will continuous 2.8 seconds.</span>
-</span><span class='line'><span class="mi">12</span><span class="n">animation</span><span class="o">-&gt;</span><span class="n">setRestoreOriginalFrame</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="c1">// Return to the 1st frame after the 14th frame is played. </span>
-</span><span class='line'><span class="mi">13</span>
-</span><span class='line'><span class="mi">14</span><span class="n">CCAnimate</span> <span class="o">*</span><span class="n">action</span> <span class="o">=</span> <span class="n">CCAnimate</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>
-</span><span class='line'><span class="mi">15</span><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">action</span><span class="p">);</span>  <span class="c1">// run action on sprite object</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'> <span class="n">CCAnimation</span> <span class="o">*</span><span class="n">animation</span> <span class="o">=</span> <span class="n">CCAnimation</span><span class="o">::</span><span class="n">create</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'> <span class="c1">// load image file from local file system to CCSpriteFrame, then add into CCAnimation</span>
+</span><span class='line'> <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'> <span class="p">{</span>
+</span><span class='line'>     <span class="kt">char</span> <span class="n">szImageFileName</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+</span><span class='line'>     <span class="n">sprintf</span><span class="p">(</span><span class="n">szImageFileName</span><span class="p">,</span> <span class="s">&quot;Images/grossini_dance_%02d.png&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span><span class='line'>     <span class="n">animation</span><span class="o">-&gt;</span><span class="n">addSpriteFrameWithFileName</span><span class="p">(</span><span class="n">szImageFileName</span><span class="p">);</span>
+</span><span class='line'> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">animation</span><span class="o">-&gt;</span><span class="n">setDelayPerUnit</span><span class="p">(</span><span class="mf">2.8f</span> <span class="o">/</span> <span class="mf">14.0f</span><span class="p">);</span> <span class="c1">// This animation contains 14 frames, will continuous 2.8 seconds.</span>
+</span><span class='line'><span class="n">animation</span><span class="o">-&gt;</span><span class="n">setRestoreOriginalFrame</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="c1">// Return to the 1st frame after the 14th frame is played. </span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCAnimate</span> <span class="o">*</span><span class="n">action</span> <span class="o">=</span> <span class="n">CCAnimate</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>
+</span><span class='line'><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">action</span><span class="p">);</span>  <span class="c1">// run action on sprite object</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Note that CCAnimation is composed by sprite frames, delay time per frame, durations etc, it&#8217;s a pack of &#8220;data&#8221;. While CCAnimate is an action, which is created base on CCAnimation object.</p>
+<div style='display:none;'>
+Note that CCAnimation is composed by sprite frames, delay time per frame, durations etc, it&#8217;s a pack of &#8220;data&#8221;. While CCAnimate is an action, which is created base on CCAnimation object.
+</div>
+
+
+<p>注意CCAnimation是通过sprite frames组成的，每个frame延时，持续等，它是一组&#8221;数据&#8221;.
+而CCAnimate是一个action，它是基于CCAnimation对象创建的。</p>
 
 <h3>Sprite Sheet Animation</h3>
 
-<p>Although manual animation is very easy to understand, it&#8217;s rarely used in real game projects. Instead, sprite sheet animation is the common solution of 2D animations.</p>
+<div style='display:none;'>
+Although manual animation is very easy to understand, it&#8217;s rarely used in real game projects. Instead, sprite sheet animation is the common solution of 2D animations.
+</div>
 
-<p>This is a typical sprite sheet. It can be a sequence of sprite frames for an animation, or can be images pack that will be used in a same scene.</p>
+
+<p>尽管manual animation是非常易于理解的,但事实上，它在真实游戏项目中是非常少用到的.相反，sprite sheet animation是2D动画中最常见的解决方案.</p>
+
+<div style='display:none;'>
+This is a typical sprite sheet. It can be a sequence of sprite frames for an animation, or can be images pack that will be used in a same scene.
+</div>
+
+
+<p>下面是一个典型的sprite sheet.它是动画中的一连串sprite frames，或者是可以在一个场景中用到的一组图片.</p>
 
 <p><img src="http://www.cocos2d-x.org/attachments/download/1570" alt="" /></p>
 
-<p>In OpenGL ES 1.1 period, sprite sheets was widely used for these benefits:
+<div style='display:none;'>
+In OpenGL ES 1.1 period, sprite sheets was widely used for these benefits:
 Reduce times of file I/O. Loading a big sprite sheet file is faster than loading lots of small files.
 Reduce the memory consumption. OpenGL ES 1.1 can only use power-of-two sized textures (that is a width or height of 2,4,864,128,256,512,1024,&#8230;). In other words, OpenGL ES 1.1 allocates power-of-two sized memory for each texture even if this texture has smaller width and height. So using packed sprite sheet image will reduce the fragments of memory.
-Reduce the draw calls to OpenGL ES draw method and speed up rendering.
-Cocos2d-x v2.0 upgraded to OpenGL ES 2.0 based. OpenGL ES 2.0 doesn&#8217;t allocate power-of-two memory block for textures anymore, but the benefit of reducing file I/O times and draw calls are still working.</p>
+</div>
 
-<p>Then how about the animation? As we can see, sprite sheet has no MUST-BE relationship with animations. But considering to these benefits above, sprite sheet animations are efficient. There&#8217;re different ways to create sprite sheet animations in cocos2d.</p>
+
+<p>在OpenGL ES 1.1时代，sprite sheets被广泛使用是得益于:</p>
+
+<ul>
+<li>减少文件I/O时间.加载一个大的sprite sheet文件比加载多个小文件要快得多.</li>
+<li>减少内存消耗.OpenGL ES 1.1仅可用 power-of-two sized textures（这事一个 2,4,864,128,256,512,1024,&#8230;的宽高）.换言之，如果宽高比较小的话，OpenGL ES 1.1甚至为每个texture分配power-of-two sized内存.所以使用成组的 sprite sheet图片会减少内存碎片</li>
+</ul>
+
+
+<div style='display:none;'>
+Reduce the draw calls to OpenGL ES draw method and speed up rendering.
+Cocos2d-x v2.0 upgraded to OpenGL ES 2.0 based. OpenGL ES 2.0 doesn&#8217;t allocate power-of-two memory block for textures anymore, but the benefit of reducing file I/O times and draw calls are still working.
+</div>
+
+
+<p>减少 OpenGL ES 调用方法绘制，加速渲染.
+Cocos2d-x v2.0已更新，是基于OpenGL ES 2.0的.OpenGL ES 2.0不会为textures分配power-of-two内存块，但减少文件系统I/O时间和调用的好处仍然是有效的.</p>
+
+<div style='display:none;'>
+Then how about the animation? As we can see, sprite sheet has no MUST-BE relationship with animations. But considering to these benefits above, sprite sheet animations are efficient. There&#8217;re different ways to create sprite sheet animations in cocos2d.
+</div>
+
+
+<p>那该如何动画呢？正如我们看到的，sprite sheet没有使用动画的必然关系.但考虑到上面这些益处，sprite sheet是有效的.在cocos2d中有很多种不同的方法来创建sprite sheet.</p>
 
 <h4>Creating from .png and .plist file</h4>
 
-<p>In cocos2d-x 0.x and 1.x versions, CCSpriteSheet works for this purpose. While CCSpriteBatchNode is a replacement of CCSpriteSheet since v2.0</p>
+<div style='display:none;'>
+In cocos2d-x 0.x and 1.x versions, CCSpriteSheet works for this purpose. While CCSpriteBatchNode is a replacement of CCSpriteSheet since v2.0
+</div>
 
-<p>A CCSpriteBatchNode object contains the actual image texture of all the sprite frames. You must add it to a scene, even though it won&#8217;t draw anything itself; it just needs to be there so that it is part of the rendering pipeline. For example:</p>
 
-<p>1CCSpriteBatchNode* spritebatch = CCSpriteBatchNode::create(&#8220;animations/grossini.png&#8221;);
-Next, you need to use the CCSpriteFrameCache singleton to keep track how frame names correspond to frame bounds – that is, what rectangular area of the sprite sheet. Example:</p>
+<p>在cocos2d-x 0.x和1.x版本中，CCSpriteSheet便是为此目的而生的.而CCSpriteBatchNode在v2.0版本之后替换了CCSpriteSheet</p>
+
+<div style='display:none;'>
+A CCSpriteBatchNode object contains the actual image texture of all the sprite frames. You must add it to a scene, even though it won&#8217;t draw anything itself; it just needs to be there so that it is part of the rendering pipeline. For example:
+</div>
+
+
+<p>CCSpriteBatchNode对象包含了所有sprite frames中的用到的真实图片texture.你必须把它放到场景中，甚至它自身什么都不用画;它只需要放到那里，这样它就成了rendering pipeline的组成部分.比如:</p>
+
+<div style='display:none;'>
+1CCSpriteBatchNode* spritebatch = CCSpriteBatchNode::create(&#8220;animations/grossini.png&#8221;);
+Next, you need to use the CCSpriteFrameCache singleton to keep track how frame names correspond to frame bounds – that is, what rectangular area of the sprite sheet. Example:
+</div>
+
+
+
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="mi">1</span><span class="n">CCSpriteFrameCache</span><span class="o">*</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">CCSpriteFrameCache</span><span class="o">::</span><span class="n">sharedSpriteFrameCache</span><span class="p">();</span>
-</span><span class='line'><span class="mi">2</span><span class="n">cache</span><span class="o">-&gt;</span><span class="n">addSpriteFramesWithFile</span><span class="p">(</span><span class="s">&quot;animations/grossini.plist&quot;</span><span class="p">);</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCSpriteBatchNode</span><span class="o">*</span> <span class="n">spritebatch</span> <span class="o">=</span> <span class="n">CCSpriteBatchNode</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;animations/grossini.png&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Once your sprite sheet and frames are loaded, and the sprite sheet has been added to the scene, you can create sprites that use these frames by using the “createWithSpriteFrameName” method, and adding it as a child of the sprite sheet:</p>
+<p>接下来，你需要使用CCSpriteFrameCache单例对象来保存frame名字如何响应到frame bounds=
+也就是，sprite sheet中的矩形区域.例如:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCSpriteFrameCache</span><span class="o">*</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">CCSpriteFrameCache</span><span class="o">::</span><span class="n">sharedSpriteFrameCache</span><span class="p">();</span>
+</span><span class='line'><span class="n">cache</span><span class="o">-&gt;</span><span class="n">addSpriteFramesWithFile</span><span class="p">(</span><span class="s">&quot;animations/grossini.plist&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<div style='display:none;'>
+Once your sprite sheet and frames are loaded, and the sprite sheet has been added to the scene, you can create sprites that use these frames by using the “createWithSpriteFrameName” method, and adding it as a child of the sprite sheet:
+</div>
+
+
+<p>一旦你的sprite sheet和frames已经加载完毕，并且sprite sheet已经增加到场景中了，你可以通过这些frames创建sprites，使用 “createWithSpriteFrameName” 方法，把它放入作为sprite sheet的子对象:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="mi">1</span><span class="n">m_pSprite1</span> <span class="o">=</span> <span class="n">CCSprite</span><span class="o">::</span><span class="n">createWithSpriteFrameName</span><span class="p">(</span><span class="s">&quot;grossini_dance_01.png&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="mi">2</span><span class="n">spritebatch</span><span class="o">-&gt;</span><span class="n">addChild</span><span class="p">(</span><span class="n">m_pSprite1</span><span class="p">);</span>
-</span><span class='line'><span class="mi">3</span><span class="n">addChild</span><span class="p">(</span><span class="n">spritebatch</span><span class="p">);</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">m_pSprite1</span> <span class="o">=</span> <span class="n">CCSprite</span><span class="o">::</span><span class="n">createWithSpriteFrameName</span><span class="p">(</span><span class="s">&quot;grossini_dance_01.png&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">spritebatch</span><span class="o">-&gt;</span><span class="n">addChild</span><span class="p">(</span><span class="n">m_pSprite1</span><span class="p">);</span>
+</span><span class='line'><span class="n">addChild</span><span class="p">(</span><span class="n">spritebatch</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>createWithSpriteFrameName method will find the corresponding coordinates and rectangle from grossini.plist, then &#8220;clip&#8221; the texture grossini.png to a sprite frame.
-Now we need to create a CCArray object and add all frames of the animation to it. In the case of this animation, we know all 14 frames have the same size, so we can use a nested loop to iterate through them all, and break the loop when we finish adding the 14th frame.</p>
+
+
+<div style='display:none;'>
+createWithSpriteFrameName method will find the corresponding coordinates and rectangle from grossini.plist, then &#8220;clip&#8221; the texture grossini.png to a sprite frame.
+</div>
+
+
+<p>createWithSpriteFrameName方法会查找响应坐标和grossini.plist中定义的矩形，因此&#8221;clip&#8221;texture grossini.png是sprite frame.</p>
+
+<div style='display:none;'>
+Now we need to create a CCArray object and add all frames of the animation to it. In the case of this animation, we know all 14 frames have the same size, so we can use a nested loop to iterate through them all, and break the loop when we finish adding the 14th frame.
+</div>
+
+
+<p>现在，我们需要创建CCArray对象，增加所有动画的frames到此对象中。在这个动画例子中，我们知道这14个frame都有一模一样的尺寸,所以我们使用了嵌套循环来迭代，当我们完成增加第14个frame的时候中断循环.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -558,68 +826,104 @@ Now we need to create a CCArray object and add all frames of the animation to it
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'> <span class="mi">1</span><span class="n">CCArray</span><span class="o">*</span> <span class="n">animFrames</span> <span class="o">=</span> <span class="n">CCArray</span><span class="o">::</span><span class="n">createWithCapacity</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
-</span><span class='line'> <span class="mi">2</span>
-</span><span class='line'> <span class="mi">3</span><span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-</span><span class='line'> <span class="mi">4</span>
-</span><span class='line'> <span class="mf">5f</span><span class="n">or</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'> <span class="mi">6</span><span class="p">{</span>
-</span><span class='line'> <span class="mi">7</span>    <span class="n">sprintf</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="s">&quot;grossini_dance_%02d.png&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-</span><span class='line'> <span class="mi">8</span>    <span class="n">CCSpriteFrame</span><span class="o">*</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cache</span><span class="o">-&gt;</span><span class="n">spriteFrameByName</span><span class="p">(</span> <span class="n">str</span> <span class="p">);</span>
-</span><span class='line'> <span class="mi">9</span>    <span class="n">animFrames</span><span class="o">-&gt;</span><span class="n">addObject</span><span class="p">(</span><span class="n">frame</span><span class="p">);</span>
-</span><span class='line'><span class="mi">10</span><span class="p">}</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCArray</span><span class="o">*</span> <span class="n">animFrames</span> <span class="o">=</span> <span class="n">CCArray</span><span class="o">::</span><span class="n">createWithCapacity</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">sprintf</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="s">&quot;grossini_dance_%02d.png&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">CCSpriteFrame</span><span class="o">*</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cache</span><span class="o">-&gt;</span><span class="n">spriteFrameByName</span><span class="p">(</span> <span class="n">str</span> <span class="p">);</span>
+</span><span class='line'>    <span class="n">animFrames</span><span class="o">-&gt;</span><span class="n">addObject</span><span class="p">(</span><span class="n">frame</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Finally, we need to create a CCAnimate action instance which we can run on the CCSprite. Below, we also wrap the CCAnimate action in a CCRepeatForever action that does what you would expect: repeats the animation forever,like so:</p>
+
+
+<div style='display:none;'>
+Finally, we need to create a CCAnimate action instance which we can run on the CCSprite. Below, we also wrap the CCAnimate action in a CCRepeatForever action that does what you would expect: repeats the animation forever,like so:
+</div>
+
+
+<p>最后，我们需要创建CCAnimate action实例，我们要运行在CCSprite的对像.
+下面，我们也封装CCAnimate action到CCRepeatForever action中，此actions是你所需要的:重复动画,像这样:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="mi">1</span><span class="n">CCAnimation</span><span class="o">*</span> <span class="n">animation</span> <span class="o">=</span> <span class="n">CCAnimation</span><span class="o">::</span><span class="n">createWithSpriteFrames</span><span class="p">(</span><span class="n">animFrames</span><span class="p">,</span> <span class="mf">0.3f</span><span class="p">);</span>
-</span><span class='line'><span class="mi">2</span><span class="n">m_pSprite1</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span> <span class="n">CCRepeatForever</span><span class="o">::</span><span class="n">create</span><span class="p">(</span> <span class="n">CCAnimate</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">animation</span><span class="p">)</span> <span class="p">)</span> <span class="p">);</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCAnimation</span><span class="o">*</span> <span class="n">animation</span> <span class="o">=</span> <span class="n">CCAnimation</span><span class="o">::</span><span class="n">createWithSpriteFrames</span><span class="p">(</span><span class="n">animFrames</span><span class="p">,</span> <span class="mf">0.3f</span><span class="p">);</span>
+</span><span class='line'><span class="n">m_pSprite1</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span> <span class="n">CCRepeatForever</span><span class="o">::</span><span class="n">create</span><span class="p">(</span> <span class="n">CCAnimate</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">animation</span><span class="p">)</span> <span class="p">)</span> <span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <h4>File animation</h4>
 
-<p>CCAnimationCache can load a xml/plist file which well describes the batch node, sprite frame names and their rectangles. The interfaces are much easier to use.</p>
+<div style='display:none;'>
+CCAnimationCache can load a xml/plist file which well describes the batch node, sprite frame names and their rectangles. The interfaces are much easier to use.
+</div>
+
+
+<p>CCAnimationCache 可以加载xml/plist文件，此文件可以非常好的描述批量node,sprite frame names和它们的矩形.
+这个接口更简单易用.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="mi">1</span><span class="n">CCAnimationCache</span> <span class="o">*</span><span class="n">cache</span> <span class="o">=</span> <span class="n">CCAnimationCache</span><span class="o">::</span><span class="n">sharedAnimationCache</span><span class="p">();</span> <span class="c1">// &quot;caches&quot; are always singletons in cocos2d</span>
-</span><span class='line'><span class="mi">2</span><span class="n">cache</span><span class="o">-&gt;</span><span class="n">addAnimationsWithFile</span><span class="p">(</span><span class="s">&quot;animations/animations-2.plist&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="mi">3</span><span class="n">CCAnimation</span> <span class="n">animation</span> <span class="o">=</span> <span class="n">cache</span><span class="o">-&gt;</span><span class="n">animationByName</span><span class="p">(</span><span class="s">&quot;dance_1&quot;</span><span class="p">);</span>  <span class="c1">// I apologize for this method name, it should be getAnimationByName(..) in future versions</span>
-</span><span class='line'><span class="mi">4</span><span class="n">CCAnimate</span> <span class="n">animate</span> <span class="o">=</span> <span class="n">CCAnimate</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>  <span class="c1">// Don&#39;t confused between CCAnimation and CCAnimate :)</span>
-</span><span class='line'><span class="mi">5</span><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">animate</span><span class="p">);</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCAnimationCache</span> <span class="o">*</span><span class="n">cache</span> <span class="o">=</span> <span class="n">CCAnimationCache</span><span class="o">::</span><span class="n">sharedAnimationCache</span><span class="p">();</span> <span class="c1">// &quot;caches&quot; are always singletons in cocos2d</span>
+</span><span class='line'><span class="n">cache</span><span class="o">-&gt;</span><span class="n">addAnimationsWithFile</span><span class="p">(</span><span class="s">&quot;animations/animations-2.plist&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">CCAnimation</span> <span class="n">animation</span> <span class="o">=</span> <span class="n">cache</span><span class="o">-&gt;</span><span class="n">animationByName</span><span class="p">(</span><span class="s">&quot;dance_1&quot;</span><span class="p">);</span>  <span class="c1">// I apologize for this method name, it should be getAnimationByName(..) in future versions</span>
+</span><span class='line'><span class="n">CCAnimate</span> <span class="n">animate</span> <span class="o">=</span> <span class="n">CCAnimate</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>  <span class="c1">// Don&#39;t confused between CCAnimation and CCAnimate :)</span>
+</span><span class='line'><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">animate</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Easy to use, isn&#8217;t it?</p>
 
-<h3>Skeleton Animation</h3>
 
-<p>Please refer to <a href="http://www.cocos2d-x.org/projects/cocos2d-x/wiki/Skeletal_Animation">Skeletal Animation</a> page.</p>
+<div style='display:none;'>
+Easy to use, isn&#8217;t it?
+</div>
+
+
+<p>简单易用吧？哈哈</p>
+
+<h3>骨骼动画(Skeleton Animation)</h3>
+
+<p>请参考 <a href="http://www.cocos2d-x.org/projects/cocos2d-x/wiki/Skeletal_Animation">Skeletal Animation</a> 页.</p>
 
 <h3>Coment</h3>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Actions]]></title>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Actions]]></title>
     <link href="http://shiren1118.github.com/blog/2013/03/04/actions/"/>
     <updated>2013-03-04T16:57:00+08:00</updated>
     <id>http://shiren1118.github.com/blog/2013/03/04/actions</id>
     <content type="html"><![CDATA[<h2>Actions</h2>
 
+<div style='display:none;'>
+Actions are like orders given to any CCNode object. These actions usually modify some of the object&#8217;s attributes like position, rotation, scale, etc. If these attributes are modified during a period of time, they are CCIntervalAction actions, otherwise they are CCInstantAction actions.
+For example, the CCMoveBy action modifies the position property during a period of time, hence, it is a subclass of CCIntervalAction.
+</div>
+
+
 <p>Actions are like orders given to any CCNode object. These actions usually modify some of the object&#8217;s attributes like position, rotation, scale, etc. If these attributes are modified during a period of time, they are CCIntervalAction actions, otherwise they are CCInstantAction actions.
 For example, the CCMoveBy action modifies the position property during a period of time, hence, it is a subclass of CCIntervalAction.</p>
 
-<p>You can run TestCpp -> Actions Test to see the actions&#8217; visual effects. And cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest are good sample codes for the usage.</p>
+<p>Actions are like orders given to any CCNode object. 这些actions通常会修改对象的一些属性，如位置，旋转，缩放等。如果这些熟悉在一段时间内被修改，它们是CCIntervalAction actions，相反则是 CCInstantAction actions.</p>
 
-<p>Example:</p>
+<p>例如，CCMoveBy action是在一段时间内修改了位置属性，因此，它是CCIntervalAction的子类.</p>
+
+<div style='display:none;'>
+You can run TestCpp -> Actions Test to see the actions&#8217; visual effects. And cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest are good sample codes for the usage.
+</div>
+
+
+<p>你可以运行TestCpp -> Actions Test 来查看actions的可视化效果。cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest 是非常好的实例代码用法。</p>
+
+<p>例如:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -628,8 +932,17 @@ For example, the CCMoveBy action modifies the position property during a period 
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The CCIntervalAction actions have some interesting properties:
-They can be accelerated using the time-altered actions</p>
+
+
+<div style='display:none;'>
+The CCIntervalAction actions have some interesting properties:
+They can be accelerated using the time-altered actions
+</div>
+
+
+<p>CCIntervalAction actions有一些有意思的属性:</p>
+
+<p>它们可以在时间切换action中被访问到：</p>
 
 <ul>
 <li>CCEaseIn</li>
@@ -639,9 +952,19 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<p>Etc. (See the ActionsEaseTest.cpp example for more info)</p>
+<div style='display:none;'>
+Etc. (See the ActionsEaseTest.cpp example for more info)
+</div>
 
-<p>You can pause/resume all actions by using the CCActionManager:</p>
+
+<p>等. (更多信息，详见ActionsEaseTest.cpp实例)</p>
+
+<div style='display:none;'>
+You can pause/resume all actions by using the CCActionManager:
+</div>
+
+
+<p>你可以通过用CCActionManager来暂停和恢复所有actions:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -660,9 +983,14 @@ They can be accelerated using the time-altered actions</p>
 
 <h3>Basic Actions</h3>
 
-<p>Basic actions are the ones that modify basic properties like:</p>
+<div style='display:none;'>
+Basic actions are the ones that modify basic properties like:
+</div>
 
-<h4>position</h4>
+
+<p>基本actions是指修改基本属性如:</p>
+
+<h4>位置(position)</h4>
 
 <ul>
 <li><a href="http://www.cocos2d-x.org/reference/native-cpp/dc/df6/classcocos2d_1_1_c_c_move_by.html">CCMoveBy</a></li>
@@ -675,7 +1003,7 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<h4>scale</h4>
+<h4>缩放(scale)</h4>
 
 <ul>
 <li><a href="http://www.cocos2d-x.org/reference/native-cpp/d4/d62/classcocos2d_1_1_c_c_scale_by.html">CCScaleBy</a></li>
@@ -683,7 +1011,7 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<h4>rotation</h4>
+<h4>旋转(rotation)</h4>
 
 <ul>
 <li><a href="http://www.cocos2d-x.org/reference/native-cpp/d6/d57/classcocos2d_1_1_c_c_rotate_by.html">CCRotateBy</a></li>
@@ -691,7 +1019,7 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<h4>visible</h4>
+<h4>可见性(visible)</h4>
 
 <ul>
 <li><a href="http://www.cocos2d-x.org/reference/native-cpp/d3/de8/classcocos2d_1_1_c_c_show.html">CCShow</a></li>
@@ -701,7 +1029,7 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<h4>opacity</h4>
+<h4>透明度(opacity)</h4>
 
 <ul>
 <li><a href="http://www.cocos2d-x.org/reference/native-cpp/d7/d89/classcocos2d_1_1_c_c_fade_in.html">CCFadeIn</a></li>
@@ -710,7 +1038,7 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<h4>color</h4>
+<h4>颜色(color)</h4>
 
 <ul>
 <li><a href="http://www.cocos2d-x.org/reference/native-cpp/de/de1/classcocos2d_1_1_c_c_tint_by.html">CCTintBy</a></li>
@@ -718,7 +1046,7 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<p>Example:</p>
+<p>例如:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -735,14 +1063,21 @@ They can be accelerated using the time-altered actions</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The act1 will be a CCMoveBy action of duration 0.5, but with the position value of ccp(100,0).</p>
+
+
+<div style='display:none;'>
+The act1 will be a CCMoveBy action of duration 0.5, but with the position value of ccp(100,0).
+</div>
+
+
+<p>act1是持续0.5秒的CCMoveBy action,并且使用位置ccp(100,0)的值？.</p>
 
 <h3>Comment</h3>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Coordinate System]]></title>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Coordinate System(ok)]]></title>
     <link href="http://shiren1118.github.com/blog/2013/03/03/coordinate-system/"/>
     <updated>2013-03-03T17:05:00+08:00</updated>
     <id>http://shiren1118.github.com/blog/2013/03/03/coordinate-system</id>
@@ -1225,7 +1560,7 @@ position = (15.000000,20.000000)
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Director Scene Layer and Sprite]]></title>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Director Scene Layer and Sprite(ok)]]></title>
     <link href="http://shiren1118.github.com/blog/2013/03/01/director-scene-layer-and-sprite/"/>
     <updated>2013-03-01T16:22:00+08:00</updated>
     <id>http://shiren1118.github.com/blog/2013/03/01/director-scene-layer-and-sprite</id>
@@ -1353,13 +1688,7 @@ Although some serious apps will require you to define custom CCLayer classes, co
 </div>
 
 
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
-
-<h1>尽管一些apps会需要你去个性化定义CCLayer类，cocos2d还是提供了一个非常有用的内置预先定义好的layers（简单的layer：如CCMenu，颜色layer：如CCColorLayer，在层之间多路传送的layer：如CCMultiplexLayer，等等）的类库。</h1>
-
 <p>尽管一些apps会需要你去个性化定义CCLayer类，cocos2d还是提供了一个非常有用的内置预先定义好的layers（简单的菜单layer：如CCMenu，颜色layer：如CCColorLayer，在层之间多路传送的layer：如CCMultiplexLayer，等等）的类库。</p>
-
-<blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><p>378fd554cc464fe9523adfaa112649391a134a3c</p></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote>
 
 <div style='display:none'>
 Layers can contain CCSprite objects, CCLabel objects and even other CCLayer objects as children.
@@ -1422,13 +1751,7 @@ Sprites (implemented using the CCSprite class) can have other sprites as childre
 </div>
 
 
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
-
-<h1>Sprites（通过使用CCSprite类实现）可以有多个其他精灵作为子对象，当父类被触发，它的所有子对象也同时被触发。</h1>
-
-<p>Sprites（通过使用CCSprite类实现）可以有多个其他精灵作为子对象，当父类被改变，它的所有子对象也同时被改变。</p>
-
-<blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><p>378fd554cc464fe9523adfaa112649391a134a3c</p></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote>
+<p>Sprites（通过使用CCSprite类实现）可以有多个其他精灵作为子对象，当父类被触发，它的所有子对象也同时被触发。</p>
 
 <div style='display:none'>
 Since sprites are subclass of CCNode, they can be transformed manually or by using actions. See Actions for more detail about actions.

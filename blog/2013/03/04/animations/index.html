@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Animations - 小桑博客</title>
+  <title>[cocos2d-x wiki翻译]Animations - 小桑博客</title>
   <meta name="author" content="alfred sang">
 
   
-  <meta name="description" content="Animations Animations
+  <meta name="description" content="动画(Animations) Animations
 Manual Animation
 Sprite Sheet Animation
 Creating from .png and .plist file
@@ -74,7 +74,7 @@ Comment Manual &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Animations</h1>
+      <h1 class="entry-title">[Cocos2d-x wiki翻译]Animations</h1>
     
     
       <p class="meta">
@@ -97,7 +97,7 @@ Comment Manual &hellip;">
   </header>
 
 
-<div class="entry-content"><h2>Animations</h2>
+<div class="entry-content"><h2>动画(Animations)</h2>
 
 <p>Animations
 Manual Animation
@@ -109,7 +109,12 @@ Comment</p>
 
 <h3>Manual Animation</h3>
 
-<p>You can create an animation from a series of image file, like this:</p>
+<div style='display:none;'>
+You can create an animation from a series of image file, like this:
+</div>
+
+
+<p>你可以通过多个图片文件来创建一个动画，比如:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -126,71 +131,153 @@ Comment</p>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'> <span class="mi">1</span><span class="n">CCAnimation</span> <span class="o">*</span><span class="n">animation</span> <span class="o">=</span> <span class="n">CCAnimation</span><span class="o">::</span><span class="n">create</span><span class="p">();</span>
-</span><span class='line'> <span class="mi">2</span>
-</span><span class='line'> <span class="mi">3</span><span class="c1">// load image file from local file system to CCSpriteFrame, then add into CCAnimation</span>
-</span><span class='line'> <span class="mf">4f</span><span class="n">or</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'> <span class="mi">5</span><span class="p">{</span>
-</span><span class='line'> <span class="mi">6</span>    <span class="kt">char</span> <span class="n">szImageFileName</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-</span><span class='line'> <span class="mi">7</span>    <span class="n">sprintf</span><span class="p">(</span><span class="n">szImageFileName</span><span class="p">,</span> <span class="s">&quot;Images/grossini_dance_%02d.png&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-</span><span class='line'> <span class="mi">8</span>    <span class="n">animation</span><span class="o">-&gt;</span><span class="n">addSpriteFrameWithFileName</span><span class="p">(</span><span class="n">szImageFileName</span><span class="p">);</span>
-</span><span class='line'> <span class="mi">9</span><span class="p">}</span>
-</span><span class='line'><span class="mi">10</span>
-</span><span class='line'><span class="mi">11</span><span class="n">animation</span><span class="o">-&gt;</span><span class="n">setDelayPerUnit</span><span class="p">(</span><span class="mf">2.8f</span> <span class="o">/</span> <span class="mf">14.0f</span><span class="p">);</span> <span class="c1">// This animation contains 14 frames, will continuous 2.8 seconds.</span>
-</span><span class='line'><span class="mi">12</span><span class="n">animation</span><span class="o">-&gt;</span><span class="n">setRestoreOriginalFrame</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="c1">// Return to the 1st frame after the 14th frame is played. </span>
-</span><span class='line'><span class="mi">13</span>
-</span><span class='line'><span class="mi">14</span><span class="n">CCAnimate</span> <span class="o">*</span><span class="n">action</span> <span class="o">=</span> <span class="n">CCAnimate</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>
-</span><span class='line'><span class="mi">15</span><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">action</span><span class="p">);</span>  <span class="c1">// run action on sprite object</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'> <span class="n">CCAnimation</span> <span class="o">*</span><span class="n">animation</span> <span class="o">=</span> <span class="n">CCAnimation</span><span class="o">::</span><span class="n">create</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'> <span class="c1">// load image file from local file system to CCSpriteFrame, then add into CCAnimation</span>
+</span><span class='line'> <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'> <span class="p">{</span>
+</span><span class='line'>     <span class="kt">char</span> <span class="n">szImageFileName</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+</span><span class='line'>     <span class="n">sprintf</span><span class="p">(</span><span class="n">szImageFileName</span><span class="p">,</span> <span class="s">&quot;Images/grossini_dance_%02d.png&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span><span class='line'>     <span class="n">animation</span><span class="o">-&gt;</span><span class="n">addSpriteFrameWithFileName</span><span class="p">(</span><span class="n">szImageFileName</span><span class="p">);</span>
+</span><span class='line'> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">animation</span><span class="o">-&gt;</span><span class="n">setDelayPerUnit</span><span class="p">(</span><span class="mf">2.8f</span> <span class="o">/</span> <span class="mf">14.0f</span><span class="p">);</span> <span class="c1">// This animation contains 14 frames, will continuous 2.8 seconds.</span>
+</span><span class='line'><span class="n">animation</span><span class="o">-&gt;</span><span class="n">setRestoreOriginalFrame</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="c1">// Return to the 1st frame after the 14th frame is played. </span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CCAnimate</span> <span class="o">*</span><span class="n">action</span> <span class="o">=</span> <span class="n">CCAnimate</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>
+</span><span class='line'><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">action</span><span class="p">);</span>  <span class="c1">// run action on sprite object</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Note that CCAnimation is composed by sprite frames, delay time per frame, durations etc, it&#8217;s a pack of &#8220;data&#8221;. While CCAnimate is an action, which is created base on CCAnimation object.</p>
+<div style='display:none;'>
+Note that CCAnimation is composed by sprite frames, delay time per frame, durations etc, it&#8217;s a pack of &#8220;data&#8221;. While CCAnimate is an action, which is created base on CCAnimation object.
+</div>
+
+
+<p>注意CCAnimation是通过sprite frames组成的，每个frame延时，持续等，它是一组&#8221;数据&#8221;.
+而CCAnimate是一个action，它是基于CCAnimation对象创建的。</p>
 
 <h3>Sprite Sheet Animation</h3>
 
-<p>Although manual animation is very easy to understand, it&#8217;s rarely used in real game projects. Instead, sprite sheet animation is the common solution of 2D animations.</p>
+<div style='display:none;'>
+Although manual animation is very easy to understand, it&#8217;s rarely used in real game projects. Instead, sprite sheet animation is the common solution of 2D animations.
+</div>
 
-<p>This is a typical sprite sheet. It can be a sequence of sprite frames for an animation, or can be images pack that will be used in a same scene.</p>
+
+<p>尽管manual animation是非常易于理解的,但事实上，它在真实游戏项目中是非常少用到的.相反，sprite sheet animation是2D动画中最常见的解决方案.</p>
+
+<div style='display:none;'>
+This is a typical sprite sheet. It can be a sequence of sprite frames for an animation, or can be images pack that will be used in a same scene.
+</div>
+
+
+<p>下面是一个典型的sprite sheet.它是动画中的一连串sprite frames，或者是可以在一个场景中用到的一组图片.</p>
 
 <p><img src="http://www.cocos2d-x.org/attachments/download/1570" alt="" /></p>
 
-<p>In OpenGL ES 1.1 period, sprite sheets was widely used for these benefits:
+<div style='display:none;'>
+In OpenGL ES 1.1 period, sprite sheets was widely used for these benefits:
 Reduce times of file I/O. Loading a big sprite sheet file is faster than loading lots of small files.
 Reduce the memory consumption. OpenGL ES 1.1 can only use power-of-two sized textures (that is a width or height of 2,4,864,128,256,512,1024,&#8230;). In other words, OpenGL ES 1.1 allocates power-of-two sized memory for each texture even if this texture has smaller width and height. So using packed sprite sheet image will reduce the fragments of memory.
-Reduce the draw calls to OpenGL ES draw method and speed up rendering.
-Cocos2d-x v2.0 upgraded to OpenGL ES 2.0 based. OpenGL ES 2.0 doesn&#8217;t allocate power-of-two memory block for textures anymore, but the benefit of reducing file I/O times and draw calls are still working.</p>
+</div>
 
-<p>Then how about the animation? As we can see, sprite sheet has no MUST-BE relationship with animations. But considering to these benefits above, sprite sheet animations are efficient. There&#8217;re different ways to create sprite sheet animations in cocos2d.</p>
+
+<p>在OpenGL ES 1.1时代，sprite sheets被广泛使用是得益于:</p>
+
+<ul>
+<li>减少文件I/O时间.加载一个大的sprite sheet文件比加载多个小文件要快得多.</li>
+<li>减少内存消耗.OpenGL ES 1.1仅可用 power-of-two sized textures（这事一个 2,4,864,128,256,512,1024,&#8230;的宽高）.换言之，如果宽高比较小的话，OpenGL ES 1.1甚至为每个texture分配power-of-two sized内存.所以使用成组的 sprite sheet图片会减少内存碎片</li>
+</ul>
+
+
+<div style='display:none;'>
+Reduce the draw calls to OpenGL ES draw method and speed up rendering.
+Cocos2d-x v2.0 upgraded to OpenGL ES 2.0 based. OpenGL ES 2.0 doesn&#8217;t allocate power-of-two memory block for textures anymore, but the benefit of reducing file I/O times and draw calls are still working.
+</div>
+
+
+<p>减少 OpenGL ES 调用方法绘制，加速渲染.
+Cocos2d-x v2.0已更新，是基于OpenGL ES 2.0的.OpenGL ES 2.0不会为textures分配power-of-two内存块，但减少文件系统I/O时间和调用的好处仍然是有效的.</p>
+
+<div style='display:none;'>
+Then how about the animation? As we can see, sprite sheet has no MUST-BE relationship with animations. But considering to these benefits above, sprite sheet animations are efficient. There&#8217;re different ways to create sprite sheet animations in cocos2d.
+</div>
+
+
+<p>那该如何动画呢？正如我们看到的，sprite sheet没有使用动画的必然关系.但考虑到上面这些益处，sprite sheet是有效的.在cocos2d中有很多种不同的方法来创建sprite sheet.</p>
 
 <h4>Creating from .png and .plist file</h4>
 
-<p>In cocos2d-x 0.x and 1.x versions, CCSpriteSheet works for this purpose. While CCSpriteBatchNode is a replacement of CCSpriteSheet since v2.0</p>
+<div style='display:none;'>
+In cocos2d-x 0.x and 1.x versions, CCSpriteSheet works for this purpose. While CCSpriteBatchNode is a replacement of CCSpriteSheet since v2.0
+</div>
 
-<p>A CCSpriteBatchNode object contains the actual image texture of all the sprite frames. You must add it to a scene, even though it won&#8217;t draw anything itself; it just needs to be there so that it is part of the rendering pipeline. For example:</p>
 
-<p>1CCSpriteBatchNode* spritebatch = CCSpriteBatchNode::create(&#8220;animations/grossini.png&#8221;);
-Next, you need to use the CCSpriteFrameCache singleton to keep track how frame names correspond to frame bounds – that is, what rectangular area of the sprite sheet. Example:</p>
+<p>在cocos2d-x 0.x和1.x版本中，CCSpriteSheet便是为此目的而生的.而CCSpriteBatchNode在v2.0版本之后替换了CCSpriteSheet</p>
+
+<div style='display:none;'>
+A CCSpriteBatchNode object contains the actual image texture of all the sprite frames. You must add it to a scene, even though it won&#8217;t draw anything itself; it just needs to be there so that it is part of the rendering pipeline. For example:
+</div>
+
+
+<p>CCSpriteBatchNode对象包含了所有sprite frames中的用到的真实图片texture.你必须把它放到场景中，甚至它自身什么都不用画;它只需要放到那里，这样它就成了rendering pipeline的组成部分.比如:</p>
+
+<div style='display:none;'>
+1CCSpriteBatchNode* spritebatch = CCSpriteBatchNode::create(&#8220;animations/grossini.png&#8221;);
+Next, you need to use the CCSpriteFrameCache singleton to keep track how frame names correspond to frame bounds – that is, what rectangular area of the sprite sheet. Example:
+</div>
+
+
+
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="mi">1</span><span class="n">CCSpriteFrameCache</span><span class="o">*</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">CCSpriteFrameCache</span><span class="o">::</span><span class="n">sharedSpriteFrameCache</span><span class="p">();</span>
-</span><span class='line'><span class="mi">2</span><span class="n">cache</span><span class="o">-&gt;</span><span class="n">addSpriteFramesWithFile</span><span class="p">(</span><span class="s">&quot;animations/grossini.plist&quot;</span><span class="p">);</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCSpriteBatchNode</span><span class="o">*</span> <span class="n">spritebatch</span> <span class="o">=</span> <span class="n">CCSpriteBatchNode</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;animations/grossini.png&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Once your sprite sheet and frames are loaded, and the sprite sheet has been added to the scene, you can create sprites that use these frames by using the “createWithSpriteFrameName” method, and adding it as a child of the sprite sheet:</p>
+<p>接下来，你需要使用CCSpriteFrameCache单例对象来保存frame名字如何响应到frame bounds=
+也就是，sprite sheet中的矩形区域.例如:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCSpriteFrameCache</span><span class="o">*</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">CCSpriteFrameCache</span><span class="o">::</span><span class="n">sharedSpriteFrameCache</span><span class="p">();</span>
+</span><span class='line'><span class="n">cache</span><span class="o">-&gt;</span><span class="n">addSpriteFramesWithFile</span><span class="p">(</span><span class="s">&quot;animations/grossini.plist&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<div style='display:none;'>
+Once your sprite sheet and frames are loaded, and the sprite sheet has been added to the scene, you can create sprites that use these frames by using the “createWithSpriteFrameName” method, and adding it as a child of the sprite sheet:
+</div>
+
+
+<p>一旦你的sprite sheet和frames已经加载完毕，并且sprite sheet已经增加到场景中了，你可以通过这些frames创建sprites，使用 “createWithSpriteFrameName” 方法，把它放入作为sprite sheet的子对象:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="mi">1</span><span class="n">m_pSprite1</span> <span class="o">=</span> <span class="n">CCSprite</span><span class="o">::</span><span class="n">createWithSpriteFrameName</span><span class="p">(</span><span class="s">&quot;grossini_dance_01.png&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="mi">2</span><span class="n">spritebatch</span><span class="o">-&gt;</span><span class="n">addChild</span><span class="p">(</span><span class="n">m_pSprite1</span><span class="p">);</span>
-</span><span class='line'><span class="mi">3</span><span class="n">addChild</span><span class="p">(</span><span class="n">spritebatch</span><span class="p">);</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">m_pSprite1</span> <span class="o">=</span> <span class="n">CCSprite</span><span class="o">::</span><span class="n">createWithSpriteFrameName</span><span class="p">(</span><span class="s">&quot;grossini_dance_01.png&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">spritebatch</span><span class="o">-&gt;</span><span class="n">addChild</span><span class="p">(</span><span class="n">m_pSprite1</span><span class="p">);</span>
+</span><span class='line'><span class="n">addChild</span><span class="p">(</span><span class="n">spritebatch</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>createWithSpriteFrameName method will find the corresponding coordinates and rectangle from grossini.plist, then &#8220;clip&#8221; the texture grossini.png to a sprite frame.
-Now we need to create a CCArray object and add all frames of the animation to it. In the case of this animation, we know all 14 frames have the same size, so we can use a nested loop to iterate through them all, and break the loop when we finish adding the 14th frame.</p>
+
+
+<div style='display:none;'>
+createWithSpriteFrameName method will find the corresponding coordinates and rectangle from grossini.plist, then &#8220;clip&#8221; the texture grossini.png to a sprite frame.
+</div>
+
+
+<p>createWithSpriteFrameName方法会查找响应坐标和grossini.plist中定义的矩形，因此&#8221;clip&#8221;texture grossini.png是sprite frame.</p>
+
+<div style='display:none;'>
+Now we need to create a CCArray object and add all frames of the animation to it. In the case of this animation, we know all 14 frames have the same size, so we can use a nested loop to iterate through them all, and break the loop when we finish adding the 14th frame.
+</div>
+
+
+<p>现在，我们需要创建CCArray对象，增加所有动画的frames到此对象中。在这个动画例子中，我们知道这14个frame都有一模一样的尺寸,所以我们使用了嵌套循环来迭代，当我们完成增加第14个frame的时候中断循环.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -202,50 +289,71 @@ Now we need to create a CCArray object and add all frames of the animation to it
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'> <span class="mi">1</span><span class="n">CCArray</span><span class="o">*</span> <span class="n">animFrames</span> <span class="o">=</span> <span class="n">CCArray</span><span class="o">::</span><span class="n">createWithCapacity</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
-</span><span class='line'> <span class="mi">2</span>
-</span><span class='line'> <span class="mi">3</span><span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-</span><span class='line'> <span class="mi">4</span>
-</span><span class='line'> <span class="mf">5f</span><span class="n">or</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'> <span class="mi">6</span><span class="p">{</span>
-</span><span class='line'> <span class="mi">7</span>    <span class="n">sprintf</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="s">&quot;grossini_dance_%02d.png&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-</span><span class='line'> <span class="mi">8</span>    <span class="n">CCSpriteFrame</span><span class="o">*</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cache</span><span class="o">-&gt;</span><span class="n">spriteFrameByName</span><span class="p">(</span> <span class="n">str</span> <span class="p">);</span>
-</span><span class='line'> <span class="mi">9</span>    <span class="n">animFrames</span><span class="o">-&gt;</span><span class="n">addObject</span><span class="p">(</span><span class="n">frame</span><span class="p">);</span>
-</span><span class='line'><span class="mi">10</span><span class="p">}</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCArray</span><span class="o">*</span> <span class="n">animFrames</span> <span class="o">=</span> <span class="n">CCArray</span><span class="o">::</span><span class="n">createWithCapacity</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">sprintf</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="s">&quot;grossini_dance_%02d.png&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">CCSpriteFrame</span><span class="o">*</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cache</span><span class="o">-&gt;</span><span class="n">spriteFrameByName</span><span class="p">(</span> <span class="n">str</span> <span class="p">);</span>
+</span><span class='line'>    <span class="n">animFrames</span><span class="o">-&gt;</span><span class="n">addObject</span><span class="p">(</span><span class="n">frame</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Finally, we need to create a CCAnimate action instance which we can run on the CCSprite. Below, we also wrap the CCAnimate action in a CCRepeatForever action that does what you would expect: repeats the animation forever,like so:</p>
+
+
+<div style='display:none;'>
+Finally, we need to create a CCAnimate action instance which we can run on the CCSprite. Below, we also wrap the CCAnimate action in a CCRepeatForever action that does what you would expect: repeats the animation forever,like so:
+</div>
+
+
+<p>最后，我们需要创建CCAnimate action实例，我们要运行在CCSprite的对像.
+下面，我们也封装CCAnimate action到CCRepeatForever action中，此actions是你所需要的:重复动画,像这样:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="mi">1</span><span class="n">CCAnimation</span><span class="o">*</span> <span class="n">animation</span> <span class="o">=</span> <span class="n">CCAnimation</span><span class="o">::</span><span class="n">createWithSpriteFrames</span><span class="p">(</span><span class="n">animFrames</span><span class="p">,</span> <span class="mf">0.3f</span><span class="p">);</span>
-</span><span class='line'><span class="mi">2</span><span class="n">m_pSprite1</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span> <span class="n">CCRepeatForever</span><span class="o">::</span><span class="n">create</span><span class="p">(</span> <span class="n">CCAnimate</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">animation</span><span class="p">)</span> <span class="p">)</span> <span class="p">);</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCAnimation</span><span class="o">*</span> <span class="n">animation</span> <span class="o">=</span> <span class="n">CCAnimation</span><span class="o">::</span><span class="n">createWithSpriteFrames</span><span class="p">(</span><span class="n">animFrames</span><span class="p">,</span> <span class="mf">0.3f</span><span class="p">);</span>
+</span><span class='line'><span class="n">m_pSprite1</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span> <span class="n">CCRepeatForever</span><span class="o">::</span><span class="n">create</span><span class="p">(</span> <span class="n">CCAnimate</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">animation</span><span class="p">)</span> <span class="p">)</span> <span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <h4>File animation</h4>
 
-<p>CCAnimationCache can load a xml/plist file which well describes the batch node, sprite frame names and their rectangles. The interfaces are much easier to use.</p>
+<div style='display:none;'>
+CCAnimationCache can load a xml/plist file which well describes the batch node, sprite frame names and their rectangles. The interfaces are much easier to use.
+</div>
+
+
+<p>CCAnimationCache 可以加载xml/plist文件，此文件可以非常好的描述批量node,sprite frame names和它们的矩形.
+这个接口更简单易用.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="mi">1</span><span class="n">CCAnimationCache</span> <span class="o">*</span><span class="n">cache</span> <span class="o">=</span> <span class="n">CCAnimationCache</span><span class="o">::</span><span class="n">sharedAnimationCache</span><span class="p">();</span> <span class="c1">// &quot;caches&quot; are always singletons in cocos2d</span>
-</span><span class='line'><span class="mi">2</span><span class="n">cache</span><span class="o">-&gt;</span><span class="n">addAnimationsWithFile</span><span class="p">(</span><span class="s">&quot;animations/animations-2.plist&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="mi">3</span><span class="n">CCAnimation</span> <span class="n">animation</span> <span class="o">=</span> <span class="n">cache</span><span class="o">-&gt;</span><span class="n">animationByName</span><span class="p">(</span><span class="s">&quot;dance_1&quot;</span><span class="p">);</span>  <span class="c1">// I apologize for this method name, it should be getAnimationByName(..) in future versions</span>
-</span><span class='line'><span class="mi">4</span><span class="n">CCAnimate</span> <span class="n">animate</span> <span class="o">=</span> <span class="n">CCAnimate</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>  <span class="c1">// Don&#39;t confused between CCAnimation and CCAnimate :)</span>
-</span><span class='line'><span class="mi">5</span><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">animate</span><span class="p">);</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCAnimationCache</span> <span class="o">*</span><span class="n">cache</span> <span class="o">=</span> <span class="n">CCAnimationCache</span><span class="o">::</span><span class="n">sharedAnimationCache</span><span class="p">();</span> <span class="c1">// &quot;caches&quot; are always singletons in cocos2d</span>
+</span><span class='line'><span class="n">cache</span><span class="o">-&gt;</span><span class="n">addAnimationsWithFile</span><span class="p">(</span><span class="s">&quot;animations/animations-2.plist&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">CCAnimation</span> <span class="n">animation</span> <span class="o">=</span> <span class="n">cache</span><span class="o">-&gt;</span><span class="n">animationByName</span><span class="p">(</span><span class="s">&quot;dance_1&quot;</span><span class="p">);</span>  <span class="c1">// I apologize for this method name, it should be getAnimationByName(..) in future versions</span>
+</span><span class='line'><span class="n">CCAnimate</span> <span class="n">animate</span> <span class="o">=</span> <span class="n">CCAnimate</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>  <span class="c1">// Don&#39;t confused between CCAnimation and CCAnimate :)</span>
+</span><span class='line'><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">animate</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Easy to use, isn&#8217;t it?</p>
 
-<h3>Skeleton Animation</h3>
 
-<p>Please refer to <a href="http://www.cocos2d-x.org/projects/cocos2d-x/wiki/Skeletal_Animation">Skeletal Animation</a> page.</p>
+<div style='display:none;'>
+Easy to use, isn&#8217;t it?
+</div>
+
+
+<p>简单易用吧？哈哈</p>
+
+<h3>骨骼动画(Skeleton Animation)</h3>
+
+<p>请参考 <a href="http://www.cocos2d-x.org/projects/cocos2d-x/wiki/Skeletal_Animation">Skeletal Animation</a> 页.</p>
 
 <h3>Coment</h3>
 </div>
@@ -273,6 +381,12 @@ Now we need to create a CCArray object and add all frames of the animation to it
 <time datetime="2013-03-04T16:57:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
       
 
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cocos2d-x-wiki翻译/'>cocos2d-x wiki翻译</a>
+  
+</span>
+
 
     </p>
     
@@ -287,10 +401,10 @@ Now we need to create a CCArray object and add all frames of the animation to it
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/03/04/actions/" title="Previous Post: Actions">&laquo; Actions</a>
+        <a class="basic-alignment left" href="/blog/2013/03/04/actions/" title="Previous Post: [cocos2d-x wiki翻译]Actions">&laquo; [cocos2d-x wiki翻译]Actions</a>
       
       
-        <a class="basic-alignment right" href="/blog/2013/03/04/scheduler-and-timer-callback/" title="Next Post: Scheduler and Timer Callback">Scheduler and Timer Callback &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2013/03/04/scheduler-and-timer-callback/" title="Next Post: [cocos2d-x wiki翻译]Scheduler and Timer Callback">[cocos2d-x wiki翻译]Scheduler and Timer Callback &raquo;</a>
       
     </p>
   </footer>
@@ -311,23 +425,23 @@ Now we need to create a CCArray object and add all frames of the animation to it
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/03/04/transitions/">Transitions</a>
+        <a href="/blog/2013/03/18/about-delegete/">about delegete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/particles/">Particles</a>
+        <a href="/blog/2013/03/04/transitions/">[cocos2d-x wiki翻译]Transitions</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/effects/">Effects</a>
+        <a href="/blog/2013/03/04/particles/">[cocos2d-x wiki翻译]Particles</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/skeletal-animation/">Skeletal animation</a>
+        <a href="/blog/2013/03/04/effects/">[cocos2d-x wiki翻译]Effects</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/scheduler-and-timer-callback/">Scheduler and Timer Callback</a>
+        <a href="/blog/2013/03/04/skeletal-animation/">[cocos2d-x wiki翻译]Skeletal animation</a>
       </li>
     
   </ul>

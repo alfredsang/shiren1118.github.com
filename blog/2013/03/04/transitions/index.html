@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Transitions - 小桑博客</title>
+  <title>[cocos2d-x wiki翻译]Transitions - 小桑博客</title>
   <meta name="author" content="alfred sang">
 
   
-  <meta name="description" content="Transitions Introduction One of the cool features that Cocos2d-x has to offer is the power of transitions within two different scene. Transitions are &hellip;">
+  <meta name="description" content="过渡 (Transitions) 介绍Introduction One of the cool features that Cocos2d-x has to offer is the power of transitions within two different scene. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">Transitions</h1>
+      <h1 class="entry-title">[Cocos2d-x wiki翻译]Transitions</h1>
     
     
       <p class="meta">
@@ -91,26 +91,56 @@
   </header>
 
 
-<div class="entry-content"><h2>Transitions</h2>
+<div class="entry-content"><h2>过渡 (Transitions)</h2>
 
-<h3>Introduction</h3>
+<h3>介绍Introduction</h3>
 
-<p>One of the cool features that Cocos2d-x has to offer is the power of transitions within two different scene. Transitions are effects such as: wipe, fade, zoom, and split. You can use transitions to switch between Cocos2d-x Scene objects. Sceneclass is derived from CocosNode and it is similar to Layer. You can add other CocosNode, such as Layer(s) and Sprite(s) into a Scene.</p>
+<div style='display:none;'>
+One of the cool features that Cocos2d-x has to offer is the power of transitions within two different scene. Transitions are effects such as: wipe, fade, zoom, and split. You can use transitions to switch between Cocos2d-x Scene objects. Sceneclass is derived from CocosNode and it is similar to Layer. You can add other CocosNode, such as Layer(s) and Sprite(s) into a Scene.
+</div>
 
-<p>Technically, a transition scene is an scene that performs a transition effect before setting control to the new scene.</p>
 
-<h3>Create transition</h3>
+<p>Cocos2d-x最爽的一个特性是已经提供了在2个不同场景直接过度能力.过度是效果，如wipe, fade, zoom, 和 split. 你可以使用过度在Cocos2d-x场景对象中切换.Sceneclass继承自CocosNode,它和Layer非常相似.你可以增加其他CocosNode,
+如 Layer(s) 和 Sprite(s) 放到场景中.</p>
 
-<p>Time is the number of seconds for the transition. To apply transition to scenes, the syntax is as follows:</p>
+<div style='display:none;'>
+Technically, a transition scene is an scene that performs a transition effect before setting control to the new scene.
+</div>
+
+
+<p>技巧上说,过度场景是可以进行过渡效果，在设置控制到新的场景.</p>
+
+<h3>创建Create transition</h3>
+
+<div style='display:none;'>
+Time is the number of seconds for the transition. To apply transition to scenes, the syntax is as follows:
+</div>
+
+
+<p>Time 是过渡的秒数.为了把过渡应用到场景中，语法如下:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">CCDirector</span><span class="o">::</span><span class="n">sharedDirector</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">replaceScene</span><span class="p">(</span><span class="n">CCTransitionFade</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">newScene</span><span class="p">));</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Some transitions has custom parameter(s); for example, FadeTransition has the fade color as extra parameter.
-static CCTransitionFade<em> create(float duration,CCScene</em> scene, const ccColor3B&amp; color);
-To enable a transition, it is not much more difficult. Here we have an small example:</p>
+
+
+<div style='display:none;'>
+Some transitions has custom parameter(s); for example, FadeTransition has the fade color as extra parameter.
+static CCTransitionFade* create(float duration,CCScene* scene, const ccColor3B& color);
+To enable a transition, it is not much more difficult. Here we have an small example:
+</div>
+
+
+<p>过滤参数可以有自定义参数;例如,FadeTransition有fade color作为额外参数.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">static</span> <span class="n">CCTransitionFade</span><span class="o">*</span> <span class="n">create</span><span class="p">(</span><span class="kt">float</span> <span class="n">duration</span><span class="p">,</span><span class="n">CCScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">,</span> <span class="k">const</span> <span class="n">ccColor3B</span><span class="o">&amp;</span> <span class="n">color</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>为了确保过渡效果,其实一点不难，这儿有一个小例子:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -125,13 +155,25 @@ To enable a transition, it is not much more difficult. Here we have an small exa
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>If you run this you will have a “page turn” effect. This is, like turning the page on a paper made book.</p>
+
+
+<div style='display:none;'>
+If you run this you will have a “page turn” effect. This is, like turning the page on a paper made book.
+</div>
+
+
+<p>如果运行这段代码，你会看到翻页效果.也就是看起来像一页一页翻书。</p>
 
 <p><img src="http://www.cocos2d-x.org/attachments/download/1623" alt="" /></p>
 
-<h3>More transitions</h3>
+<h3>更多More transitions</h3>
 
-<p>There are many more transition types, you can see the full list in the class reference, in the official Cocos2D-X documentation.</p>
+<div style='display:none;'>
+There are many more transition types, you can see the full list in the class reference, in the official Cocos2D-X documentation.
+</div>
+
+
+<p>还有很多过渡类型，你可以参见官方Cocos2D-X文档的类引用的完整列表</p>
 
 <p>Last updated by Zhe Wang at Updated about 1 month ago.</p>
 
@@ -161,6 +203,12 @@ To enable a transition, it is not much more difficult. Here we have an small exa
 <time datetime="2013-03-04T16:58:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
       
 
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cocos2d-x-wiki翻译/'>cocos2d-x wiki翻译</a>
+  
+</span>
+
 
     </p>
     
@@ -175,8 +223,10 @@ To enable a transition, it is not much more difficult. Here we have an small exa
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/03/04/particles/" title="Previous Post: Particles">&laquo; Particles</a>
+        <a class="basic-alignment left" href="/blog/2013/03/04/particles/" title="Previous Post: [cocos2d-x wiki翻译]Particles">&laquo; [cocos2d-x wiki翻译]Particles</a>
       
+      
+        <a class="basic-alignment right" href="/blog/2013/03/18/about-delegete/" title="Next Post: about delegete">about delegete &raquo;</a>
       
     </p>
   </footer>
@@ -197,23 +247,23 @@ To enable a transition, it is not much more difficult. Here we have an small exa
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/03/04/transitions/">Transitions</a>
+        <a href="/blog/2013/03/18/about-delegete/">about delegete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/particles/">Particles</a>
+        <a href="/blog/2013/03/04/transitions/">[cocos2d-x wiki翻译]Transitions</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/effects/">Effects</a>
+        <a href="/blog/2013/03/04/particles/">[cocos2d-x wiki翻译]Particles</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/skeletal-animation/">Skeletal animation</a>
+        <a href="/blog/2013/03/04/effects/">[cocos2d-x wiki翻译]Effects</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/scheduler-and-timer-callback/">Scheduler and Timer Callback</a>
+        <a href="/blog/2013/03/04/skeletal-animation/">[cocos2d-x wiki翻译]Skeletal animation</a>
       </li>
     
   </ul>

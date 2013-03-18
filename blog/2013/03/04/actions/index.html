@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Actions - 小桑博客</title>
+  <title>[cocos2d-x wiki翻译]Actions - 小桑博客</title>
   <meta name="author" content="alfred sang">
 
   
@@ -68,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">Actions</h1>
+      <h1 class="entry-title">[Cocos2d-x wiki翻译]Actions</h1>
     
     
       <p class="meta">
@@ -93,12 +93,27 @@
 
 <div class="entry-content"><h2>Actions</h2>
 
+<div style='display:none;'>
+Actions are like orders given to any CCNode object. These actions usually modify some of the object&#8217;s attributes like position, rotation, scale, etc. If these attributes are modified during a period of time, they are CCIntervalAction actions, otherwise they are CCInstantAction actions.
+For example, the CCMoveBy action modifies the position property during a period of time, hence, it is a subclass of CCIntervalAction.
+</div>
+
+
 <p>Actions are like orders given to any CCNode object. These actions usually modify some of the object&#8217;s attributes like position, rotation, scale, etc. If these attributes are modified during a period of time, they are CCIntervalAction actions, otherwise they are CCInstantAction actions.
 For example, the CCMoveBy action modifies the position property during a period of time, hence, it is a subclass of CCIntervalAction.</p>
 
-<p>You can run TestCpp -> Actions Test to see the actions&#8217; visual effects. And cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest are good sample codes for the usage.</p>
+<p>Actions are like orders given to any CCNode object. 这些actions通常会修改对象的一些属性，如位置，旋转，缩放等。如果这些熟悉在一段时间内被修改，它们是CCIntervalAction actions，相反则是 CCInstantAction actions.</p>
 
-<p>Example:</p>
+<p>例如，CCMoveBy action是在一段时间内修改了位置属性，因此，它是CCIntervalAction的子类.</p>
+
+<div style='display:none;'>
+You can run TestCpp -> Actions Test to see the actions&#8217; visual effects. And cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest are good sample codes for the usage.
+</div>
+
+
+<p>你可以运行TestCpp -> Actions Test 来查看actions的可视化效果。cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest 是非常好的实例代码用法。</p>
+
+<p>例如:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -107,8 +122,17 @@ For example, the CCMoveBy action modifies the position property during a period 
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The CCIntervalAction actions have some interesting properties:
-They can be accelerated using the time-altered actions</p>
+
+
+<div style='display:none;'>
+The CCIntervalAction actions have some interesting properties:
+They can be accelerated using the time-altered actions
+</div>
+
+
+<p>CCIntervalAction actions有一些有意思的属性:</p>
+
+<p>它们可以在时间切换action中被访问到：</p>
 
 <ul>
 <li>CCEaseIn</li>
@@ -118,9 +142,19 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<p>Etc. (See the ActionsEaseTest.cpp example for more info)</p>
+<div style='display:none;'>
+Etc. (See the ActionsEaseTest.cpp example for more info)
+</div>
 
-<p>You can pause/resume all actions by using the CCActionManager:</p>
+
+<p>等. (更多信息，详见ActionsEaseTest.cpp实例)</p>
+
+<div style='display:none;'>
+You can pause/resume all actions by using the CCActionManager:
+</div>
+
+
+<p>你可以通过用CCActionManager来暂停和恢复所有actions:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -139,9 +173,14 @@ They can be accelerated using the time-altered actions</p>
 
 <h3>Basic Actions</h3>
 
-<p>Basic actions are the ones that modify basic properties like:</p>
+<div style='display:none;'>
+Basic actions are the ones that modify basic properties like:
+</div>
 
-<h4>position</h4>
+
+<p>基本actions是指修改基本属性如:</p>
+
+<h4>位置(position)</h4>
 
 <ul>
 <li><a href="http://www.cocos2d-x.org/reference/native-cpp/dc/df6/classcocos2d_1_1_c_c_move_by.html">CCMoveBy</a></li>
@@ -154,7 +193,7 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<h4>scale</h4>
+<h4>缩放(scale)</h4>
 
 <ul>
 <li><a href="http://www.cocos2d-x.org/reference/native-cpp/d4/d62/classcocos2d_1_1_c_c_scale_by.html">CCScaleBy</a></li>
@@ -162,7 +201,7 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<h4>rotation</h4>
+<h4>旋转(rotation)</h4>
 
 <ul>
 <li><a href="http://www.cocos2d-x.org/reference/native-cpp/d6/d57/classcocos2d_1_1_c_c_rotate_by.html">CCRotateBy</a></li>
@@ -170,7 +209,7 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<h4>visible</h4>
+<h4>可见性(visible)</h4>
 
 <ul>
 <li><a href="http://www.cocos2d-x.org/reference/native-cpp/d3/de8/classcocos2d_1_1_c_c_show.html">CCShow</a></li>
@@ -180,7 +219,7 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<h4>opacity</h4>
+<h4>透明度(opacity)</h4>
 
 <ul>
 <li><a href="http://www.cocos2d-x.org/reference/native-cpp/d7/d89/classcocos2d_1_1_c_c_fade_in.html">CCFadeIn</a></li>
@@ -189,7 +228,7 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<h4>color</h4>
+<h4>颜色(color)</h4>
 
 <ul>
 <li><a href="http://www.cocos2d-x.org/reference/native-cpp/de/de1/classcocos2d_1_1_c_c_tint_by.html">CCTintBy</a></li>
@@ -197,7 +236,7 @@ They can be accelerated using the time-altered actions</p>
 </ul>
 
 
-<p>Example:</p>
+<p>例如:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -214,7 +253,14 @@ They can be accelerated using the time-altered actions</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The act1 will be a CCMoveBy action of duration 0.5, but with the position value of ccp(100,0).</p>
+
+
+<div style='display:none;'>
+The act1 will be a CCMoveBy action of duration 0.5, but with the position value of ccp(100,0).
+</div>
+
+
+<p>act1是持续0.5秒的CCMoveBy action,并且使用位置ccp(100,0)的值？.</p>
 
 <h3>Comment</h3>
 </div>
@@ -242,6 +288,12 @@ They can be accelerated using the time-altered actions</p>
 <time datetime="2013-03-04T16:57:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
       
 
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cocos2d-x-wiki翻译/'>cocos2d-x wiki翻译</a>
+  
+</span>
+
 
     </p>
     
@@ -256,10 +308,10 @@ They can be accelerated using the time-altered actions</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/03/03/coordinate-system/" title="Previous Post: Coordinate System">&laquo; Coordinate System</a>
+        <a class="basic-alignment left" href="/blog/2013/03/03/coordinate-system/" title="Previous Post: [cocos2d-x wiki翻译]Coordinate System(ok)">&laquo; [cocos2d-x wiki翻译]Coordinate System(ok)</a>
       
       
-        <a class="basic-alignment right" href="/blog/2013/03/04/animations/" title="Next Post: Animations">Animations &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2013/03/04/animations/" title="Next Post: [cocos2d-x wiki翻译]Animations">[cocos2d-x wiki翻译]Animations &raquo;</a>
       
     </p>
   </footer>
@@ -280,23 +332,23 @@ They can be accelerated using the time-altered actions</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/03/04/transitions/">Transitions</a>
+        <a href="/blog/2013/03/18/about-delegete/">about delegete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/particles/">Particles</a>
+        <a href="/blog/2013/03/04/transitions/">[cocos2d-x wiki翻译]Transitions</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/effects/">Effects</a>
+        <a href="/blog/2013/03/04/particles/">[cocos2d-x wiki翻译]Particles</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/skeletal-animation/">Skeletal animation</a>
+        <a href="/blog/2013/03/04/effects/">[cocos2d-x wiki翻译]Effects</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/scheduler-and-timer-callback/">Scheduler and Timer Callback</a>
+        <a href="/blog/2013/03/04/skeletal-animation/">[cocos2d-x wiki翻译]Skeletal animation</a>
       </li>
     
   </ul>

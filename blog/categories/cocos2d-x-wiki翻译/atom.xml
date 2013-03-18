@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: cocos2d-x wiki翻译 | 小桑博客]]></title>
+  <link href="http://shiren1118.github.com/blog/categories/cocos2d-x-wiki翻译/atom.xml" rel="self"/>
+  <link href="http://shiren1118.github.com/"/>
+  <updated>2013-03-19T01:14:00+08:00</updated>
+  <id>http://shiren1118.github.com/</id>
+  <author>
+    <name><![CDATA[alfred sang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Transitions]]></title>
+    <link href="http://shiren1118.github.com/blog/2013/03/04/transitions/"/>
+    <updated>2013-03-04T16:58:00+08:00</updated>
+    <id>http://shiren1118.github.com/blog/2013/03/04/transitions</id>
+    <content type="html"><![CDATA[<h2>过渡 (Transitions)</h2>
+
+<h3>介绍Introduction</h3>
+
+<div style='display:none;'>
+One of the cool features that Cocos2d-x has to offer is the power of transitions within two different scene. Transitions are effects such as: wipe, fade, zoom, and split. You can use transitions to switch between Cocos2d-x Scene objects. Sceneclass is derived from CocosNode and it is similar to Layer. You can add other CocosNode, such as Layer(s) and Sprite(s) into a Scene.
+</div>
+
+
+<p>Cocos2d-x最爽的一个特性是已经提供了在2个不同场景直接过度能力.过度是效果，如wipe, fade, zoom, 和 split. 你可以使用过度在Cocos2d-x场景对象中切换.Sceneclass继承自CocosNode,它和Layer非常相似.你可以增加其他CocosNode,
+如 Layer(s) 和 Sprite(s) 放到场景中.</p>
+
+<div style='display:none;'>
+Technically, a transition scene is an scene that performs a transition effect before setting control to the new scene.
+</div>
+
+
+<p>技巧上说,过度场景是可以进行过渡效果，在设置控制到新的场景.</p>
+
+<h3>创建Create transition</h3>
+
+<div style='display:none;'>
+Time is the number of seconds for the transition. To apply transition to scenes, the syntax is as follows:
+</div>
+
+
+<p>Time 是过渡的秒数.为了把过渡应用到场景中，语法如下:</p>
+
+<p><code>c++
+CCDirector::sharedDirector()-&gt;replaceScene(CCTransitionFade::create(0.5,newScene));
+</code></p>
+
+<div style='display:none;'>
+Some transitions has custom parameter(s); for example, FadeTransition has the fade color as extra parameter.
+static CCTransitionFade* create(float duration,CCScene* scene, const ccColor3B& color);
+To enable a transition, it is not much more difficult. Here we have an small example:
+</div>
+
+
+<p>过滤参数可以有自定义参数;例如,FadeTransition有fade color作为额外参数.</p>
+
+<p><code>c++
+static CCTransitionFade* create(float duration,CCScene* scene, const ccColor3B&amp; color);
+</code></p>
+
+<p>为了确保过渡效果,其实一点不难，这儿有一个小例子:</p>
+
+<p>```c++
+CCScene *s = SecondPage::scene();</p>
+
+<p>CCDirector::sharedDirector()->setDepthTest(true);</p>
+
+<p>CCTransitionScene *transition = CCTransitionPageTurn::create(3.0f, s, false);
+```</p>
+
+<div style='display:none;'>
+If you run this you will have a “page turn” effect. This is, like turning the page on a paper made book.
+</div>
+
+
+<p>如果运行这段代码，你会看到翻页效果.也就是看起来像一页一页翻书。</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/download/1623" alt="" /></p>
+
+<h3>更多More transitions</h3>
+
+<div style='display:none;'>
+There are many more transition types, you can see the full list in the class reference, in the official Cocos2D-X documentation.
+</div>
+
+
+<p>还有很多过渡类型，你可以参见官方Cocos2D-X文档的类引用的完整列表</p>
+
+<p>Last updated by Zhe Wang at Updated about 1 month ago.</p>
+
+<h3>Comment</h3>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Effects]]></title>
+    <link href="http://shiren1118.github.com/blog/2013/03/04/effects/"/>
+    <updated>2013-03-04T16:58:00+08:00</updated>
+    <id>http://shiren1118.github.com/blog/2013/03/04/effects</id>
+    <content type="html"><![CDATA[<h1>Effects</h1>
+
+<p>Effects
+Introduction
+How do I use them ?
+References
+Comment</p>
+
+<h2>Introduction</h2>
+
+<div style='display:none;'>
+Effects are a special kind of action. Instead of modifying normal properties like opacity, position, rotation, or scale, they modify a new kind of property: the grid property.
+</div>
+
+
+<p>Effects是特殊类型的action.与修改常规的属性如透明度,位置，旋转或缩放不同,它们修改一个新的属性:grid属性.</p>
+
+<div style='display:none;'>
+A grid property is like a matrix, it is a network of lines that cross each other to form a series of squares or rectangles.
+</div>
+
+
+<p>grid属性像是一个矩阵,是一个网络。。。。</p>
+
+<div style='display:none;'>
+These special actions render any CocosNode object (Layer, Scene, Sprite, etc.) into the grid, and you can transform the grid by moving its vertices.
+</div>
+
+
+<p>这些特殊actions可以渲染任意CocosNode对象 (Layer, Scene, Sprite, etc.)到grid中，你可以通过顶点来转换grid.</p>
+
+<div style='display:none;'>
+There are 2 kind of grids: tiled grids and non-tiled grids. The difference is that the tiled grid is composed of individual tiles while the non-tiled grid is composed of vertices.
+</div>
+
+
+<p>一共有2中grid: 布局grid和非布局grid.它们的区别是布局grid是由独立的布局组成，而非布局grid由顶点组成。</p>
+
+<div style='display:none;'>
+The following is an example of Ripple3D action, who uses a Grid3D (non-tiled) grid:
+</div>
+
+
+<p>
+下面是一个Ripple3D action例子，它使用的是 Grid3D (非布局) grid:</p>
+
+<div style='display:none;'>
+and the following is an example of FadeOutTR action, who uses a TiledGrid3D (tiled) grid:
+</div>
+
+
+<p></p>
+
+<p>FadeOutTR action例子，它使用的是 TiledGrid3D (布局) grid:</p>
+
+<h2>如何使用?  How do I use them ?</h2>
+
+<p>Like any other action, it is executed by the runAction. eg:</p>
+
+<p>1// Create an sprite
+2CCSprite* grossini = CCSprite::create("grossini.png");
+3grossini->runAction(CCLiquid::create(4, 20, ccg(10,10), 5));</p>
+
+<p>Liquid, like any other grid action, receives the grid parameter. You can adjust the quality of the effect by increasing the size of the grid. But it also implies less FPS.
+The Effects are IntervalAction actions so you can treat them like any other action. eg:</p>
+
+<p>```c++
+// create a Lens3D action
+CCActionInterval* lens = CCLens3D::create(ccp(240,160),240,ccg(15,10),8);</p>
+
+<p>// create a Waved3D action
+CCActionInterval* waves = CCWaves3D::create(18,80,ccg(15,10),10);</p>
+
+<p>// create a sequence an repeat it forever
+grossini->runAction(CCRepeatForever::create((CCSequence*)CCSequence::create(waves, lens, NULL ) ) );
+```</p>
+
+<p>The following is the list of the available Grid3D (non-tiled) actions in v2.1.0:
+Shaky3D Waves3D FlipX3D FlipY3D</p>
+
+<p>Lens3D  Liquid  Waves   Twirl</p>
+
+<p>Ripple3D</p>
+
+<p>The following is the list of the available TiledGrid3D (tiled) actions</p>
+
+<p>ShakyTiles3D    ShatteredTiles3D    ShuffleTiles    FadeOutTRTiles</p>
+
+<p>FadeOutBLTiles  FadeOutUpTiles  FadeOutDownTiles    TurnOffTiles</p>
+
+<p>WavesTiles3D    JumpTiles3D SplitRows   SplitCols</p>
+
+<h2>References</h2>
+
+<p>cocos2d-iphone Introduction to cocos2d’s effects</p>
+
+<p>Last updated by Ziv Lee at Updated about 1 month ago.</p>
+
+<p>Comment</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Skeletal animation]]></title>
+    <link href="http://shiren1118.github.com/blog/2013/03/04/skeletal-animation/"/>
+    <updated>2013-03-04T16:57:00+08:00</updated>
+    <id>http://shiren1118.github.com/blog/2013/03/04/skeletal-animation</id>
+    <content type="html"><![CDATA[<p>Skeletal animation
+Skeletal animation
+Skeletal animation vs. Sprite sheets
+Skeletal animation introduce
+Tool for skeleton animation
+Working with cocosbuilder Animations
+Adding Keyframes
+Editing Keyframes
+Importing a Sequence of Images
+Applying Easing
+Using Multiple Timelines
+Chaining Timelines
+Playing Back Animations in Code
+Conclusion
+References
+Comment</p>
+
+<h3>Skeletal animation vs. Sprite sheets</h3>
+
+<p>You can creat animations using "sprite sheets" which is quick and easy. Until you realize your game needs lots of animations and the memory consumption goes way up, together with the time required to load all the data. Also, to limit the size, you need to limit yourself to a low FPS for the animation, which also means the animation doesn’t look as smooth as you’d like. This is where skeletal animation comes in.</p>
+
+<h3>Skeletal animation introduce</h3>
+
+<p>Skeletal animation is a technique in cocos2d-x animation in which a character is represented in two parts: a surface representation used to draw the character (called skin or mesh) and a hierarchical set of interconnected bones (called the skeleton or rig) used to animate (pose and keyframe) the mesh.</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1606/Skeletal-Animation.jpg" alt="" /></p>
+
+<p>Cocos2d-x provides a way to have 2d skeletal animations in your applications. The process of skeletal animation may be a bit complicated to setup, but using them afterwards is easy, and there are some tools to simplify the process.</p>
+
+<p>When using skeletal animation, the animation is composed of several bones which are connected to one another. Affecting a bone also affects all of its children. By composing different transformations on each bone, you obtain different poses for the skeleton.</p>
+
+<p>Now, if you define keyframes with certain transformations for a point in time for each of the bones in the skeleton, you can interpolate between the keyframes to obtain a smooth transition and thus animate the skeleton.</p>
+
+<p>In the attached code, I used a class named Transformation, which contains data about 2D transformations, like translation, rotation and scale. Then, a Keyframe is defined by a frame number and one such Transformation. A collection of Keyframes defines a KeyframeAnimation. Finally, a SkeletonAnimation is a collection of KeyframeAnimations, one for each bone in the skeleton.</p>
+
+<p>Separately, you use a Skeleton, which keeps a list of Joints that define the hierarchy of bones in the skeleton. Different from "sprite sheets",each bone is then assigned a certain texture, like the ones below:</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1607/animated-grossini.png" alt="" /></p>
+
+<h3>Tool for skeleton animation</h3>
+
+<p>So far as we know, CocosBuilder is a great, free (MIT license) tool for creating skeleton animations.
+CocosBuilder is built for Cocos2d’s Javascript bindings, which means that your code, animations, and interfaces will run unmodified in Cocos2d-x.
+A tutorial for cocos2d-iphone can be found at the <a href="http://code.zynga.com/2012/10/creating-a-game-with-cocosbuilder/">Zynga Engineering blog</a></p>
+
+<h3>Working with cocosbuilder Animations</h3>
+
+<p>You can use <a href="http://cocosbuilder.com/">CocosBuilder</a> for creating character animations, animating complete scenes or just about any animation you can imagine. The animation editor has full support for multiple resolutions, easing between keyframes, boned animations and multiple timelines to name a few of the features.</p>
+
+<p>h3.The Basics</p>
+
+<p>In the bottom of the main window you can find the timeline. You use the timeline to create your animations.</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1610/timeline.png" alt="" /></p>
+
+<p>By default your ccb-file has a single timeline that is 10 seconds long. CocosBuilder edits animations at a frame rate of 30 frames per second, but when you play back the animation in your app it will use whatever you have set cocos2d to use (the default in cocos2d is 60 fps). The current time is displayed in the top right corner, and has the format minute:second:frame. The blue vertical line also shows the current time. Click the time display to change the duration of the current timeline.</p>
+
+<h4>Adding Keyframes</h4>
+
+<p>Animations in CocosBuilder are keyframe based. You can add keyframes to different properties of a node and CocosBuilder will automatically interpolate between the keyframes, optionally with different types of easing.</p>
+
+<p>To add a keyframe, first expand the view of the node by clicking the triangle to the right of the name of the node. This will reveal all the animatable properties of the node. What can be animated varies slightly depending on what type of node you have selected. Once the properties are visible you can click the property in the timeline with the option key held down. This will create a new keyframe at the time of the click. Alternatively, you can create a new keyframe at the time of the time marker by selecting a node then choosing Insert Keyframe in the Animation menu.</p>
+
+<p>Keyframes are automatically added at the current time if you transform a node in the canvas area, given that the transformed property already has one or more keyframes in the timeline.</p>
+
+<h4>Editing Keyframes</h4>
+
+<p>You edit a specific keyframe of a node by moving the time marker to the time of the keyframe and selecting the node. You can focus on a keyframe by double clicking it (which will select the node and move the time marker).</p>
+
+<p>You can select keyframes and move them together by dragging a selection box around them. You can also copy and paste keyframes between nodes. Make sure you only have one selected node when pasting the keyframes. The keyframes will be pasted starting at the time of the time marker.</p>
+
+<p>If you have selected a set of keyframes it is possible to reverse the order of them by selecting Reverse Selected Keyframes in the Animation menu. Use the Stretch Selected Keyframes… option to speed up or slow down an animation by a scaling factor.</p>
+
+<h4>Importing a Sequence of Images</h4>
+
+<p>If you have an animation created by sprite frames it can be tedious to move each individual frame to the timeline. CocosBuilder simplifies this process by automatically importing a sequence of images. Select the frames that you want to import in the left hand project view, then select a CCSprite in the timeline. Now choose Create Frames from Selected Resources in the Animation menu. The frames will automatically be created at the start of the marker. If you need to slow down the animation, select the newly created keyframes and use the Stretch Selected Keyframes… command.</p>
+
+<h4>Applying Easing</h4>
+
+<p>CocosBuilder offers a carefully selected subset of the easings provided by cocos2d. To apply an easing right click between two keyframes and select the type of easing that you want to apply.</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1611/keyframes.png" alt="" /></p>
+
+<p>Some of the easings have additional options, after the easing has been applied you can right click again and select Easing Setting… from the popup menu.</p>
+
+<h4>Using Multiple Timelines</h4>
+
+<p>A very powerful feature of CocosBuilder's animation editor is the ability to have multiple timelines in a single file. You can name the different sequences and play them back from your code by using their name. It's even possible to smoothly transition between the different timelines.</p>
+
+<p>To select, add or edit your timelines use the timeline popup menu:</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1612/Multiple%20Timelines.png" alt="" /></p>
+
+<p>In the edit timelines dialog you can get an overview of your timelines, rename them, add new ones and (optionally) set one of the timelines to automatically start playback directly when the ccbi-file is loaded by your app.</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1613/autoStart.png" alt="" /></p>
+
+<p>Properties in timelines that do not have keyframes set share their values across timelines. E.g. if you move one node in one timeline it will be moved in all timelines as long as they do not have a keyframe set for the position property. I can sometimes be useful to add a single keyframe to a property just to override the shared value for a specific timeline.</p>
+
+<h4>Chaining Timelines</h4>
+
+<p>You can automatically play back a sequence of timelines by chaining them. You can also use this feature for automatically looping a timeline.</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1614/autoPlayback.png" alt="" /></p>
+
+<p>To have a timeline play in sequence, click the No chained timeline text and select the timeline you want to play right after the current one.</p>
+
+<h4>Playing Back Animations in Code</h4>
+
+<p>To programmatically control the animations you create with CocosBuilder you will need to retrieve theCCBAnimationManager. The animation manager will be assigned to the nodes userObject when the ccbi-file is loaded.</p>
+
+<p><code>c++
+1CCNode *myNodeGraph = ccbReader-&gt;readNodeGraphFromFile("myFile.ccbi", this);
+</code></p>
+
+<p>The action manager will be returned as an autoreleased object. To play back a specific timeline call therunAnimationsForSequenceNamed: method. If a timeline is currently playing it will be immediately stopped when calling this method.</p>
+
+<p><code>c++
+1animationManager-&gt;runAnimationsForSequenceNamed("My Timeline");
+</code></p>
+
+<p>Optionally, you can use a tween duration to smoothly transition to the new timeline. Where possible linear interpolations will be used for the transition.</p>
+
+<p><code>c++
+1animationManager-&gt;runAnimationsForSequenceNamedTweenDuration("My Timeline",0.5f);
+</code></p>
+
+<p>It is also possible to receive a callback whenever a timeline has finished playing. You will receive these callbacks even if another timeline is chained in sequence. Use the CCBAnimationManagerDelegate to receive the callbacks.</p>
+
+<h3>Conclusion</h3>
+
+<p>Thank you taking the time to read through the tutorial and happy coding!If you have other tools for skeleton animation,please let us known or post to this wiki.</p>
+
+<h3>References</h3>
+
+<p><a href="http://code.zynga.com/2012/10/creating-a-game-with-cocosbuilder/">Creating a game with cocosbuilder</a>
+<a href="http://cocosbuilder.com/">CocosBuilder Documentation</a></p>
+
+<h3>Comment</h3>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Scheduler and Timer Callback]]></title>
+    <link href="http://shiren1118.github.com/blog/2013/03/04/scheduler-and-timer-callback/"/>
+    <updated>2013-03-04T16:57:00+08:00</updated>
+    <id>http://shiren1118.github.com/blog/2013/03/04/scheduler-and-timer-callback</id>
+    <content type="html"><![CDATA[<h2>Scheduler and Timer Callback</h2>
+
+<div style='display:none;'>
+Scheduler is responsible for triggering the scheduled callbacks.
+</div>
+
+
+<p>调度器负责触发调度回调.</p>
+
+<h3>Two different types of callbacks (selectors):</h3>
+
+<div style='display:none;'>
+update selector: the 'update' selector will be called every frame. You can customize the priority.
+custom selector: A custom selector will be called every frame, or with a custom interval of time.
+The 'custom selectors' should be avoided when possible. It is faster, and consumes less memory to use the 'update selector'.
+</div>
+
+
+<p>更新selector:  'update' selector可以在每个frame调用.你可以自定义优先级.
+自定义selector: 自定义selector可以在每个frame调用, 或自定义的时间段内调用.
+'custom selectors'尽可能避免使用. 相对于使用'update selector'来说，它比较快，且内存消耗较小.</p>
+
+<h3>CCScheduler vs. NSTimer</h3>
+
+<div style='display:none;'>
+The Cocos2D Scheduler provides your game with timed events and calls. You should not use NSTimer. Instead use CCScheduler class.
+
+The reasons as follow:
+</div>
+
+
+<p>Cocos2D Scheduler 为你的游戏提供了时间时间和调用.你不要使用NSTimer.而不是用CCScheduler类.</p>
+
+<p>原因如下:</p>
+
+<div style='display:none;'>
+CCNode objects know how to schedule and unschedule events,and using the Cocos2D Scheduler has several distinct advantages over just using NSTimer.
+</div>
+
+
+<p>CCNode对象知道如何去调度和解除调度事件，和仅使用NSTimer相比，使用Cocos2D Scheduler有很多不一样的优点.</p>
+
+<ul>
+<li>The scheduler calls get deactivated whenever the CCNode is no longer visible or is removed from the scene.</li>
+<li>The scheduler calls are also deactivated when Cocos2D is paused and are rescheduled when Cocos2D is resumed.</li>
+<li>The scheduler delivers a interval time of the milliseconds that have passed since the last call.This interval time is useful in Physics engines.</li>
+<li>Using scheduler with this->scheduleUpdate(); call ensures that your update function will be called before each frame needs to be rendered.</li>
+</ul>
+
+
+<div style='display:none;'>
+Accordingly,CCScheduler can save you a lot of time over NSTimer and let you focus on the mechanics of your game.
+</div>
+
+
+<p>因此，CCScheduler会比NSTimer节省很多时间，让你更加关注于你的游戏构成.</p>
+
+<p>Last updated by Iven Yang at Updated about 1 month ago.</p>
+
+<h3>Comment</h3>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[cocos2d-x wiki翻译]Animations]]></title>
+    <link href="http://shiren1118.github.com/blog/2013/03/04/animations/"/>
+    <updated>2013-03-04T16:57:00+08:00</updated>
+    <id>http://shiren1118.github.com/blog/2013/03/04/animations</id>
+    <content type="html"><![CDATA[<h2>动画(Animations)</h2>
+
+<p>Animations
+Manual Animation
+Sprite Sheet Animation
+Creating from .png and .plist file
+File animation
+Skeleton Animation
+Comment</p>
+
+<h3>Manual Animation</h3>
+
+<div style='display:none;'>
+You can create an animation from a series of image file, like this:
+</div>
+
+
+<p>你可以通过多个图片文件来创建一个动画，比如:</p>
+
+<p>```c++
+ CCAnimation *animation = CCAnimation::create();</p>
+
+<p> // load image file from local file system to CCSpriteFrame, then add into CCAnimation
+ for (int i = 1; i &lt; 15; i++)
+ {</p>
+
+<pre><code> char szImageFileName[128] = {0};
+ sprintf(szImageFileName, "Images/grossini_dance_%02d.png", i);
+ animation-&gt;addSpriteFrameWithFileName(szImageFileName);  
+</code></pre>
+
+<p> }</p>
+
+<p>animation->setDelayPerUnit(2.8f / 14.0f); // This animation contains 14 frames, will continuous 2.8 seconds.
+animation->setRestoreOriginalFrame(true); // Return to the 1st frame after the 14th frame is played.</p>
+
+<p>CCAnimate *action = CCAnimate::create(animation);
+sprite->runAction(action);  // run action on sprite object
+```</p>
+
+<div style='display:none;'>
+Note that CCAnimation is composed by sprite frames, delay time per frame, durations etc, it's a pack of "data". While CCAnimate is an action, which is created base on CCAnimation object.
+</div>
+
+
+<p>注意CCAnimation是通过sprite frames组成的，每个frame延时，持续等，它是一组"数据".
+而CCAnimate是一个action，它是基于CCAnimation对象创建的。</p>
+
+<h3>Sprite Sheet Animation</h3>
+
+<div style='display:none;'>
+Although manual animation is very easy to understand, it's rarely used in real game projects. Instead, sprite sheet animation is the common solution of 2D animations.
+</div>
+
+
+<p>尽管manual animation是非常易于理解的,但事实上，它在真实游戏项目中是非常少用到的.相反，sprite sheet animation是2D动画中最常见的解决方案.</p>
+
+<div style='display:none;'>
+This is a typical sprite sheet. It can be a sequence of sprite frames for an animation, or can be images pack that will be used in a same scene.
+</div>
+
+
+<p>下面是一个典型的sprite sheet.它是动画中的一连串sprite frames，或者是可以在一个场景中用到的一组图片.</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/download/1570" alt="" /></p>
+
+<div style='display:none;'>
+In OpenGL ES 1.1 period, sprite sheets was widely used for these benefits:
+Reduce times of file I/O. Loading a big sprite sheet file is faster than loading lots of small files.
+Reduce the memory consumption. OpenGL ES 1.1 can only use power-of-two sized textures (that is a width or height of 2,4,864,128,256,512,1024,...). In other words, OpenGL ES 1.1 allocates power-of-two sized memory for each texture even if this texture has smaller width and height. So using packed sprite sheet image will reduce the fragments of memory.
+</div>
+
+
+<p>在OpenGL ES 1.1时代，sprite sheets被广泛使用是得益于:</p>
+
+<ul>
+<li>减少文件I/O时间.加载一个大的sprite sheet文件比加载多个小文件要快得多.</li>
+<li>减少内存消耗.OpenGL ES 1.1仅可用 power-of-two sized textures（这事一个 2,4,864,128,256,512,1024,...的宽高）.换言之，如果宽高比较小的话，OpenGL ES 1.1甚至为每个texture分配power-of-two sized内存.所以使用成组的 sprite sheet图片会减少内存碎片</li>
+</ul>
+
+
+<div style='display:none;'>
+Reduce the draw calls to OpenGL ES draw method and speed up rendering.
+Cocos2d-x v2.0 upgraded to OpenGL ES 2.0 based. OpenGL ES 2.0 doesn't allocate power-of-two memory block for textures anymore, but the benefit of reducing file I/O times and draw calls are still working.
+</div>
+
+
+<p>减少 OpenGL ES 调用方法绘制，加速渲染.
+Cocos2d-x v2.0已更新，是基于OpenGL ES 2.0的.OpenGL ES 2.0不会为textures分配power-of-two内存块，但减少文件系统I/O时间和调用的好处仍然是有效的.</p>
+
+<div style='display:none;'>
+Then how about the animation? As we can see, sprite sheet has no MUST-BE relationship with animations. But considering to these benefits above, sprite sheet animations are efficient. There're different ways to create sprite sheet animations in cocos2d.
+</div>
+
+
+<p>那该如何动画呢？正如我们看到的，sprite sheet没有使用动画的必然关系.但考虑到上面这些益处，sprite sheet是有效的.在cocos2d中有很多种不同的方法来创建sprite sheet.</p>
+
+<h4>Creating from .png and .plist file</h4>
+
+<div style='display:none;'>
+In cocos2d-x 0.x and 1.x versions, CCSpriteSheet works for this purpose. While CCSpriteBatchNode is a replacement of CCSpriteSheet since v2.0
+</div>
+
+
+<p>在cocos2d-x 0.x和1.x版本中，CCSpriteSheet便是为此目的而生的.而CCSpriteBatchNode在v2.0版本之后替换了CCSpriteSheet</p>
+
+<div style='display:none;'>
+A CCSpriteBatchNode object contains the actual image texture of all the sprite frames. You must add it to a scene, even though it won't draw anything itself; it just needs to be there so that it is part of the rendering pipeline. For example:
+</div>
+
+
+<p>CCSpriteBatchNode对象包含了所有sprite frames中的用到的真实图片texture.你必须把它放到场景中，甚至它自身什么都不用画;它只需要放到那里，这样它就成了rendering pipeline的组成部分.比如:</p>
+
+<div style='display:none;'>
+1CCSpriteBatchNode* spritebatch = CCSpriteBatchNode::create("animations/grossini.png");
+Next, you need to use the CCSpriteFrameCache singleton to keep track how frame names correspond to frame bounds – that is, what rectangular area of the sprite sheet. Example:
+</div>
+
+
+<p><code>c++
+CCSpriteBatchNode* spritebatch = CCSpriteBatchNode::create("animations/grossini.png");
+</code></p>
+
+<p>接下来，你需要使用CCSpriteFrameCache单例对象来保存frame名字如何响应到frame bounds=
+也就是，sprite sheet中的矩形区域.例如:</p>
+
+<p><code>c++
+CCSpriteFrameCache* cache = CCSpriteFrameCache::sharedSpriteFrameCache();
+cache-&gt;addSpriteFramesWithFile("animations/grossini.plist");
+</code></p>
+
+<div style='display:none;'>
+Once your sprite sheet and frames are loaded, and the sprite sheet has been added to the scene, you can create sprites that use these frames by using the “createWithSpriteFrameName” method, and adding it as a child of the sprite sheet:
+</div>
+
+
+<p>一旦你的sprite sheet和frames已经加载完毕，并且sprite sheet已经增加到场景中了，你可以通过这些frames创建sprites，使用 “createWithSpriteFrameName” 方法，把它放入作为sprite sheet的子对象:</p>
+
+<p><code>c++
+m_pSprite1 = CCSprite::createWithSpriteFrameName("grossini_dance_01.png");
+spritebatch-&gt;addChild(m_pSprite1);
+addChild(spritebatch);
+</code></p>
+
+<div style='display:none;'>
+createWithSpriteFrameName method will find the corresponding coordinates and rectangle from grossini.plist, then "clip" the texture grossini.png to a sprite frame.
+</div>
+
+
+<p>createWithSpriteFrameName方法会查找响应坐标和grossini.plist中定义的矩形，因此"clip"texture grossini.png是sprite frame.</p>
+
+<div style='display:none;'>
+Now we need to create a CCArray object and add all frames of the animation to it. In the case of this animation, we know all 14 frames have the same size, so we can use a nested loop to iterate through them all, and break the loop when we finish adding the 14th frame.
+</div>
+
+
+<p>现在，我们需要创建CCArray对象，增加所有动画的frames到此对象中。在这个动画例子中，我们知道这14个frame都有一模一样的尺寸,所以我们使用了嵌套循环来迭代，当我们完成增加第14个frame的时候中断循环.</p>
+
+<p>```c++
+CCArray* animFrames = CCArray::createWithCapacity(15);</p>
+
+<p>char str[100] = {0};</p>
+
+<p>for(int i = 1; i &lt; 15; i++)
+{</p>
+
+<pre><code>sprintf(str, "grossini_dance_%02d.png", i);
+CCSpriteFrame* frame = cache-&gt;spriteFrameByName( str );
+animFrames-&gt;addObject(frame);
+</code></pre>
+
+<p>}
+```</p>
+
+<div style='display:none;'>
+Finally, we need to create a CCAnimate action instance which we can run on the CCSprite. Below, we also wrap the CCAnimate action in a CCRepeatForever action that does what you would expect: repeats the animation forever,like so:
+</div>
+
+
+<p>最后，我们需要创建CCAnimate action实例，我们要运行在CCSprite的对像.
+下面，我们也封装CCAnimate action到CCRepeatForever action中，此actions是你所需要的:重复动画,像这样:</p>
+
+<p><code>c++
+CCAnimation* animation = CCAnimation::createWithSpriteFrames(animFrames, 0.3f);
+m_pSprite1-&gt;runAction( CCRepeatForever::create( CCAnimate::create(animation) ) );
+</code></p>
+
+<h4>File animation</h4>
+
+<div style='display:none;'>
+CCAnimationCache can load a xml/plist file which well describes the batch node, sprite frame names and their rectangles. The interfaces are much easier to use.
+</div>
+
+
+<p>CCAnimationCache 可以加载xml/plist文件，此文件可以非常好的描述批量node,sprite frame names和它们的矩形.
+这个接口更简单易用.</p>
+
+<p><code>c++
+CCAnimationCache *cache = CCAnimationCache::sharedAnimationCache(); // "caches" are always singletons in cocos2d
+cache-&gt;addAnimationsWithFile("animations/animations-2.plist");
+CCAnimation animation = cache-&gt;animationByName("dance_1");  // I apologize for this method name, it should be getAnimationByName(..) in future versions
+CCAnimate animate = CCAnimate::create(animation);  // Don't confused between CCAnimation and CCAnimate :)
+sprite-&gt;runAction(animate);
+</code></p>
+
+<div style='display:none;'>
+Easy to use, isn't it?
+</div>
+
+
+<p>简单易用吧？哈哈</p>
+
+<h3>骨骼动画(Skeleton Animation)</h3>
+
+<p>请参考 <a href="http://www.cocos2d-x.org/projects/cocos2d-x/wiki/Skeletal_Animation">Skeletal Animation</a> 页.</p>
+
+<h3>Coment</h3>
+]]></content>
+  </entry>
+  
+</feed>
