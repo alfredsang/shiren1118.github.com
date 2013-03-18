@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Skeletal animation"
+title: "[cocos2d-x wiki翻译]Skeletal animation"
 date: 2013-03-04 16:57
 comments: true
-categories: 
+categories: [cocos2d-x wiki翻译]
 ---
 
 

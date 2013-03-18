@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Director Scene Layer and Sprite"
+title: "[cocos2d-x wiki翻译]Director Scene Layer and Sprite(ok)"
 date: 2013-03-01 16:22
 comments: true
-categories: 
+categories: [cocos2d-x wiki翻译]
 ---
 
 
@@ -122,11 +122,8 @@ CCLayer是你定义事件处理的地方，事件会被传播到layer上（从�
 Although some serious apps will require you to define custom CCLayer classes, cocos2d provides a library of useful predefined layers (a simple menu layer: CCMenu, a color layer: CCColorLayer, a multiplexor between other layers: CCMultiplexLayer, and more ).
 </div>
 
-<<<<<<< HEAD
-尽管一些apps会需要你去个性化定义CCLayer类，cocos2d还是提供了一个非常有用的内置预先定义好的layers（简单的layer：如CCMenu，颜色layer：如CCColorLayer，在层之间多路传送的layer：如CCMultiplexLayer，等等）的类库。
-=======
+
 尽管一些apps会需要你去个性化定义CCLayer类，cocos2d还是提供了一个非常有用的内置预先定义好的layers（简单的菜单layer：如CCMenu，颜色layer：如CCColorLayer，在层之间多路传送的layer：如CCMultiplexLayer，等等）的类库。
->>>>>>> 378fd554cc464fe9523adfaa112649391a134a3c
 
 
 <div style='display:none'>
@@ -190,11 +187,8 @@ cocos2d的精灵看起来和其他计算机精灵一样。它是2D图像，可�
 Sprites (implemented using the CCSprite class) can have other sprites as children. When a parent is transformed, all its children are transformed as well.
 </div>
 
-<<<<<<< HEAD
+
 Sprites（通过使用CCSprite类实现）可以有多个其他精灵作为子对象，当父类被触发，它的所有子对象也同时被触发。
-=======
-Sprites（通过使用CCSprite类实现）可以有多个其他精灵作为子对象，当父类被改变，它的所有子对象也同时被改变。
->>>>>>> 378fd554cc464fe9523adfaa112649391a134a3c
 
 <div style='display:none'>
 Since sprites are subclass of CCNode, they can be transformed manually or by using actions. See Actions for more detail about actions.

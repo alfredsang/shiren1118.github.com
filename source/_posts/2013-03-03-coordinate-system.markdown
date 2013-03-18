@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Coordinate System"
+title: "[cocos2d-x wiki翻译]Coordinate System(ok)"
 date: 2013-03-03 17:05
 comments: true
-categories: 
+categories: [cocos2d-x wiki翻译]
 ---
 
 Coordinate System·坐标系

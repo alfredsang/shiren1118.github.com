@@ -1,38 +1,63 @@
 ---
 layout: post
-title: "Actions"
+title: "[cocos2d-x wiki翻译]Actions"
 date: 2013-03-04 16:57
 comments: true
-categories: 
+categories: [cocos2d-x wiki翻译]
 ---
 
 ## Actions
 
+<div style='display:none;'>
+Actions are like orders given to any CCNode object. These actions usually modify some of the object's attributes like position, rotation, scale, etc. If these attributes are modified during a period of time, they are CCIntervalAction actions, otherwise they are CCInstantAction actions.
+For example, the CCMoveBy action modifies the position property during a period of time, hence, it is a subclass of CCIntervalAction.
+</div>
+
 Actions are like orders given to any CCNode object. These actions usually modify some of the object's attributes like position, rotation, scale, etc. If these attributes are modified during a period of time, they are CCIntervalAction actions, otherwise they are CCInstantAction actions.
 For example, the CCMoveBy action modifies the position property during a period of time, hence, it is a subclass of CCIntervalAction.
 
-You can run TestCpp -> Actions Test to see the actions' visual effects. And cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest are good sample codes for the usage.
 
-Example:
+Actions are like orders given to any CCNode object. 这些actions通常会修改对象的一些属性，如位置，旋转，缩放等。如果这些熟悉在一段时间内被修改，它们是CCIntervalAction actions，相反则是 CCInstantAction actions.
+
+例如，CCMoveBy action是在一段时间内修改了位置属性，因此，它是CCIntervalAction的子类.
+<div style='display:none;'>
+You can run TestCpp -> Actions Test to see the actions' visual effects. And cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest are good sample codes for the usage.
+</div>
+ 
+你可以运行TestCpp -> Actions Test 来查看actions的可视化效果。cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest 是非常好的实例代码用法。
+
+
+例如:
 
 ```c++
 // Move a sprite 50 pixels to the right, and 10 pixels to the top over 2 seconds.
 CCActionInterval*  actionBy = CCMoveBy::create(2, ccp(50,10));
 ```
 
-
+<div style='display:none;'>
 The CCIntervalAction actions have some interesting properties:
 They can be accelerated using the time-altered actions
+</div>
+
+CCIntervalAction actions有一些有意思的属性:
+
+它们可以在时间切换action中被访问到：
 
 - CCEaseIn
 - CCEaseOut
 - CCEaseInOut
 - CCSpeed
 
+<div style='display:none;'>
 Etc. (See the ActionsEaseTest.cpp example for more info)
+</div>
+等. (更多信息，详见ActionsEaseTest.cpp实例)
 
-
+<div style='display:none;'>
 You can pause/resume all actions by using the CCActionManager:
+</div>
+
+你可以通过用CCActionManager来暂停和恢复所有actions:
 
 ```c++
 // Pause actions
@@ -45,9 +70,12 @@ director->getActionManager()->resumeTargets(m_pPausedTargets);
 
 ### Basic Actions
 
+<div style='display:none;'>
 Basic actions are the ones that modify basic properties like:
+</div>
+基本actions是指修改基本属性如:
 
-#### position
+#### 位置(position)
 - [CCMoveBy](http://www.cocos2d-x.org/reference/native-cpp/dc/df6/classcocos2d_1_1_c_c_move_by.html)
 - [CCMoveTo](http://www.cocos2d-x.org/reference/native-cpp/d2/d2b/classcocos2d_1_1_c_c_move_to.html)
 - [CCJumpBy](http://www.cocos2d-x.org/reference/native-cpp/db/d25/classcocos2d_1_1_c_c_jump_by.html)
@@ -56,30 +84,30 @@ Basic actions are the ones that modify basic properties like:
 - [CCBezierTo](http://www.cocos2d-x.org/reference/native-cpp/dc/d17/classcocos2d_1_1_c_c_bezier_to.html)
 - [CCPlace](http://www.cocos2d-x.org/reference/native-cpp/de/dbf/classcocos2d_1_1_c_c_place.html)
 
-#### scale
+#### 缩放(scale)
 - [CCScaleBy](http://www.cocos2d-x.org/reference/native-cpp/d4/d62/classcocos2d_1_1_c_c_scale_by.html)
 - [CCScaleTo](http://www.cocos2d-x.org/reference/native-cpp/da/d23/classcocos2d_1_1_c_c_scale_to.html)
 
-#### rotation
+#### 旋转(rotation)
 - [CCRotateBy](http://www.cocos2d-x.org/reference/native-cpp/d6/d57/classcocos2d_1_1_c_c_rotate_by.html)
 - [CCRotateTo](http://www.cocos2d-x.org/reference/native-cpp/d9/df5/classcocos2d_1_1_c_c_rotate_to.html)
 
-#### visible
+#### 可见性(visible)
 - [CCShow](http://www.cocos2d-x.org/reference/native-cpp/d3/de8/classcocos2d_1_1_c_c_show.html)
 - [CCHide](http://www.cocos2d-x.org/reference/native-cpp/d1/d72/classcocos2d_1_1_c_c_hide.html)
 - [CCBlink](http://www.cocos2d-x.org/reference/native-cpp/d8/de2/classcocos2d_1_1_c_c_blink.html)
 - [CCToggleVisibility](http://www.cocos2d-x.org/reference/native-cpp/dc/d90/classcocos2d_1_1_c_c_toggle_visibility.html)
 
-#### opacity
+#### 透明度(opacity)
 - [CCFadeIn](http://www.cocos2d-x.org/reference/native-cpp/d7/d89/classcocos2d_1_1_c_c_fade_in.html)
 - [CCFadeOut](http://www.cocos2d-x.org/reference/native-cpp/d6/d6d/classcocos2d_1_1_c_c_fade_out.html)
 - [CCFadeTo](http://www.cocos2d-x.org/reference/native-cpp/da/d44/classcocos2d_1_1_c_c_fade_to.html)
 
-#### color
+#### 颜色(color)
 - [CCTintBy](http://www.cocos2d-x.org/reference/native-cpp/de/de1/classcocos2d_1_1_c_c_tint_by.html)
 - [CCTintTo](http://www.cocos2d-x.org/reference/native-cpp/dd/dfa/classcocos2d_1_1_c_c_tint_to.html)
 
-Example:
+例如:
 
 ```c++
 CCSprite *sprite = CCSprite::create("Images/grossini.png");
@@ -90,6 +118,11 @@ CCMoveBy* act1 = CCMoveBy::create(0.5, ccp(100, 0));
 sprite->runAction(CCRepeat::create(act1, 1));
 ```
 
+<div style='display:none;'>
 The act1 will be a CCMoveBy action of duration 0.5, but with the position value of ccp(100,0).
+</div>
+
+act1是持续0.5秒的CCMoveBy action,并且使用位置ccp(100,0)的值？.
+
 
 ### Comment

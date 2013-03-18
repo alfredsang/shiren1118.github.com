@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "Particles"
+title: "[cocos2d-x wiki翻译]Particles"
 date: 2013-03-04 16:58
 comments: true
 categories: 
 ---
 
 
-Particles
+# 粒子(Particles)
 Particles
 Introduction
 Point vs Quad
@@ -24,7 +24,7 @@ Common properties of the system:
 Examples
 References
 Comment
-Introduction
+## Introduction
 The term particle system refers to a computer graphics technique that uses a large number of very small sprites or other graphic objects to simulate certain kinds of "fuzzy" phenomena, which are otherwise very hard to reproduce with conventional rendering techniques - usually highly chaotic systems, natural phenomena, and/or processes caused by chemical reactions.
 
 
@@ -46,7 +46,7 @@ A CCParticleBatchNode can reference one and only one texture (one image file, on
 Creating a Quad Particle System
 1CCParticleSystemQuad* m_emitter = newCCParticleSystemQuad();
 2m_emitter = CCParticleFire::create();
-Gravity vs Radius mode
+## Gravity vs Radius mode
 Gravity Mode
 Gravity Mode lets particles fly toward or away from a center point. Its strength is that it allows very dynamic, organic effects. You can set gravity mode with this line:
 
@@ -84,7 +84,9 @@ endRadiusVar (a float). The ending radius variance
 rotatePerSecond (a float). Number of degress to rotate a particle around the source pos per second.
 rotatePerSecondVar (a float). Number of degrees variance.
 Properties common to all modes
-Common properties of the particles:
+
+## Common properties of the particles:
+
 startSize: Start size of the particles in pixels
 startSizeVar
 endSize: Use kCCParticleStartSizeEqualToEndSize if you want that the start size == end size.
@@ -110,7 +112,7 @@ duration (a float). How many seconds does the particle system (different than th
 blendFunc (a ccBlendFunc). The OpenGL blending function used for the system
 positionType (a tCCPositionType). Use kCCPositionTypeFree (default one) for moving particles freely. Or use kCCPositionTypeGrouped to move them in a group.
 texture (a CCTexture2D). The texture used for the particles
-Examples
+## Examples
 cocos2d-x comes with some predefined particles that can be customized in runtime. List of predefined particles:
 
 CCParticleFire: Point particle system. Uses Gravity mode.
