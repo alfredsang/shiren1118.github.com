@@ -40,4 +40,4 @@ rootviewcontroller
 用assign是防止产生交替dealloc死锁内存问题。
 
 
-
+	
