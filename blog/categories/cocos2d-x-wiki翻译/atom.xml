@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cocos2d-x wiki翻译 | 小桑博客]]></title>
   <link href="http://shiren1118.github.com/blog/categories/cocos2d-x-wiki翻译/atom.xml" rel="self"/>
   <link href="http://shiren1118.github.com/"/>
-  <updated>2013-03-19T01:14:00+08:00</updated>
+  <updated>2013-03-23T20:25:49+08:00</updated>
   <id>http://shiren1118.github.com/</id>
   <author>
     <name><![CDATA[alfred sang]]></name>
@@ -104,49 +104,48 @@ There are many more transition types, you can see the full list in the class ref
     <id>http://shiren1118.github.com/blog/2013/03/04/effects</id>
     <content type="html"><![CDATA[<h1>Effects</h1>
 
-<p>Effects
-Introduction
-How do I use them ?
-References
-Comment</p>
-
-<h2>Introduction</h2>
+<h2>介绍</h2>
 
 <div style='display:none;'>
 Effects are a special kind of action. Instead of modifying normal properties like opacity, position, rotation, or scale, they modify a new kind of property: the grid property.
 </div>
 
 
-<p>Effects是特殊类型的action.与修改常规的属性如透明度,位置，旋转或缩放不同,它们修改一个新的属性:grid属性.</p>
+<p>Effects是特殊类型的action.与修改常规的属性如透明度,位置,旋转或缩放等不同,它们修改的是一种新类型的属性:grid属性.</p>
 
 <div style='display:none;'>
 A grid property is like a matrix, it is a network of lines that cross each other to form a series of squares or rectangles.
 </div>
 
 
-<p>grid属性像是一个矩阵,是一个网络。。。。</p>
+<p>grid属性像是一个模型,是一个线条交叉的网格,具体表现是一系列的正方形或长方形.</p>
 
 <div style='display:none;'>
 These special actions render any CocosNode object (Layer, Scene, Sprite, etc.) into the grid, and you can transform the grid by moving its vertices.
 </div>
 
 
-<p>这些特殊actions可以渲染任意CocosNode对象 (Layer, Scene, Sprite, etc.)到grid中，你可以通过顶点来转换grid.</p>
+<p>这些特殊的actions可以渲染任一CocosNode对象 (Layer, Scene, Sprite, 等.)到grid中，你可以通过顶点来转换grid.</p>
 
 <div style='display:none;'>
 There are 2 kind of grids: tiled grids and non-tiled grids. The difference is that the tiled grid is composed of individual tiles while the non-tiled grid is composed of vertices.
 </div>
 
 
-<p>一共有2中grid: 布局grid和非布局grid.它们的区别是布局grid是由独立的布局组成，而非布局grid由顶点组成。</p>
+<p>一共有2类grid: 布局grid和非布局grid.它们的区别在于布局grid是由独立的布局组成，而非布局grid由顶点组成。</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1575/tiled_and_nontiled_grid.png" alt="" /></p>
 
 <div style='display:none;'>
 The following is an example of Ripple3D action, who uses a Grid3D (non-tiled) grid:
 </div>
 
 
-<p>
-下面是一个Ripple3D action例子，它使用的是 Grid3D (非布局) grid:</p>
+<p></p>
+
+<p>下面是Ripple3D action例子，它使用的是 Grid3D (非布局的) grid:</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/1577/effect_ripple3d_grid.png" alt="" /></p>
 
 <div style='display:none;'>
 and the following is an example of FadeOutTR action, who uses a TiledGrid3D (tiled) grid:
@@ -155,18 +154,33 @@ and the following is an example of FadeOutTR action, who uses a TiledGrid3D (til
 
 <p></p>
 
-<p>FadeOutTR action例子，它使用的是 TiledGrid3D (布局) grid:</p>
+<p>接下来是FadeOutTR action例子，它用的是TiledGrid3D (布局) grid:</p>
 
-<h2>如何使用?  How do I use them ?</h2>
+<p><img src="http://www.cocos2d-x.org/attachments/1578/effect_fadeouttiles.png" alt="" /></p>
 
-<p>Like any other action, it is executed by the runAction. eg:</p>
+<h2>用法  How do I use them ?</h2>
 
-<p>1// Create an sprite
-2CCSprite* grossini = CCSprite::create("grossini.png");
-3grossini->runAction(CCLiquid::create(4, 20, ccg(10,10), 5));</p>
+<div style='display:none;'>
+Like any other action, it is executed by the runAction. eg:
+</div>
 
-<p>Liquid, like any other grid action, receives the grid parameter. You can adjust the quality of the effect by increasing the size of the grid. But it also implies less FPS.
-The Effects are IntervalAction actions so you can treat them like any other action. eg:</p>
+
+<p>和其他action一样,是通过runAction执行的.例如:</p>
+
+<p><code>c++
+// Create an sprite
+CCSprite* grossini = CCSprite::create("grossini.png");
+grossini-&gt;runAction(CCLiquid::create(4, 20, ccg(10,10), 5));
+</code></p>
+
+<div style='display:none;'>
+Liquid, like any other grid action, receives the grid parameter. You can adjust the quality of the effect by increasing the size of the grid. But it also implies less FPS.
+The Effects are IntervalAction actions so you can treat them like any other action. eg:
+</div>
+
+
+<p>和其他grid action一样，Liquid会接收一个grid参数.你可以通过使用增加grid大小来调整effoect(效果)的质量.但是它也意味着有很少的FPS.
+Effects是IntervalAction actions,所以你可以用像其他action的处理方式一样来处理它们.例如:</p>
 
 <p>```c++
 // create a Lens3D action
@@ -179,28 +193,72 @@ CCActionInterval* waves = CCWaves3D::create(18,80,ccg(15,10),10);</p>
 grossini->runAction(CCRepeatForever::create((CCSequence*)CCSequence::create(waves, lens, NULL ) ) );
 ```</p>
 
-<p>The following is the list of the available Grid3D (non-tiled) actions in v2.1.0:
-Shaky3D Waves3D FlipX3D FlipY3D</p>
+<div style='display:none;'>
+The following is the list of the available Grid3D (non-tiled) actions in v2.1.0:
+</div>
 
-<p>Lens3D  Liquid  Waves   Twirl</p>
+
+<p>下面是v2.1.0版本中Grid3D(non-tiled) actions的可用列表:</p>
+
+<p>Shaky3D     Waves3D     FlipX3D     FlipY3D</p>
+
+<p><tr>
+<td> <img src="http://www.cocos2d-x.org/attachments/1580/IMG_0001.PNG" alt="">      </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1581/IMG_0002.PNG" alt="">         </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1582/IMG_0003.PNG" alt="">         </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1583/IMG_0004.PNG" alt="">         </td>
+</tr></p>
+
+<p>Lens3D      Liquid      Waves   Twirl</p>
+
+<p><tr>
+<td> <img src="http://www.cocos2d-x.org/attachments/1584/IMG_0005.PNG" alt="">      </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1585/IMG_0007.PNG" alt="">         </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1586/IMG_0008.PNG" alt="">         </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1587/IMG_0011.PNG" alt="">         </td>
+</tr></p>
 
 <p>Ripple3D</p>
 
-<p>The following is the list of the available TiledGrid3D (tiled) actions</p>
+<p><img src="http://www.cocos2d-x.org/attachments/1588/IMG_0002_2.PNG" alt="" /></p>
 
-<p>ShakyTiles3D    ShatteredTiles3D    ShuffleTiles    FadeOutTRTiles</p>
+<div style='display:none;'>
+The following is the list of the available TiledGrid3D (tiled) actions
+</div>
 
-<p>FadeOutBLTiles  FadeOutUpTiles  FadeOutDownTiles    TurnOffTiles</p>
 
-<p>WavesTiles3D    JumpTiles3D SplitRows   SplitCols</p>
+<p>下面是TiledGrid3D(tiled) actions可用的列表:</p>
 
-<h2>References</h2>
+<p>ShakyTiles3D   ---------        ShatteredTiles3D   ---------        ShuffleTiles ---------      FadeOutTRTiles</p>
 
-<p>cocos2d-iphone Introduction to cocos2d’s effects</p>
+<p><tr>
+<td> <img src="http://www.cocos2d-x.org/attachments/1593/IMG_0012.PNG" alt="">       </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1594/IMG_0013.PNG" alt="">          </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1595/IMG_0014.PNG" alt="">          </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1596/IMG_0015.PNG" alt="">          </td>
+</tr></p>
 
-<p>Last updated by Ziv Lee at Updated about 1 month ago.</p>
+<p>FadeOutBLTiles ---------    FadeOutUpTiles   ---------      FadeOutDownTiles   ---------        TurnOffTiles</p>
 
-<p>Comment</p>
+<p><tr>
+<td> <img src="http://www.cocos2d-x.org/attachments/1597/IMG_0016.PNG" alt="">      </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1598/IMG_0017.PNG" alt="">         </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1599/IMG_0019.PNG" alt="">         </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1600/IMG_0020.PNG" alt="">         </td>
+</tr></p>
+
+<p>WavesTiles3D  ---------         JumpTiles3D   ---------         SplitRows ---------         SplitCols</p>
+
+<p><tr>
+<td> <img src="http://www.cocos2d-x.org/attachments/1601/IMG_0021.PNG" alt="">      </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1602/IMG_0022.PNG" alt="">         </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1603/IMG_0023.PNG" alt="">         </td>
+<td>   <img src="http://www.cocos2d-x.org/attachments/1604/IMG_0024.PNG" alt="">         </td>
+</tr></p>
+
+<h2>参考</h2>
+
+<p>cocos2d-iphone <a href="http://www.cocos2d-iphone.org/archives/40">cocos2d’s effects简介</a></p>
 ]]></content>
   </entry>
   
