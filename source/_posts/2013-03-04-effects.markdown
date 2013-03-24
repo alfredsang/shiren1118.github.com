@@ -3,7 +3,7 @@ layout: post
 title: "[cocos2d-x wiki翻译]Effects"
 date: 2013-03-04 16:58
 comments: true
-categories: [cocos2d-x wiki翻译]
+categories:  
 ---
 
 
