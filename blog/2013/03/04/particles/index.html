@@ -9,14 +9,7 @@
   <meta name="author" content="alfred sang">
 
   
-  <meta name="description" content="粒子(Particles) Particles
-Introduction
-Point vs Quad
-CCParticleBatchNode
-Creating a Quad Particle System
-Gravity vs Radius mode
-Gravity Mode
-These &hellip;">
+  <meta name="description" content="粒子(Particles) 简介 The term particle system refers to a computer graphics technique that uses a large number of very small sprites or other graphic &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -100,132 +93,280 @@ These &hellip;">
 
 <div class="entry-content"><h1>粒子(Particles)</h1>
 
-<p>Particles
-Introduction
-Point vs Quad
-CCParticleBatchNode
-Creating a Quad Particle System
-Gravity vs Radius mode
-Gravity Mode
+<h2>简介</h2>
+
+<div style='display:none;'>
+The term particle system refers to a computer graphics technique that uses a large number of very small sprites or other graphic objects to simulate certain kinds of &#8220;fuzzy&#8221; phenomena, which are otherwise very hard to reproduce with conventional rendering techniques - usually highly chaotic systems, natural phenomena, and/or processes caused by chemical reactions.
+</div>
+
+
+<p>术语粒子系统关系到计算机图形学技术，使用大量非常小的sprite或其他图像对象来模拟特定种类的&#8221;模糊&#8221;现象,通过常规的渲染技术是很难制造的——一般来说有混乱系统、自然现象、或者活学反应引起的过程。</p>
+
+<p><img src="http://www.cocos2d-x.org/attachments/download/1631" alt="" /></p>
+
+<h2>Point vs Quad</h2>
+
+<div style='display:none;'>
+In early versions of Cocos2d-x, there were two types of particle system in cocos2d-x: Quad and Point particle system:
+</div>
+
+
+<p>在Cocos2d-x早期版本中,Cocos2d-x里粒子系统有两种类型:Quad 和 Point粒子系统:</p>
+
+<ul>
+<li>CCParticleSystemQuad</li>
+<li>CCParticleSystemPoint</li>
+</ul>
+
+
+<div style='display:none;'>
+The CCParticleSystemQuad has these additional features that CCParticleSystemPoint doesn&#8217;t support:
+</div>
+
+
+<p>CCParticleSystemQuad有很多特性是CCParticleSystemPoint不支持的:</p>
+
+<div style='display:none;'>
+- Spinning particles: particles can rotate around its axis. CCParticleSystemPoint ignores this property.
+- Particles can have any size. In CCParticleSystemPoint if the size is bigger than 64, it will be treated as 64.
+- The whole system can be scaled using the scale property.
+</div>
+
+
+<ul>
+<li>Spinning particles:粒子可以绕自身的轴旋转。CCParticleSystemPoint忽略了该属性。</li>
+<li>粒子可以为任意大小。在CCParticleSystemPoint中，如果大小大于64时，就视为64。</li>
+<li>通过scale属性可以缩放整个系统。</li>
+</ul>
+
+
+<div style='display:none;'>
+Because of CCParticleSystemPoint does not support CCParticleBatchNode. As the result, CCParticleSystemPoint has been removed from cocos2d-x particle system.
+</div>
+
+
+<p>由于CCParticleSystemPoint不支持CCParticleBatchNode.所以,CCParticleSystemPoint已经从cocos2d-x粒子系统里移除了.</p>
+
+<h2>CCParticleBatchNode</h2>
+
+<div style='display:none;'>
+A CCParticleBatchNode can reference one and only one texture (one image file, one texture atlas). Only the CCParticleSystems that are contained in that texture can be added to the CCSpriteBatchNode. All CCParticleSystems added to a CCSpriteBatchNode are drawn in one OpenGL ES draw call. If the CCParticleSystems are not added to a CCParticleBatchNode then an OpenGL ES draw call will be needed for each one, which is less efficient.
+</div>
+
+
+<p>CCParticleBatchNode可以引用且只可以引用1个texture(一个图片文件，一个texture图集).只有CCParticleSystem可以增加到CCSpriteBatchNode中.
+所有增加到CCSpriteBatchNode中的CCParticleSystem是在OpenGL ES调用绘图函数时绘制的.
+如果CCParticleSystem没有增加到CCParticleBatchNode中，OpenGL ES会调用每个粒子系统的绘图函数，这样做是低效的.</p>
+
+<h3>创建Quad粒子系统</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CCParticleSystemQuad* m_emitter = newCCParticleSystemQuad();
+</span><span class='line'>m_emitter = CCParticleFire::create();</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>重力和半径模式</h2>
+
+<h3>重力模式 Gravity Mode</h3>
+
+<div style='display:none;'>
+Gravity Mode lets particles fly toward or away from a center point. Its strength is that it allows very dynamic, organic effects. You can set gravity mode with this line:
+</div>
+
+
+<p>重力模式让粒子围绕一个中心点移近或移远.它的优点是非常动态，有组织有规则的效果.你可以通过下面这行代码设置重力模式:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// Gravity Mode
+</span><span class='line'>this-&gt;m_nEmitterMode = kCCParticleModeGravity;
+</span><span class='line'>
+</span><span class='line'>// Gravity Mode: gravity
+</span><span class='line'>this-&gt;modeA.gravity = ccp(0,-90);</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<div style='display:none;'>
 These properties are only valid in Gravity Mode:
-Radius Mode
+</div>
+
+
+<p><strong>下面这些属性只在重力模式下支持:</strong></p>
+
+<div style='display:none;'>
+- gravity (a CGPoint). The gravity of the particle system
+- speed (a float). The speed at which the particles are emitted
+- speedVar (a float). The speed variance.
+- tangencialAccel (a float). The tangential acceleration of the particles.
+- tangencialAccelVar (a float). The tangential acceleration variance.
+- radialAccel (a float). The radial acceleration of the particles.
+- radialAccelVar (a float). The radial acceleration variance.
+</div>
+
+
+<ul>
+<li>重力（CGPoint）。粒子系统的重力。</li>
+<li>速度（float）。粒子发射时的速度。</li>
+<li>速度变量speedVar(float)。速度的变异数。</li>
+<li>tangencialAccel(float)。粒子的正切加速度。</li>
+<li>tangencialAccelVar(float)。粒子正切加速度的差异数。</li>
+<li>radialAccel(float)。粒子的径向加速度。</li>
+<li>radialAccelVar(float)。粒子径向加速度的差异数。</li>
+</ul>
+
+
+<h3>半径模式 Radius Mode</h3>
+
+<div style='display:none;'>
+Radius Mode causes particles to rotate in a circle. It also allows you to create spiral effects with particles either rushing inward or orating outward. You set radius mode with this line:
+</div>
+
+
+<p>半径模式会使粒子以圆圈方式旋转.它也可以创造螺旋效果让粒子急速前进或后退.你可以通过下面这行代码设置半径模式:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// Radius Mode
+</span><span class='line'>this-&gt;m_nEmitterMode = kCCParticleModeRadius;
+</span><span class='line'>
+</span><span class='line'>// Radius Mode: startRadius
+</span><span class='line'>this-&gt;modeB.startRadius = 0;
+</span><span class='line'>this-&gt;modeB.startRadiusVar = 0;//ccp(0,0);</span></code></pre></td></tr></table></div></figure>
+
+
+<div style='display:none;'>
 These properties are only valid in Radius Mode:
-Properties common to all modes
-Common properties of the particles:
-Common properties of the system:
-Examples
-References
-Comment</p>
+</div>
 
-<h2>Introduction</h2>
 
-<p>The term particle system refers to a computer graphics technique that uses a large number of very small sprites or other graphic objects to simulate certain kinds of &#8220;fuzzy&#8221; phenomena, which are otherwise very hard to reproduce with conventional rendering techniques - usually highly chaotic systems, natural phenomena, and/or processes caused by chemical reactions.</p>
+<p><strong>下面这些属性只在半径模式下支持:</strong></p>
 
-<p>Point vs Quad
-In early versions of Cocos2d-x, there were two types of particle system in cocos2d-x: Quad and Point particle system:</p>
+<div style='display:none;'>
+- startRadius (a float). The starting radius of the particles
+- startRadiusVar (a float). The starting radius variance
+- endRadius (a float). The ending radius of the particles.
+- endRadiusVar (a float). The ending radius variance
+- rotatePerSecond (a float). Number of degress to rotate a particle around the source pos per second.
+- rotatePerSecondVar (a float). Number of degrees variance.
+</div>
 
-<p>CCParticleSystemQuad
-CCParticleSystemPoint
-The CCParticleSystemQuad has these additional features that CCParticleSystemPoint doesn&#8217;t support:</p>
 
-<p>Spinning particles: particles can rotate around its axis. CCParticleSystemPoint ignores this property.
-Particles can have any size. In CCParticleSystemPoint if the size is bigger than 64, it will be treated as 64.
-The whole system can be scaled using the scale property.
-As time goes on，we found that CCParticleSystemPoint is much slower than CCParticleSystemQuad.In addition,CCParticleSystemPoint does not support CCParticleBatchNode. As the result, CCParticleSystemPoint has been removed from cocos2d-x particle system.</p>
+<ul>
+<li>startRadius(float)。粒子开始时的半径。</li>
+<li>startRadiusVar(float)。粒子开始时的半径变异数。</li>
+<li>endRadius(float)。粒子结束时的半径。</li>
+<li>endRadiusVar(float)。结束时粒子的半径变异数。</li>
+<li>rotatePerSecond(float)。粒子围绕原点每秒旋转的度数。</li>
+<li>rotatePerSecondVar(float)。度数的变异数。</li>
+</ul>
 
-<p>CCParticleBatchNode
-A CCParticleBatchNode can reference one and only one texture (one image file, one texture atlas). Only the CCParticleSystems that are contained in that texture can be added to the CCSpriteBatchNode. All CCParticleSystems added to a CCSpriteBatchNode are drawn in one OpenGL ES draw call. If the CCParticleSystems are not added to a CCParticleBatchNode then an OpenGL ES draw call will be needed for each one, which is less efficient.</p>
 
-<p>Creating a Quad Particle System
-1CCParticleSystemQuad* m_emitter = newCCParticleSystemQuad();
-2m_emitter = CCParticleFire::create();</p>
+<h2>各模式下的通用属性</h2>
 
-<h2>Gravity vs Radius mode</h2>
+<h3>粒子通用属性：</h3>
 
-<p>Gravity Mode
-Gravity Mode lets particles fly toward or away from a center point. Its strength is that it allows very dynamic, organic effects. You can set gravity mode with this line:</p>
+<div style='display:none;'>
+- startSize: Start size of the particles in pixels
+- startSizeVar
+- endSize: Use kCCParticleStartSizeEqualToEndSize if you want that the start size == end size.
+- endSizeVar
+- startColor (a ccColor4F)
+- startColorVar (a ccColor4F)
+- endColor (a ccColor4F)
+- endColorVar (a ccColor4F)
+- startSpin. Only used in CCParticleSystemQuad
+- startSpinVar. Only used in CCParticleSystemQuad
+- endSpin. Only used in CCParticleSystemQuad
+- endSpinVar. Only used in CCParticleSystemQuad
+- life: time to live of the particles in seconds
+- lifeVar:
+- angle: (a float). Starting degrees of the particle
+- angleVar
+- positon: (a CGPoint)
+- posVar
+- centerOfGravity (a CGPoint)
+</div>
 
-<p>1// Gravity Mode
-2this->m_nEmitterMode = kCCParticleModeGravity;
-3
-4// Gravity Mode: gravity
-5this->modeA.gravity = ccp(0,-90);</p>
 
-<p>These properties are only valid in Gravity Mode:
-gravity (a CGPoint). The gravity of the particle system
-speed (a float). The speed at which the particles are emitted
-speedVar (a float). The speed variance.
-tangencialAccel (a float). The tangential acceleration of the particles.
-tangencialAccelVar (a float). The tangential acceleration variance.
-radialAccel (a float). The radial acceleration of the particles.
-radialAccelVar (a float). The radial acceleration variance.
-Radius Mode
-Radius Mode causes particles to rotate in a circle. It also allows you to create spiral effects with particles either rushing inward or orating outward. You set radius mode with this line:</p>
+<ul>
+<li>startSize: 开始时粒子的像素大小</li>
+<li>startSizeVar</li>
+<li>endSize: 如果你愿意的话使用kCCParticleStartSizeEqualToEndSize，这样开始大小 == 结束大小</li>
+<li>endSizeVar</li>
+<li>startColor开始颜色 (ccColor4F)</li>
+<li>startColorVar (ccColor4F)</li>
+<li>endColor结束颜色 (ccColor4F)</li>
+<li>startSpin开始的旋转角度。只用于CCParticleSystemQuad</li>
+<li>startSpinVar.只用于CCParticleSystemQuad</li>
+<li>endSpin结束时的旋转角度。只用于CCParticleSystemQuad</li>
+<li>endSpinVar。只用于CCParticleSystemQuad</li>
+<li>life：粒子存活的时间，单位秒</li>
+<li>lifeVar：</li>
+<li>angle：(float)。粒子发射时的角度</li>
+<li>angleVar</li>
+<li>positon：(CGPoint)</li>
+<li>posVar</li>
+<li>centerOfGravity(CGPoint)重力中心点</li>
+</ul>
 
-<p>1// Radius Mode
-2this->m_nEmitterMode = kCCParticleModeRadius;
-3
-4// Radius Mode: startRadius
-5this->modeB.startRadius = 0;
-6this->modeB.startRadiusVar = 0;//ccp(0,0);</p>
 
-<p>These properties are only valid in Radius Mode:
-startRadius (a float). The starting radius of the particles
-startRadiusVar (a float). The starting radius variance
-endRadius (a float). The ending radius of the particles.
-endRadiusVar (a float). The ending radius variance
-rotatePerSecond (a float). Number of degress to rotate a particle around the source pos per second.
-rotatePerSecondVar (a float). Number of degrees variance.
-Properties common to all modes</p>
+<h3>粒子系统通用属性：</h3>
 
-<h2>Common properties of the particles:</h2>
+<div style='display:none;'>
+- emissionRate (a float). How many particle are emitted per second
+- duration (a float). How many seconds does the particle system (different than the life property) lives. Use kCCParticleDurationInfinity for infity.
+- blendFunc (a ccBlendFunc). The OpenGL blending function used for the system
+- positionType (a tCCPositionType). Use kCCPositionTypeFree (default one) for moving particles freely. Or use kCCPositionTypeGrouped to move them in a group.
+- texture (a CCTexture2D). The texture used for the particles
+</div>
 
-<p>startSize: Start size of the particles in pixels
-startSizeVar
-endSize: Use kCCParticleStartSizeEqualToEndSize if you want that the start size == end size.
-endSizeVar
-startColor (a ccColor4F)
-startColorVar (a ccColor4F)
-endColor (a ccColor4F)
-endColorVar (a ccColor4F)
-startSpin. Only used in CCParticleSystemQuad
-startSpinVar. Only used in CCParticleSystemQuad
-endSpin. Only used in CCParticleSystemQuad
-endSpinVar. Only used in CCParticleSystemQuad
-life: time to live of the particles in seconds
-lifeVar:
-angle: (a float). Starting degrees of the particle
-angleVar
-positon: (a CGPoint)
-posVar
-centerOfGravity (a CGPoint)
-Common properties of the system:
-emissionRate (a float). How many particle are emitted per second
-duration (a float). How many seconds does the particle system (different than the life property) lives. Use kCCParticleDurationInfinity for infity.
-blendFunc (a ccBlendFunc). The OpenGL blending function used for the system
-positionType (a tCCPositionType). Use kCCPositionTypeFree (default one) for moving particles freely. Or use kCCPositionTypeGrouped to move them in a group.
-texture (a CCTexture2D). The texture used for the particles</p>
 
-<h2>Examples</h2>
+<ul>
+<li>emissionRate (float)。每秒发射多少粒子。</li>
+<li>duration (float)。粒子系统可以存活多少秒（与life属性不同）。使用kCCParticleDurationInfinity为无限时间。</li>
+<li>blendFunc (ccBlendFunc)。系统中使用的OpenGL混合方法。</li>
+<li>positionType (CCPositionType)。粒子自由移动使用kCCPositionTypeFree（默认）。或者使用kCCPositionTypeGrouped，使粒子在集合中移动。</li>
+<li>texture纹理(CCTexture2D)。粒子使用的纹理。</li>
+</ul>
 
-<p>cocos2d-x comes with some predefined particles that can be customized in runtime. List of predefined particles:</p>
 
-<p>CCParticleFire: Point particle system. Uses Gravity mode.
-CCParticleFireworks: Point particle system. Uses Gravity mode.
-CCParticleSun: Point particle system. Uses Gravity mode.
-CCParticleGalaxy: Point particle system. Uses Gravity mode.
-CCParticleFlower: Point particle system. Uses Gravity mode.
-CCParticleMeteor: Point particle system. Uses Gravity mode.
-CCParticleSpiral: Point particle system. Uses Gravity mode.
-CCParticleExplosion: Point particle system. Uses Gravity mode.
-CCParticleSmoke: Point particle system. Uses Gravity mode.
-CCParticleSnow: Point particle system. Uses Gravity mode.
-CCParticleRain: Point particle system. Uses Gravity mode.
-References
-Particle
-Particle System in cocos2d</p>
+<h2>示例</h2>
 
-<p>Last updated by Iven Yang at Updated about 1 month ago.</p>
+<div style='display:none;'>
+cocos2d-x comes with some predefined particles that can be customized in runtime. List of predefined particles:
+</div>
+
+
+<p>cocos2d-x里内置的预制粒子是可以在运行时自定义的.内置粒子列表:</p>
+
+<ul>
+<li>CCParticleFire: Point particle system. 使用重力模式.</li>
+<li>CCParticleFireworks: Point particle system. 使用重力模式.</li>
+<li>CCParticleSun: Point particle system. 使用重力模式.</li>
+<li>CCParticleGalaxy: Point particle system. 使用重力模式.</li>
+<li>CCParticleFlower: Point particle system. 使用重力模式.</li>
+<li>CCParticleMeteor: Point particle system. 使用重力模式.</li>
+<li>CCParticleSpiral: Point particle system. 使用重力模式.</li>
+<li>CCParticleExplosion: Point particle system. 使用重力模式.</li>
+<li>CCParticleSmoke: Point particle system. 使用重力模式.</li>
+<li>CCParticleSnow: Point particle system. 使用重力模式.</li>
+<li>CCParticleRain: Point particle system. 使用重力模式.</li>
+</ul>
+
+
+<h2>参考</h2>
+
+<p><a href="http://en.wikipedia.org/wiki/Particles">粒子</a>
+<a href="http://www.cocos2d-iphone.org/wiki/doku.php/prog_guide:particles">cocos2d中的粒子系统</a></p>
 </div>
 
 
@@ -305,7 +446,7 @@ Particle System in cocos2d</p>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/03/04/skeletal-animation/">[cocos2d-x wiki翻译]Skeletal animation</a>
+        <a href="/blog/2013/03/04/skeletal-animation/">[cocos2d-x wiki翻译]骨骼动画</a>
       </li>
     
   </ul>
