@@ -13,23 +13,19 @@ Actions are like orders given to any CCNode object. These actions usually modify
 For example, the CCMoveBy action modifies the position property during a period of time, hence, it is a subclass of CCIntervalAction.
 </div>
 
-Actions are like orders given to any CCNode object. These actions usually modify some of the object's attributes like position, rotation, scale, etc. If these attributes are modified during a period of time, they are CCIntervalAction actions, otherwise they are CCInstantAction actions.
-For example, the CCMoveBy action modifies the position property during a period of time, hence, it is a subclass of CCIntervalAction.
+动作（Actions）就像给CCNode对象的命令一样。这些动作通常会修改对象的一些属性，如位置，旋转，缩放等。如果这些属性在一段时间内被修改，它们是CCIntervalAction动作（延时动作），相反则是 CCInstantAction 动作（瞬间动作）.
 
-
-Actions are like orders given to any CCNode object. 这些actions通常会修改对象的一些属性，如位置，旋转，缩放等。如果这些熟悉在一段时间内被修改，它们是CCIntervalAction actions，相反则是 CCInstantAction actions.
-
-例如，CCMoveBy action是在一段时间内修改了位置属性，因此，它是CCIntervalAction的子类.
+例如，CCMoveBy动作是在一段时间内修改了位置属性，因此，它是CCIntervalAction的子类.
 <div style='display:none;'>
 You can run TestCpp -> Actions Test to see the actions' visual effects. And cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest are good sample codes for the usage.
 </div>
  
-你可以运行TestCpp -> Actions Test 来查看actions的可视化效果。cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest 是非常好的实例代码用法。
+你可以运行TestCpp -> Actions Test 来查看动作的可视化效果。cocos2d-x/samples/Cpp/TestCpp/Classes/ActionsTest, ActionsEaseTest中的用法是非常好的代码示例。
 
 
 例如:
 
-```c++
+```
 // Move a sprite 50 pixels to the right, and 10 pixels to the top over 2 seconds.
 CCActionInterval*  actionBy = CCMoveBy::create(2, ccp(50,10));
 ```
@@ -39,9 +35,9 @@ The CCIntervalAction actions have some interesting properties:
 They can be accelerated using the time-altered actions
 </div>
 
-CCIntervalAction actions有一些有意思的属性:
+CCIntervalAction动作有一些有意思的属性:
 
-它们可以在时间切换action中被访问到：
+使用变速动作可以对CCIntervalAction动作进行加速等，变速动作有：
 
 - CCEaseIn
 - CCEaseOut
@@ -51,15 +47,15 @@ CCIntervalAction actions有一些有意思的属性:
 <div style='display:none;'>
 Etc. (See the ActionsEaseTest.cpp example for more info)
 </div>
-等. (更多信息，详见ActionsEaseTest.cpp实例)
+ (更多信息，详见ActionsEaseTest.cpp实例)
 
 <div style='display:none;'>
 You can pause/resume all actions by using the CCActionManager:
 </div>
 
-你可以通过用CCActionManager来暂停和恢复所有actions:
+你可以通过用CCActionManager来暂停和恢复所有动作:
 
-```c++
+```
 // Pause actions
 CCDirector *director = CCDirector::sharedDirector();
 m_pPausedTargets = director->getActionManager()->pauseAllRunningActions();
@@ -73,7 +69,7 @@ director->getActionManager()->resumeTargets(m_pPausedTargets);
 <div style='display:none;'>
 Basic actions are the ones that modify basic properties like:
 </div>
-基本actions是指修改基本属性如:
+基本动作是指修改基本属性如:
 
 #### 位置(position)
 - [CCMoveBy](http://www.cocos2d-x.org/reference/native-cpp/dc/df6/classcocos2d_1_1_c_c_move_by.html)
@@ -98,7 +94,7 @@ Basic actions are the ones that modify basic properties like:
 - [CCBlink](http://www.cocos2d-x.org/reference/native-cpp/d8/de2/classcocos2d_1_1_c_c_blink.html)
 - [CCToggleVisibility](http://www.cocos2d-x.org/reference/native-cpp/dc/d90/classcocos2d_1_1_c_c_toggle_visibility.html)
 
-#### 透明度(opacity)
+#### 不透明度(opacity)
 - [CCFadeIn](http://www.cocos2d-x.org/reference/native-cpp/d7/d89/classcocos2d_1_1_c_c_fade_in.html)
 - [CCFadeOut](http://www.cocos2d-x.org/reference/native-cpp/d6/d6d/classcocos2d_1_1_c_c_fade_out.html)
 - [CCFadeTo](http://www.cocos2d-x.org/reference/native-cpp/da/d44/classcocos2d_1_1_c_c_fade_to.html)
@@ -109,7 +105,7 @@ Basic actions are the ones that modify basic properties like:
 
 例如:
 
-```c++
+```
 CCSprite *sprite = CCSprite::create("Images/grossini.png");
 sprite->setPosition(ccp(100, 100));
 addChild(sprite);
@@ -122,7 +118,7 @@ sprite->runAction(CCRepeat::create(act1, 1));
 The act1 will be a CCMoveBy action of duration 0.5, but with the position value of ccp(100,0).
 </div>
 
-act1是持续0.5秒的CCMoveBy action,并且使用位置ccp(100,0)的值？.
+act1是持续0.5秒的CCMoveBy动作,并且使用ccp(100,0)作为移动的位置值.
 
 
-### Comment
+### 评论

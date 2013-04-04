@@ -7,32 +7,31 @@ categories: [cocos2d-x wiki翻译]
 ---
 
 
-## 过渡 (Transitions)
+## 转场动画 (Transitions)
  
-### 介绍Introduction
+### 介绍
 
 <div style='display:none;'>
 One of the cool features that Cocos2d-x has to offer is the power of transitions within two different scene. Transitions are effects such as: wipe, fade, zoom, and split. You can use transitions to switch between Cocos2d-x Scene objects. Sceneclass is derived from CocosNode and it is similar to Layer. You can add other CocosNode, such as Layer(s) and Sprite(s) into a Scene.
 </div>
 
-Cocos2d-x最爽的一个特性是已经提供了在2个不同场景直接过度能力.过度是效果，如wipe, fade, zoom, 和 split. 你可以使用过度在Cocos2d-x场景对象中切换.Sceneclass继承自CocosNode,它和Layer非常相似.你可以增加其他CocosNode,
-如 Layer(s) 和 Sprite(s) 放到场景中.
+Cocos2d-x提供的最爽的一个特性是在2个不同场景间转场的能力.转场的效果有：wipe, fade, zoom, 和 split. 你可以使用转场动画在Cocos2d-x场景对象中切换.Sceneclass继承自CocosNode,它和Layer非常相似.你可以增加其他CocosNode,如 Layer(s) 和 Sprite(s) 放到场景中.
 
 <div style='display:none;'>
 Technically, a transition scene is an scene that performs a transition effect before setting control to the new scene.
 </div>
 
-技巧上说,过度场景是可以进行过渡效果，在设置控制到新的场景.
+技巧上说,转场的场景是一个在设置控制到新的场景前执行转场效果的场景.
 
-### 创建Create transition
+### 创建转场动画
 
 <div style='display:none;'>
 Time is the number of seconds for the transition. To apply transition to scenes, the syntax is as follows:
 </div>
 
-Time 是过渡的秒数.为了把过渡应用到场景中，语法如下:
+Time 是转场的秒数.为了把转场动画应用到场景中，语法如下:
 
-```c++
+```
 CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5,newScene));
 ```
 
@@ -42,15 +41,15 @@ static CCTransitionFade* create(float duration,CCScene* scene, const ccColor3B& 
 To enable a transition, it is not much more difficult. Here we have an small example:
 </div>
 
-过滤参数可以有自定义参数;例如,FadeTransition有fade color作为额外参数.
+一些转场可以有自定义参数;例如,FadeTransition有fade color作为额外参数.
 
-```c++
+```
 static CCTransitionFade* create(float duration,CCScene* scene, const ccColor3B& color);
 ```
 
-为了确保过渡效果,其实一点不难，这儿有一个小例子:
+运行转场动画其实一点不难，这儿有一个小例子:
 
-```c++
+```
 CCScene *s = SecondPage::scene();
 
 CCDirector::sharedDirector()->setDepthTest(true);
@@ -62,18 +61,18 @@ CCTransitionScene *transition = CCTransitionPageTurn::create(3.0f, s, false);
 If you run this you will have a “page turn” effect. This is, like turning the page on a paper made book.
 </div>
 
-如果运行这段代码，你会看到翻页效果.也就是看起来像一页一页翻书。
+如果运行这段代码，你会看到翻页效果.看起来就像是一页一页翻书。
 
 ![](http://www.cocos2d-x.org/attachments/download/1623)
 
-### 更多More transitions
+### 更多转场动画
 <div style='display:none;'>
 There are many more transition types, you can see the full list in the class reference, in the official Cocos2D-X documentation.
 </div>
 
-还有很多过渡类型，你可以参见官方Cocos2D-X文档的类引用的完整列表
-
+想知道更多转场动画类型，你可以在官方Cocos2D-X文档的相关类中参考完整列表。
+<div style='display:none;'>
 Last updated by Zhe Wang at Updated about 1 month ago.
-
+</div>
 
 ### Comment

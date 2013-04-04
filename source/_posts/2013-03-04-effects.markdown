@@ -16,25 +16,25 @@ categories:
 Effects are a special kind of action. Instead of modifying normal properties like opacity, position, rotation, or scale, they modify a new kind of property: the grid property.
 </div>
 
-Effects是特殊类型的action.与修改常规的属性如透明度,位置,旋转或缩放等不同,它们修改的是一种新类型的属性:grid属性.
+Effect是特殊类型的动作.与修改常规的属性如透明度、位置、旋转或缩放等不同,它们修改的是一种新类型的属性:grid属性.
 
 <div style='display:none;'>
 A grid property is like a matrix, it is a network of lines that cross each other to form a series of squares or rectangles.
 </div>
 
-grid属性像是一个模型,是一个线条交叉的网格,具体表现是一系列的正方形或长方形.
+grid属性像是一个矩阵,是由相互交叉形成一系列正方形和矩形的线组成的网络。
 
 <div style='display:none;'>
 These special actions render any CocosNode object (Layer, Scene, Sprite, etc.) into the grid, and you can transform the grid by moving its vertices.
 </div>
 
-这些特殊的actions可以渲染任一CocosNode对象 (Layer, Scene, Sprite, 等.)到grid中，你可以通过顶点来转换grid.
+这些特殊的动作可以渲染任一CocosNode对象 (Layer, Scene, Sprite, 等.)到grid中，你可以通过顶点来变换grid.
 
 <div style='display:none;'>
 There are 2 kind of grids: tiled grids and non-tiled grids. The difference is that the tiled grid is composed of individual tiles while the non-tiled grid is composed of vertices.
 </div>
 
-一共有2类grid: 布局grid和非布局grid.它们的区别在于布局grid是由独立的布局组成，而非布局grid由顶点组成。
+一共有2类grid: 瓦片grid(tiled grids)和非瓦片grid(non-tiled grids).它们的区别在于瓦片grid是由独立的瓦片(tile)组成，而非瓦片grid由顶点组成。
 
 ![](http://www.cocos2d-x.org/attachments/1575/tiled_and_nontiled_grid.png)
 
@@ -43,26 +43,27 @@ There are 2 kind of grids: tiled grids and non-tiled grids. The difference is th
 The following is an example of Ripple3D action, who uses a Grid3D (non-tiled) grid:
 </div>  
 
-下面是Ripple3D action例子，它使用的是 Grid3D (非布局的) grid:
-
+下面是Ripple3D动作例子，它使用的是 Grid3D (非瓦片的) grid:
+![](http://www.cocos2d-x.org/attachments/1576/effect_ripple3d.png)
 ![](http://www.cocos2d-x.org/attachments/1577/effect_ripple3d_grid.png)
 
 <div style='display:none;'>
 and the following is an example of FadeOutTR action, who uses a TiledGrid3D (tiled) grid:
 </div> 
 
-接下来是FadeOutTR action例子，它用的是TiledGrid3D (布局) grid:
+接下来是FadeOutTR动作例子，它用的是TiledGrid3D (瓦片) grid:
 
 ![](http://www.cocos2d-x.org/attachments/1578/effect_fadeouttiles.png)
+![](http://www.cocos2d-x.org/attachments/1579/effect_fadeouttiles_grid.png)
 
-## 用法  How do I use them ?
+## 用法
 <div style='display:none;'>
 Like any other action, it is executed by the runAction. eg:
 </div>
 
-和其他action一样,是通过runAction执行的.例如:
+和其他动作一样,是通过runAction执行的.例如:
 
-```c++
+```
 // Create an sprite
 CCSprite* grossini = CCSprite::create("grossini.png");
 grossini->runAction(CCLiquid::create(4, 20, ccg(10,10), 5));
@@ -74,10 +75,10 @@ The Effects are IntervalAction actions so you can treat them like any other acti
 </div>
 
 
-和其他grid action一样，Liquid会接收一个grid参数.你可以通过使用增加grid大小来调整effoect(效果)的质量.但是它也意味着有很少的FPS.
-Effects是IntervalAction actions,所以你可以用像其他action的处理方式一样来处理它们.例如:
+和其他grid动作一样，Liquid会接收一个grid参数.你可以通过增加grid的大小来调整effect(效果)的品质.但是它也意味着有很少的FPS.    
+Effect是IntervalAction动作（延时动作）,所以你可以用像其他动作的处理方式一样来处理它们.例如:
 
-```c++
+```
 // create a Lens3D action
 CCActionInterval* lens = CCLens3D::create(ccp(240,160),240,ccg(15,10),8);
 
@@ -94,62 +95,39 @@ The following is the list of the available Grid3D (non-tiled) actions in v2.1.0:
 
 下面是v2.1.0版本中Grid3D(non-tiled) actions的可用列表:
 
-Shaky3D  	Waves3D  	FlipX3D  	FlipY3D  
-
-<tr>
-<td> <img src="http://www.cocos2d-x.org/attachments/1580/IMG_0001.PNG" alt="">      </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1581/IMG_0002.PNG" alt="">         </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1582/IMG_0003.PNG" alt="">         </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1583/IMG_0004.PNG" alt="">         </td>
-</tr>
+Shaky3D|Waves3D|FlipX3D|FlipY3D
+-------|-------|-------|-------
+![](http://www.cocos2d-x.org/attachments/1580/IMG_0001.PNG)|![](http://www.cocos2d-x.org/attachments/1581/IMG_0002.PNG)|![](http://www.cocos2d-x.org/attachments/1582/IMG_0003.PNG)|![](http://www.cocos2d-x.org/attachments/1583/IMG_0004.PNG)
 			
-Lens3D  	Liquid  	Waves  	Twirl  
-
-<tr>
-<td> <img src="http://www.cocos2d-x.org/attachments/1584/IMG_0005.PNG" alt="">      </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1585/IMG_0007.PNG" alt="">         </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1586/IMG_0008.PNG" alt="">         </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1587/IMG_0011.PNG" alt="">         </td>
-</tr>
+Lens3D|Liquid|Waves|Twirl  
+--|--|--|--
+![](http://www.cocos2d-x.org/attachments/1584/IMG_0005.PNG)|![](http://www.cocos2d-x.org/attachments/1585/IMG_0007.PNG)|![](http://www.cocos2d-x.org/attachments/1586/IMG_0008.PNG)|![](http://www.cocos2d-x.org/attachments/1587/IMG_0011.PNG)
 			
-Ripple3D  
-
-![](http://www.cocos2d-x.org/attachments/1588/IMG_0002_2.PNG)
+Ripple3D|
+-| 
+![](http://www.cocos2d-x.org/attachments/1588/IMG_0002_2.PNG)|
 
 
 <div style='display:none;'>
 The following is the list of the available TiledGrid3D (tiled) actions
 </div>
 
-下面是TiledGrid3D(tiled) actions可用的列表:
+下面是TiledGrid3D(tiled) 动作可用的列表:
 
-ShakyTiles3D   --------- 		ShatteredTiles3D   --------- 		ShuffleTiles --------- 	  	FadeOutTRTiles 
- 
-<tr>
-<td> <img src="http://www.cocos2d-x.org/attachments/1593/IMG_0012.PNG" alt="">       </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1594/IMG_0013.PNG" alt="">          </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1595/IMG_0014.PNG" alt="">          </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1596/IMG_0015.PNG" alt="">          </td>
-</tr> 
+ShakyTiles3D|ShatteredTiles3D|ShuffleTiles|FadeOutTRTiles 
+---------|---------|---------|---------
+![](http://www.cocos2d-x.org/attachments/1593/IMG_0012.PNG)|![](http://www.cocos2d-x.org/attachments/1594/IMG_0013.PNG)|![](http://www.cocos2d-x.org/attachments/1595/IMG_0014.PNG)|![](http://www.cocos2d-x.org/attachments/1596/IMG_0015.PNG)
 
 	
-FadeOutBLTiles --------- 	FadeOutUpTiles   --------- 		FadeOutDownTiles   --------- 		TurnOffTiles  
+FadeOutBLTiles|FadeOutUpTiles|FadeOutDownTiles|TurnOffTiles  
+-|-|-|-
+![](http://www.cocos2d-x.org/attachments/1597/IMG_0016.PNG)|![](http://www.cocos2d-x.org/attachments/1598/IMG_0017.PNG)|![](http://www.cocos2d-x.org/attachments/1599/IMG_0019.PNG)|![](http://www.cocos2d-x.org/attachments/1600/IMG_0020.PNG)
 
-<tr>
-<td> <img src="http://www.cocos2d-x.org/attachments/1597/IMG_0016.PNG" alt="">      </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1598/IMG_0017.PNG" alt="">         </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1599/IMG_0019.PNG" alt="">         </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1600/IMG_0020.PNG" alt="">         </td>
-</tr>
 
-WavesTiles3D  --------- 	 	JumpTiles3D   --------- 		SplitRows --------- 	  	SplitCols  
+WavesTiles3D|JumpTiles3D|SplitRows|SplitCols  
+-|-|-|-
+![](http://www.cocos2d-x.org/attachments/1601/IMG_0021.PNG)|![](http://www.cocos2d-x.org/attachments/1602/IMG_0022.PNG)|![](http://www.cocos2d-x.org/attachments/1603/IMG_0023.PNG)|![](http://www.cocos2d-x.org/attachments/1604/IMG_0024.PNG)
 
-<tr>
-<td> <img src="http://www.cocos2d-x.org/attachments/1601/IMG_0021.PNG" alt="">      </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1602/IMG_0022.PNG" alt="">         </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1603/IMG_0023.PNG" alt="">         </td>
-<td>   <img src="http://www.cocos2d-x.org/attachments/1604/IMG_0024.PNG" alt="">         </td>
-</tr>
 
 		
 ## 参考
